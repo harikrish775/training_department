@@ -30,8 +30,19 @@ urlpatterns = [
     path('traineehome',views.traineehome,name='traineehome'),
     path('trainerhome',views.trainerhome,name='trainerhome'),
     path('managetrainee',views.managetrainee,name='managetrainee'),
-    path('trainernoti/<int:pk>',views.trainernoti,name='trainernoti'),
+    path('traineenoti/<int:pk>',views.traineenoti,name='traineenoti'),
     path('trainerdash',views.trainerdash,name='trainerdash'),
+    path('trainerleave',views.trainerleave,name='trainerleave'),
+    path('trainer_assignproject',views.trainer_assignproject,name='trainer_assignproject'),
+    path('trainer_assignproject_action',views.trainer_assignproject_action,name='trainer_assignproject_action'),
+    path('trainerleaveapply',views.trainerleaveapply,name='trainerleaveapply'),
+    path('applyleaveaction',views.applyleaveaction,name='applyleaveaction'),
+    path('trainer_seeleave',views.trainer_seeleave,name='trainer_seeleave'),
+    path('logoutt',views.logoutt,name="logoutt"),
+    path('trainer_markattendence',views.trainer_markattendence,name="trainer_markattendence"),
+    path('trainer_markaction/<int:pk>',views.trainer_markaction,name='trainer_markaction'),
+    path('trainer_class_schedule',views.trainer_class_schedule,name='trainer_class_schedule'),
+    path('trainer_class_action',views.trainer_class_action,name='trainer_class_action'),
     # path('qw',views.qw,name='qw')
     
     

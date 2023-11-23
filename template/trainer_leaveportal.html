@@ -1,0 +1,16 @@
+{% extends 'navbar4.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container col-10">
+    <div class="row">
+        <div class="col">
+            <a href="{% url 'trainerleaveapply' %}">Apply leave</a>
+        </div>
+        <div class="col">
+            <a href="{% url 'trainer_seeleave' %}">see</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'navbar4.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container col-10">
+    <form action="{% url 'trainer_class_action' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col form-group">
+                <label for="">Topic</label>
+                <input type="text" name="topic" class="form-control" id="">
+            </div>
+            <div class="col form-group">
+                <label for="">Date</label>
+                <input type="date" value="" name="date" class="form-control" id="">
+            </div>
+    
+        </div>
+        <div class="row">
+            <div class="col form-group">
+                <label for="">Join link</label>
+                <input type="text" name="linkk" class="form-control" id="">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-info">Schedule class</button>
+
+    </form>
+</div>
+
+{% endblock %}

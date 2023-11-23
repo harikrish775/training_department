@@ -10,6 +10,34 @@
     </div>
     <div class="col-7 ml-4" style=" border: 2px solid blue; border-radius: 10px;">
         <p>{{t.customuser.first_name}}</p>
+        <p ><!-- Button trigger modal --></p> 
+        <button type="button" class="btn btn-warning mt-3" data-toggle="modal" data-target="#exampleModal" style="float: right;">
+            Send Mail <i class="fa-solid fa-envelope"></i>
+          </button>
+           <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Notify students</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <form action="{% url 'traineenoti' t.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <p style="font-size: smaller;float: left;">Send notification,</p>
+                        <textarea class="form-control" name="message" id="" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">send</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
     </div>
     
 </div>

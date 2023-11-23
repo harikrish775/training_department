@@ -1,0 +1,30 @@
+{% extends 'navbar4.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container col-10">
+    <table class="table">
+        <tr class="">
+        <th>from</th>
+        <th>to</th>
+        <th>reason</th>
+        <th>Action</th>
+        </tr>
+
+        {% for i in leave %}
+        <tr>
+        <td>{{i.from_date}}</td>
+        <td>{{i.to_date}}</td>
+        <td>{{i.reason}}</td>
+        {% if i.is_approved %}
+        <td>approved</td>
+        {% else %}
+        <td><a href="" class="btn btn-outline-danger" style="pointer-events: none;">pending</a></td>
+        {% endif %}
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+{% endblock %}

@@ -65,10 +65,15 @@
                           
                         </div>
                       </li>
-
+                      {% if user.is_authenticated %}
                       <li class="nav-item">
-                        <a class="nav-link " href="#">Logout</a>
+                        <a class="nav-link " href="{% url 'logoutt' %}">Logout</a>
                       </li>
+                      {% else %}
+                      <li class="nav-item">
+                        <a class="nav-link " href="#">Login</a>
+                      </li>
+                      {% endif %}
                 </ul>
             </div>
           
@@ -84,42 +89,15 @@
             <div class="sidebar-sticky">
               <br><br><br>
                 <ul class="nav flex-column" id="un" >
-
+                    
                     <li class="nav-item">
-                        <p ><!-- Button trigger modal --></p> 
-                            <button type="button" class="btn btn-warning mt-3" data-toggle="modal" data-target="#exampleModal" style="float: right;">
-                                Send Mail <i class="fa-solid fa-envelope"></i>
-                              </button>
-                               <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Notify students</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        </div>
-                                        <form action="{% url 'trainernoti' t.id %}" method="post">
-                                        {% csrf_token %}
-                                        <div class="modal-body">
-                                            <p style="font-size: smaller;float: left;">Send notification,</p>
-                                            <textarea class="form-control" name="message" id="" cols="30" rows="10"></textarea>
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">send</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    </div>
-                                </div>
+                      
                            
                     </li>
-
+                  
 
                   <li class="nav-item">
-                    <a class="nav-link active"  href="{% url 'trainerdash' %}">
+                    <a class="nav-link active"  href="{% url 'trainerdash' %}" style="color: green;">
                         DASHBOARD
                     </a>
                 </li>
@@ -129,18 +107,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="">
+                      <a class="nav-link" href="{% url 'trainer_class_schedule' %}">
                           CLASS SCHEDULE
                       </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'managetrainee' %}">
+                    <a class="nav-link" href="{% url 'managetrainee' %}" style="color: green;">
                         MANAGE TRAINEE'S
                     </a>
                 </li>
                    
                     <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{% url 'trainer_assignproject' %}" style="color: green;">
                             ASSIGN PROJECTS
                         </a>    
                     </li>
@@ -151,16 +129,16 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="">
-                        ATTENDENCE
+                        MY ATTENDENCE
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{% url 'trainer_markattendence' %}" style="color: green;">
                         TRAINEE ATTENDENCE
                     </a>
                 </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{% url 'trainerleave' %}" style="color: green;">
                         REQUEST LEAVE
                     </a>
                 </li>

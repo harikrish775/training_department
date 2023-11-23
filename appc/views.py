@@ -1,11 +1,13 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import auth
-from .models import Trainee,Trainer,Course,Notification,CustomUser,Department,TrainerNotification,TraineeNotification
+from .models import Trainee,Trainer,Course,Notification,CustomUser,Department,TrainerNotification,TraineeNotification,Project,TrainerLeave,Trainee_attendence,Class_schedule,Trainer_attendence
 from django.contrib import messages
 from django.contrib.auth import login,logout
+from django.contrib.auth.decorators import login_required
 import random,string
 from django.conf import settings
 from django.core.mail import send_mail
+from datetime import datetime
 
 # Create your views here.
 
@@ -27,6 +29,11 @@ def generate_password(length=6):
 def loginpage(request):
     return render(request,'loginpage.html')
 
+@login_required(login_url='loginpage')
+def logoutt(request):
+    logout(request)
+    return redirect('loginpage')
+
 def loginaction(request):
     if request.method == 'POST':
         username = request.POST['uname']
@@ -39,7 +46,7 @@ def loginaction(request):
                 return redirect('admin')
             elif user.is_special:
                 login(request,user)
-                return render(request,'trainer_home.html')
+                return redirect('trainerdash')
             else:
                 login(request,user)
                 return redirect('traineehome')
@@ -213,10 +220,10 @@ def managetrainee(request):
     rec = Trainee.objects.filter(trainer_id=t.id)
     return render(request,'managetrainee.html',{'rec':rec,'t':t})
 
-def trainernoti(request,pk):
+def traineenoti(request,pk):
     if request.method == 'POST':
         message = request.POST['message']
-        n = TrainerNotification(sender_id=pk,message=message,is_read=False)
+        n = TraineeNotification(sender_id=pk,message=message,is_read=False)
         n.save()
         messages.info(request,'mail sent')
         return redirect('trainerdash')
@@ -225,6 +232,82 @@ def trainerdash(request):
     user = request.user.id
     t = Trainer.objects.get(customuser_id=user)
     return render(request,'trainerdash.html',{'t':t})
+
+def trainerleave(request):
+    return render(request,'trainer_leaveportal.html')
+
+def trainerleaveapply(request):
+    return render(request,'trainer_leaveapply.html')
+
+def applyleaveaction(request):
+    if request.method == 'POST':
+        user = request.user.id
+        tr = Trainer.objects.get(customuser_id=user)
+        res = request.POST['reason']
+        frm = request.POST['from']
+        to = request.POST['to']
+        m = TrainerLeave(from_date=frm,to_date=to,reason=res,trainer=tr)
+        m.save()
+        return redirect('trainerleaveapply')
+
+def trainer_seeleave(request):
+    tr = TrainerLeave.objects.all()
+    return render(request,'trainer_seeleave.html',{'leave':tr})
+
+def trainer_assignproject(request):
+    return render(request,'trainer_assignproject.html')
+
+def trainer_assignproject_action(request):
+    if request.method == 'POST':
+        name = request.POST['projectname']
+        startdate = request.POST['sdate']
+        enddate = request.POST['edate']
+        f = Project(projectname=name,startdate=startdate,enddate=enddate)
+        f.save()
+        return render(request,'trainer_assignproject.html')
+
+def trainer_markattendence(request):
+    
+    a = Trainee.objects.all()
+    t_date = datetime.today().strftime('%Y-%m-%d')
+    return render(request,'trainer_markattendence.html',{'aten':a,'t':t_date})
+
+def trainer_markaction(request,pk):
+    if request.method == 'POST':
+        g = request.POST['tdate']
+        d = Trainee_attendence.objects.filter(date=g,trainee_id=pk)
+        b = request.POST['attn']
+        if d.exists():
+            messages.error(request,'attendence already marked')
+            return redirect('trainer_markattendence')
+        else:
+            if b == 'present':
+                c = Trainee_attendence(trainee_id=pk,attendence=True,date=g)
+                c.save()
+                messages.info(request,'marked')
+                return redirect('trainer_markattendence')
+            
+            elif b == 'absent':
+                c = Trainee_attendence(trainee_id=pk,attendence=False,date=g)
+                c.save()
+                messages.info(request,'marked')
+                return redirect('trainer_markattendence')
+            
+            else:
+                return redirect('trainer_markattendence')
+
+def trainer_class_schedule(request):
+    return render(request,'trainer_class_schedule.html')
+
+def trainer_class_action(request):
+    if request.method == 'POST':
+        topic = request.POST['topic']
+        date = request.POST['date']
+        link = request.POST['linkk']
+        c = Class_schedule(topic=topic,date=date,link=link)
+        return redirect('trainer_class_schedule')
+
+
 
 
 # -----------------------------------teacher end------------------------------

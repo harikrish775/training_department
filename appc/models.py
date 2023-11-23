@@ -38,6 +38,7 @@ class Trainee(models.Model):
     image = models.ImageField(upload_to='image/')
     degree = models.FileField(upload_to='file/')
     
+    
 class Trainee_attendence(models.Model):
     trainee = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
     date = models.DateField()
@@ -67,3 +68,25 @@ class TrainerNotification(models.Model):
     message = models.CharField(max_length=255)
     person = models.CharField(max_length=255)
     is_read = models.BooleanField(default=False)
+
+class Project(models.Model):
+    projectname = models.CharField(max_length=255)
+    description = models.TextField()
+    startdate = models.DateField()
+    enddate = models.DateField()
+    status = models.BooleanField(default=False)
+    action = models.BooleanField(default=False)
+    file = models.FileField(upload_to='file/',null=True)
+    is_delay = models.BooleanField(default=False)
+
+class TrainerLeave(models.Model):
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    from_date = models.DateField()
+    to_date = models.DateField()
+    reason = models.TextField()
+    is_approved = models.BooleanField(default=False)
+
+class Class_schedule(models.Model):
+    topic = models.CharField(max_length=255)
+    date = models.DateField()
+    link = models.CharField(max_length=255)
