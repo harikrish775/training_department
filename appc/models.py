@@ -75,7 +75,6 @@ class Project(models.Model):
     startdate = models.DateField()
     enddate = models.DateField()
     status = models.BooleanField(default=False)
-    action = models.BooleanField(default=False)
     file = models.FileField(upload_to='file/',null=True)
     is_delay = models.BooleanField(default=False)
 

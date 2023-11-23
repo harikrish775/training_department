@@ -27,7 +27,7 @@ urlpatterns = [
     path('dashboard',views.dashboard,name='dashboard'),
     path('assign',views.assign,name='assign'),
     path('assignaction/<int:pk>',views.assignaction,name='assignaction'),
-    path('traineehome',views.traineehome,name='traineehome'),
+    path('trainee_dash',views.trainee_dash,name='trainee_dash'),
     path('trainerhome',views.trainerhome,name='trainerhome'),
     path('managetrainee',views.managetrainee,name='managetrainee'),
     path('traineenoti/<int:pk>',views.traineenoti,name='traineenoti'),
@@ -43,7 +43,18 @@ urlpatterns = [
     path('trainer_markaction/<int:pk>',views.trainer_markaction,name='trainer_markaction'),
     path('trainer_class_schedule',views.trainer_class_schedule,name='trainer_class_schedule'),
     path('trainer_class_action',views.trainer_class_action,name='trainer_class_action'),
-    # path('qw',views.qw,name='qw')
+    path('trainee_inbox',views.trainee_inbox,name='trainee_inbox'),
+    path('trainee_project',views.trainee_project,name='trainee_project'),
+    path('trainee_class',views.trainee_class,name='trainee_class'),
+    path('trainee_attendence',views.trainee_attendence,name='trainee_attendence'),
+    path('trainee_applyleave',views.trainee_applyleave,name='trainee_applyleave'),
+    path('assignedtask',views.assignedtask,name='assignedtask'),
+    path('submittask/<int:pk>',views.submittask,name='submittask'),
+    path('submittaskaction/<int:pk>',views.submittaskaction,name='submittaskaction'),
+    path('completedtask',views.completedtask,name='completedtask'),
+    path('trainee_viewattendence',views.trainee_viewattendence,name='trainee_viewattendence'),
+    
+    # path('qw',views.qw,name='qw'),
     
     
     

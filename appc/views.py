@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 import random,string
 from django.conf import settings
 from django.core.mail import send_mail
-from datetime import datetime
+from datetime import datetime,date
 
 # Create your views here.
 
@@ -49,7 +49,7 @@ def loginaction(request):
                 return redirect('trainerdash')
             else:
                 login(request,user)
-                return redirect('traineehome')
+                return redirect('trainee_dash')
         else:
             messages.info(request, 'Invalid username or password')
             return redirect('loginpage')
@@ -111,9 +111,97 @@ def signupaction(request):
                 return redirect('loginpage')
         
 # -------------------------------------student----------------
-def traineehome(request):
-    return render(request,'trainee_home.html')
+def trainee_dash(request):
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    return render(request,'trainee_dash.html',{'count':n,'co':co})
 
+def trainee_inbox(request):
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    j = TraineeNotification.objects.all()
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    return render(request,'trainee_inbox.html',{'no':j,'count':n,'co':co})
+
+def trainee_project(request):
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    
+    return render(request,'trainee_project.html',{'count':n,'co':co})
+
+def assignedtask(request):
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    v = Project.objects.filter(status=False)
+    return render(request,'assignedtask.html',{'v':v,'co':co,'count':n})
+
+def submittask(request,pk):
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    m = Project.objects.get(id=pk)
+    return render(request,'submittask.html',{'m':m,'co':co,'count':n})
+
+def submittaskaction(request,pk):
+    g = Project.objects.get(id=pk)
+    if request.method == 'POST':
+        g.description = request.POST['des']
+        g.file = request.FILES['docc']
+        g.status = True
+        today = date.today()
+        if today > g.enddate:
+            g.is_delay=True
+        g.save()
+        return redirect('trainee_dash')
+    
+def completedtask(request):
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    h = Project.objects.filter(status=True)
+    return render(request,'completedtask.html',{'h':h,'co':co,'count':n})
+
+
+
+
+
+def trainee_class(request):
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    t = Class_schedule.objects.filter(date=today)
+    u = Class_schedule.objects.filter(date__gt=today)
+    f = Class_schedule.objects.filter(date__lt=today)
+    return render(request,'trainee_class.html',{'t':t,'u':u,'f':f,'co':co,'count':n})    
+
+def trainee_attendence(request):
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    return render(request,'trainee_attendence.html',{'count':n,'co':co})
+
+def trainee_viewattendence(request):
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    if request.method == 'POST':
+        user = request.user.id
+        c = Trainee.objects.get(customuser_id=user)
+        a = request.POST['start']
+        b = request.POST['end']
+        s = Trainee_attendence.objects.filter(trainee_id=c.id,date__range=(a,b))
+        return render(request,'trainee_viewattendence.html',{'s':s,'count':n,'co':co})
+
+
+
+def trainee_applyleave(request):
+    today = date.today()
+    co = Class_schedule.objects.filter(date=today).count()
+    n = TraineeNotification.objects.filter(is_read=False).count()
+    return render(request,'trainee_applyleave.html',{'count':n,'co':co})
 
 
 
@@ -305,6 +393,7 @@ def trainer_class_action(request):
         date = request.POST['date']
         link = request.POST['linkk']
         c = Class_schedule(topic=topic,date=date,link=link)
+        c.save()
         return redirect('trainer_class_schedule')
 
 

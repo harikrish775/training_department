@@ -1,0 +1,16 @@
+{% extends 'navbar3.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container col-10">
+    <div class="row">
+        <div class="col">
+            <center><a href="{% url 'assignedtask' %}">assinged tasks</a></center>
+        </div>
+        <div class="col">
+            <center><a href="{% url 'completedtask' %}">completed task</a></center>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
