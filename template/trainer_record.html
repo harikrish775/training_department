@@ -1,0 +1,35 @@
+{% extends 'navbar.html' %}
+{% block content %}
+{% load static %}
+
+
+<div class="container col-10">
+  <center><h1>Trainer Record</h1></center>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Full name</th>
+            <th scope="col">email</th>
+            <th>contact</th>
+            <th>profile picture</th>
+            <th>status</th>            
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in rece %}
+          <tr>
+            
+            <td>{{i.customuser.first_name}} {{i.customuser.last_name}}</td>
+            <td>{{i.customuser.email}}</td>
+            <td>{{i.contact}}</td>
+            <td><img src="{{i.image.url}}" alt="" width="60"></td>
+            <td>appr/disaprv/pending</td>
+            <td><a href="{% url 'trainercard' i.id %}" class="btn btn-outline-info">view</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+
+{% endblock %}

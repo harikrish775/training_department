@@ -1,0 +1,28 @@
+{% extends 'navbar.html' %}
+{% block content %}
+{% load static %}
+
+
+<div class="container col-10">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sender</th>
+            <th scope="col">Message</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in no %}
+          <tr>
+            
+            <td>{{i.sender}}</td>
+            <td>{{i.message}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+
+{% endblock %}

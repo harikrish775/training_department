@@ -1,0 +1,18 @@
+{% extends 'navbar.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container row-5 " >
+    <center><h1>New department</h1></center>
+    <form action="{% url 'depadd' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">department</label>
+            <input type="text" name="dept" class="form-control">
+        </div>
+        
+        <center><button type="submit" class="btn btn-info" style="width: 50%;">add</button></center>
+    </form>
+</div>
+
+{% endblock %}

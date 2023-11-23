@@ -1,0 +1,113 @@
+{% extends 'navbar2.html' %}
+{% block content %}
+{% load static %}
+ <br><br>
+<div class="container col-7">
+    {% for i in messages %}
+    <h2>{{i}}</h2>
+    {% endfor %}
+    <form action="{% url 'signupaction' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <center> <h1>Registration</h1> <select name="rrr" class="form-control col-3"> 
+            <option value="trainee">Trainee</option>
+            <option value="trainer">Trainer</option>
+        </select >
+        </center><br><br>
+
+    <div class="row">
+        <div class="col form-group">
+            <label for="">first name</label>
+            <input type="text" class="form-control" name="fname" id="">
+        </div>
+        <div class="col form-group">
+            <label for="">last name</label>
+            <input type="text" class="form-control" name="lname" id="">
+         </div>
+        <div class="col form-group">
+            <!-- <label for="">username</label>
+            <input type="text" class="form-control" name="uname" id=""> -->
+
+            <!-- <label for="">pass</label>
+            <input type="password" class="form-control" name="password" id=""> -->
+
+            <label for="">Department</label>
+            <select name="department" class="form-control" id="">
+                {% for i in dep %}
+                <option value="{{i.id}}">{{i.departmentname}}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col form-group">
+            <label for="">email</label>
+            <input type="text" class="form-control" name="email" id="">
+        </div>
+        <div class="col form-group">
+            <label for="">contact</label>
+            <input type="text" class="form-control" name="contact" id="">
+         </div>
+        <div class="col form-group">
+            <label for="">age</label>
+            <input type="text" class="form-control" name="age" id="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col form-group">
+            <label for="">course</label>
+            <select name="course" id="" class="form-control">
+                <option value="">select</option>
+                {% for i in co %}
+                <option value="{{i.id}}">{{i.coursename}}</option>
+                {% endfor %}
+                    
+            </select>
+        </div>
+        <div class="col form-group">
+            <label for="">joindate</label>
+            <input type="date" class="form-control" name="joindate" id="">
+         </div>
+         <div class="col form-group">
+            <label for="">gender:</label> <br>
+            <input type="radio" class="ml-5" style="font-size: 3px;" name="gender" value="Male"> Male
+            <input type="radio" class="ml-4" style="font-size: 3px;" name="gender" value="Female"> Female    
+         </div>
+    </div>
+    <div class="row">
+        <div class="col form-group">
+            <label for="">image</label>
+            <input type="file" class="form-control" name="image" id="" accept="image/*">
+        </div>
+        <div class="col form-group">
+            <label for="">Degree Certificate</label>
+            <input type="file" class="form-control" name="degree" id="">
+         </div>
+        <div class="col form-group">
+            <!-- <label for="">Department</label>
+            <select name="department" class="form-control" id="">
+                {% for i in dep %}
+                <option value="{{i.id}}">{{i.department}}</option>
+                {% endfor %}
+
+            </select> -->
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col form-group">
+            
+        </div>
+        <div class="col form-group">
+            
+        </div>
+        <div class="col form-group">
+            
+         </div>
+    </div>
+    <button class="btn btn-warning " style="width: 100%;">signup</button>
+</form>
+</div>
+
+{% endblock %}

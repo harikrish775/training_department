@@ -1,0 +1,42 @@
+{% extends 'navbar.html' %}
+{% block content %}
+{% load static %}
+
+
+<div class="container col-10">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">User</th>
+            <th scope="col">Email</th>
+            <th scope="col">Profile picture</th>
+            <th scope="col" colspan="3">Action</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in te %}
+            
+          <tr>
+            
+            <td>{{i.sender.first_name}} {{i.sender.last_name}}</td>
+            <td>{{i.message}}</td>
+            <td>{{i.sender.email}}</td>
+            {% if i.trainee %}
+            <td><img src="{{i.trainee.image.url}}" width="70" alt=""></td>
+            {% elif i.trainer %}
+            <td><img src="{{i.trainer.image.url}}" width="70" alt=""></td>
+            {% endif %}
+
+            <td ><a href="{% url 'approveaction' i.id %}" class="btn btn-outline-success">approve</a></td>
+            <td><a href="" class="btn btn-outline-danger">disapprove</a></td>
+            <td><a href="{% url 'newreg' i.id %}" class="btn btn-outline-primary">View</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+
+{% endblock %}  
