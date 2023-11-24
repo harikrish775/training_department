@@ -49,19 +49,40 @@ class Trainer_attendence(models.Model):
     date = models.DateField()
     attendence = models.BooleanField()
 
+class TempSignup(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
+    department = models.ForeignKey(Department,on_delete=models.CASCADE,null=True)
+    contact = models.CharField(max_length=255)
+    gender = models.CharField(max_length=255)
+    age = models.IntegerField()
+    joindate = models.DateField()
+    image = models.ImageField(upload_to='image/')
+    degree = models.FileField(upload_to='file/')
+    is_special = models.BooleanField(default=False)
+    
+
 class Notification(models.Model):
     sender = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
     message = models.CharField(max_length=255)
     person = models.CharField(max_length=255)
     is_read = models.BooleanField(default=False)
-    trainee = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
+    is_approved = models.BooleanField(null=True)
+    tempsignup = models.ForeignKey(TempSignup,on_delete=models.CASCADE,null=True)
+    trainee =  models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
     trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    
 
 class TraineeNotification(models.Model):
     sender = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
     message = models.CharField(max_length=255)
     person = models.CharField(max_length=255)
     is_read = models.BooleanField(default=False)
+    
 
 class TrainerNotification(models.Model):
     sender = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
@@ -89,3 +110,8 @@ class Class_schedule(models.Model):
     topic = models.CharField(max_length=255)
     date = models.DateField()
     link = models.CharField(max_length=255)
+
+
+
+
+    

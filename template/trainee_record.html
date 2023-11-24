@@ -4,7 +4,7 @@
 
 
 <div class="container col-10">
-  <center><h1>Trainee Record</h1></center>
+  <a href="{% url 'trainerrecord' %}" class="btn btn-success"><span style="float: right;">Trainer Record</span></a><center><h2>Trainee Record</h2></center>
     <table class="table">
         <thead>
           <tr>
@@ -12,10 +12,10 @@
             <th scope="col">email</th>
             <th>contact</th>
             <th>profile picture</th>
-            <th>status</th>            
+                       
           </tr>
         </thead>
-        <tbody>
+        <tbody> 
             {% for i in rec %}
           <tr>
             
@@ -23,7 +23,7 @@
             <td>{{i.customuser.email}}</td>
             <td>{{i.contact}}</td>
             <td><img src="{{i.image.url}}" alt="" width="60"></td>
-            <td>appr/disaprv/pending</td>
+            <td></td>
             <td><a href="{% url 'traineecard' i.id %}" class="btn btn-outline-info">view</a></td>
           </tr>
           {% endfor %}

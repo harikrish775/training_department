@@ -3,14 +3,17 @@
 {% load static %}
 
 <div class="container col-10">
-<div class="row" style="margin: 10px;">
-    <div class="col">
-        <a href="{% url 'traineerecord' %}" style="font-size: 50px;" >Trainees</a>
+    <div class="row" style="min-height: 30vh;"></div>
+<center>
+    <div class="row" style="margin: 10px;">
+        <div class="col">
+            <a href="{% url 'traineerecord' %}" style="font-size: 50px;" >Trainees</a>
+        </div>
+        <div class="col">
+            <a href="{% url 'trainerrecord' %}" style="font-size: 50px;">Trainers</a>
+        </div>
     </div>
-    <div class="col">
-        <a href="{% url 'trainerrecord' %}" style="font-size: 50px;">Trainers</a>
-    </div>
-</div>
+</center>
 </div>
 
 

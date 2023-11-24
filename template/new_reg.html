@@ -2,76 +2,75 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10">
-    <h1>new register</h1>
-    {% if i.trainee %}
-    <table>
-        <center>
-            
-            <img src="{{i.trainee.image.url}}" width="200" alt="">
-            <h4>{{i.sender.first_name}} {{i.sender.last_name}}</h4>
-        </center>
-        <tr>
-            <th>Email</th><td>{{i.sender.email}}</td>
-        </tr>
-        <tr>
-            <th>contact</th><td>{{i.trainee.contact}}</td>
-        </tr>
-        <tr>
-            <th>joindate</th><td>{{i.trainee.joindate}}</td>
-        </tr>
-        <tr>
-            <th>gender</th><td>{{i.trainee.gender}}</td>
-        </tr>
-        <tr>
-            <th>age</th><td>{{i.trainee.age}}</td>
-        </tr>
-        <tr>
-            <th>course</th><td>{{i.trainee.course.coursename}}</td>
-        </tr>
-        <tr>
-            <th>Department</th><td>{{i.trainee.department.departmentname}}</td>
-        </tr>
-        <tr>
-            <td><a href="" class="btn btn-success">approve</a></td><td><a href="" class="btn btn-danger">disapprove</a></td>
-        </tr>
+
+
+
+<div class="container col-5" id="b">
+    <br><br><br><br>
+    <center><h3>{{i.sender.first_name}} {{i.sender.last_name}} </h3></center>
+    <div class="row">
+        <div class="col-4" >
+            <img class="mt-2" src="{{i.tempsignup.image.url}}" height="300" width="200" alt=""> 
+
+                
+                
+                
+                
+                
+                
+                        
+        </div>
         
-    </table>
-    {% else %}
-    <table>
-        <center>
-            <img src="{{i.trainer.image.url}}" width="200" alt="">
-            <h3>{{i.sender.first_name}} {{i.sender.last_name}}</h3>
-        </center>
-        <tr>
-            <th>Email</th><td>{{i.sender.email}}</td>
-        </tr>
-        <tr>
-            <th>contact</th><td>{{i.trainer.contact}}</td>
-        </tr>
-        <tr>
-            <th>joindate</th><td>{{i.trainer.joindate}}</td>
-        </tr>
-        <tr>
-            <th>gender</th><td>{{i.trainer.gender}}</td>
-        </tr>
-        <tr>
-            <th>age</th><td>{{i.trainer.age}}</td>
-        </tr>
-        <tr>
-            <th>course</th><td>{{i.trainer.course.coursename}}</td>
-        </tr>
-        <tr>
-            <th>Department</th><td>{{i.trainer.department.departmentname}}</td>
-        </tr>
-        <tr>
-            <td><a href="{% url 'approveaction' i.id %}" class="btn btn-success">approve</a></td>
-            <td><a href="" class="btn btn-danger">disapprove</a></td>
-        </tr>
+        <div class="col-6" >
+            <table class="table">
+                <thead>
+                    <h3 style="text-align: center;"></h3>
+                  <tr>
+                    <th scope="col">ID:  </th>
+                    <td scope="col">{{i.tempsignup.id}}</td>
+                    <th scope="col" style="border-left: 3px solid rgb(222, 216, 216) ;">Age: </th>
+                    <td scope="col">{{i.tempsignup.age}}</td>
         
-    </table>
-    {% endif %}
-    
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <tr>
+                    <th scope="row" colspan="1">Department: </th>
+                    <td colspan="">{{i.tempsignup.department.departmentname}}</td>
+                    <th scope="row" colspan="1" style="border-left: 3px solid rgb(222, 216, 216) ;">Gender: </th>
+                    <td colspan="3">{{i.tempsignup.gender}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row" colspan="1">Course: </th>
+                    <td colspan="3">{{i.tempsignup.course.coursename}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row" colspan="1">Email: </th>
+                    <td colspan="3">{{i.sender.email}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row" colspan="1">Mobile No: </th>
+                    <td colspan="3">{{i.tempsignup.contact}}</td>
+                    
+                  </tr>
+                  
+                  <tr>
+                    
+                    <th scope="row" colspan="1">Joined on: </th>
+                    <td colspan="3">{{i.tempsignup.joindate}}</td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+              <br><br>
+        </div>
+    </div>
 </div>
+
 
 {% endblock %}

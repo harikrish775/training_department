@@ -16,7 +16,7 @@
             {% for i in no %}
           <tr>
             
-            <td>{{i.sender}}</td>
+            <td>{{i.tempsignup.first_name}}{{i.tempsignup.last_name}}</td>
             <td>{{i.message}}</td>
           </tr>
           {% endfor %}

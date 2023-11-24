@@ -1,0 +1,24 @@
+{% extends 'navbar.html' %}
+{% block content %}
+{% load static %}
+<style>
+    #lo a{
+        font-size: 45px;
+    }
+</style>
+<div class="container col-10">
+    <div class="row" style="min-height: 30vh;"></div>
+    <center>
+        <div id="lo" class="container row">
+            <div class="col form-group">
+                <a href="{% url 'admin_mark_trainerattendence' %}">Mark attendence</a>
+            </div>
+    
+            <div class="col form-group">
+                <a href="{% url 'admin_view_trainerattendence' %}">View Trainer attendence</a>
+            </div>  
+        </div>
+    </center>
+</div>
+
+{% endblock %}

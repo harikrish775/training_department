@@ -53,7 +53,16 @@ urlpatterns = [
     path('submittaskaction/<int:pk>',views.submittaskaction,name='submittaskaction'),
     path('completedtask',views.completedtask,name='completedtask'),
     path('trainee_viewattendence',views.trainee_viewattendence,name='trainee_viewattendence'),
-    
+    path('admin_mark_trainerattendence',views.admin_mark_trainerattendence,name="admin_mark_trainerattendence"),
+    path('admin_mark_trainerattendence_action/<int:pk>',views.admin_mark_trainerattendence_action,name="admin_mark_trainerattendence_action"),
+    path('trainer_attendence',views.trainer_attendence,name="trainer_attendence"),
+    path('admin_view_trainerattendence',views.admin_view_trainerattendence,name="admin_view_trainerattendence"),
+    path('admin_view_trainerattendence_action',views.admin_view_trainerattendence_action,name="admin_view_trainerattendence_action"),
+    path('admin_show_trainerattendence',views.admin_show_trainerattendence,name="admin_show_trainerattendence"),
+    path('admin_view_trainee_attendence',views.admin_view_trainee_attendence,name="admin_view_trainee_attendence"),
+    path('admin_view_trainee_attendence_action',views.admin_view_trainee_attendence_action,name="admin_view_trainee_attendence_action"),
+    path('admin_sendmail',views.admin_sendmail,name="admin_sendmail"),
+    path('disapproveaction/<int:pk>',views.disapproveaction,name='disapproveaction'),
     # path('qw',views.qw,name='qw'),
     
     

@@ -2,43 +2,77 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10">
 
-    
-    <table>
-        <center>
-            <img src="{{i.image.url}}" width="200" alt="">
-            <h3>{{i.customuser.first_name}} {{i.customuser.last_name}}</h3>
-        </center>
-        <tr>
-            <th>Email</th><td>{{i.customuser.email}}</td>
-        </tr>
-        <tr>
-            <th>contact</th><td>{{i.contact}}</td>
-        </tr>
-        <tr>
-            <th>joindate</th><td>{{i.joindate}}</td>
-        </tr>
-        <tr>
-            <th>gender</th><td>{{i.gender}}</td>
-        </tr>
-        <tr>
-            <th>age</th><td>{{i.age}}</td>
-        </tr>
-        <tr>
-            <th>course</th><td>{{i.course.coursename}}</td>
-        </tr>
-        <tr>
-            <th>Department</th><td>{{i.department.departmentname}}</td>
-        </tr>
-        <tr>
-            <th>Trainer assigned</th><td>{{i.trainer.customuser.first_name}}{{i.trainer.customuser.last_name}}</td>
-        </tr>
-    </table>
-    <tr>
-        <td><a href="{% url 'approveaction' i.id %}" class="btn btn-success">approve</a></td>
-        <td><a href="" class="btn btn-danger">disapprove</a></td>
-    </tr>
+
+
+<div class="container col-5" id="b">
+  <!-- <a href="{% url 'approve' %}" class="btn btn-warning" style="float: right;">back</a> -->
+    <br><br><br><br>
+
+    <center><h3>{{i.customuser.first_name}} {{i.customuser.last_name}} <button href="{% url 'approveaction' i.id %}" class="btn btn-outline-success" disabled>Approved</button></h3></center>
+    <div class="row">
+        <div class="col-4" >
+            <img class="mt-2" src="{{i.image.url}}" height="300" width="200" alt=""> 
+
+                
+                
+                
+                
+                
+                
+                        
+        </div>
+        
+        <div class="col-6" >
+            <table class="table">
+                <thead>
+                    <h3 style="text-align: center;"></h3>
+                  <tr>
+                    <th scope="col">ID:  </th>
+                    <td scope="col">{{i.id}}</td>
+                    <th scope="col" style="border-left: 3px solid rgb(222, 216, 216) ;">Age: </th>
+                    <td scope="col">{{i.age}}</td>
+        
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <tr>
+                    <th scope="row" colspan="1">Department: </th>
+                    <td colspan="">{{i.department.departmentname}}</td>
+                    <th scope="row" colspan="1" style="border-left: 3px solid rgb(222, 216, 216) ;">Gender: </th>
+                    <td colspan="3">{{i.gender}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row" colspan="1">Course: </th>
+                    <td colspan="3">{{i.course.coursename}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row" colspan="1">Email: </th>
+                    <td colspan="3">{{i.customuser.email}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row" colspan="1">Mobile No: </th>
+                    <td colspan="3">{{i.contact}}</td>
+                    
+                  </tr>
+                  
+                  <tr>
+                    
+                    <th scope="row" colspan="1">Joined on: </th>
+                    <td colspan="3">{{i.joindate}}</td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+              <br><br>
+        </div>
+    </div>
 </div>
+
 
 {% endblock %}

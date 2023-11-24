@@ -1,0 +1,51 @@
+{% extends 'navbar.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container col-10 table-responsive">
+    <h3>Mark Attendence</h3>
+    <table class="table">
+        <tr class="table-dark" style="color: black;font-size: larger;">
+            <th>Trainer Name</th>
+            <th>Date</th>
+            <th colspan="2">Attendence</th>
+        </tr>
+        {% for i in ho %}
+        <form action="{% url 'admin_mark_trainerattendence_action' i.id %}" method="POST">
+            {% csrf_token %}
+        <tr>
+            <td>{{i.customuser.first_name}} {{i.customuser.last_name}}</td>
+            <td ><input type="date" value="{{t}}" name="tdate" class="form-control"></td>
+            <!-- {% if d.attendence == '1' %}
+            <td><button type="submit" name="attn" class="btn btn-success" value="present" disabled  >Mark Present</button>
+                <button type="submit" name="attn" class="btn btn-danger" value="absent" hidden  >Mark Absent</button></td>
+            {% elif d.attendence == '0' %}
+            <td><button type="submit" name="attn" class="btn btn-success" value="present" hidden >Mark Present</button>
+                <button type="submit" name="attn" class="btn btn-danger" value="absent" disabled >Mark Absent</button></td>
+            {% else %} -->
+            <td><button type="submit" name="attn" class="btn btn-success" value="present">Mark Present</button>
+                <button type="submit" name="attn" class="btn btn-danger" value="absent">Mark Absent</button></td>
+            <!-- {% endif %}             -->
+            
+        </tr>
+        </form>
+        {% endfor %}
+    </table>
+</div>
+
+{% if error == "no" %}
+     <script>
+	   alert('Marked Successfully');
+       window.location=("{% url 'admin_mark_trainerattendence' %}");
+     </script>
+{% endif %}
+
+{% if error == "yes" %}
+     <script>
+	    alert('Attendence already marked');
+        window.location=("{% url 'admin_mark_trainerattendence' %}");
+     </script>
+{% endif %}
+
+
+{% endblock %}

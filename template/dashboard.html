@@ -1,28 +1,69 @@
 {% extends 'navbar.html' %}
 {% block content %}
 {% load static %}
+<style>
+.row a{
+    color: black;
+}
+.row a:hover,#kj a:hover{
+    color: gray;
+    text-decoration: none;
+    
+}
+
+</style>
 
 <div class="container col-10">
 <div class="row" style="margin: 10px;">
-    <div class="col">
-        <a href="" style="font-size: 50px;" >a</a>
+    <div class="col ml-2 mt-2 " style="background-color: rgba(223, 37, 37, 0.5);padding: 15px;">
+        <a href="{% url 'traineerecord' %}"><p style="font-size: larger;">Total Trainees </p> <center><span class="badge badge-dark" style="font-size: 45px;">{{ecount}}</span></center></a>
+
     </div>
-    <div class="col">
-        <a href="" style="font-size: 50px;">b</a>
+    <div class="col  ml-2 mt-2 " style="background-color: palegreen;padding: 15px;">
+        <a href="{% url 'trainerrecord' %}"><p style="font-size: larger;">Total Trainers </p><center><span class="badge badge-dark" style="font-size: 45px;">{{rcount}}</span></center></a>
     </div>
-    <div class="col">
-        <a href="" style="font-size: 50px;">c</a>
+    <div class="col  ml-2 mt-2" style="background-color: palegoldenrod;padding: 15px;">
+        <a href="{% url 'approve' %}"><p style="font-size: larger;">Approve</p>
+            <center><i class="fa-solid fa-bell" style="font-size: 50px;">{% if ncount > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{ncount}}</span>{% endif %}</i></center></a>
     </div>
+    <div id="kj" class="col ml-2 mt-2" style="background-color: paleturquoise;padding: 15px;">
+         <a type="button" data-toggle="modal" data-target="#exampleModal"><p style="font-size: larger;">Send Mail</p><center><i class="fa-solid fa-envelope ml-5"  style="font-size: 50px;"></i></center></a>
+            
+            
+              <p><!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form action="{% url 'admin_sendmail' %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <p style="font-size: smaller;float: left;">Send notification,</p>
+                            <textarea class="form-control" name="message" id="" cols="30" rows="10"></textarea>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">send</button>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div></p>
+    </div>
+    
 </div>
 <div class="row" style="margin: 10px;">
-    <div class="col">
-        <a href="" style="font-size: 50px;" >d</a>
+    
+    <div class="col ">
+        <a href="" style="font-size: 50px;"></a>
     </div>
-    <div class="col">
-        <a href="" style="font-size: 50px;">e</a>
-    </div>
-    <div class="col">
-        <a href="" style="font-size: 50px;">f</a>
+    <div class="col ">
+        <a href="" style="font-size: 50px;"></a>
     </div>
 </div>
 </div>

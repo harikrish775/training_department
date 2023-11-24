@@ -15,4 +15,16 @@
     </form>
 </div>
 
-{% endblock %}
+    {% if error == "no" %}
+        <script>
+        alert('Added Successfully');
+        window.location=("{% url 'dept' %}");
+        </script>
+    {% endif %}
+
+    {% if error == "yes" %}
+        <script>
+            alert('Something went wrong, Try Again');
+        </script>
+    {% endif %}
+    {% endblock %}
