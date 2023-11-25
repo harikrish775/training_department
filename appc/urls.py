@@ -48,6 +48,7 @@ urlpatterns = [
     path('trainee_class',views.trainee_class,name='trainee_class'),
     path('trainee_attendence',views.trainee_attendence,name='trainee_attendence'),
     path('trainee_applyleave',views.trainee_applyleave,name='trainee_applyleave'),
+    path('trainee_applyleaveaction',views.trainee_applyleaveaction,name="trainee_applyleaveaction"),
     path('assignedtask',views.assignedtask,name='assignedtask'),
     path('submittask/<int:pk>',views.submittask,name='submittask'),
     path('submittaskaction/<int:pk>',views.submittaskaction,name='submittaskaction'),
@@ -63,7 +64,17 @@ urlpatterns = [
     path('admin_view_trainee_attendence_action',views.admin_view_trainee_attendence_action,name="admin_view_trainee_attendence_action"),
     path('admin_sendmail',views.admin_sendmail,name="admin_sendmail"),
     path('disapproveaction/<int:pk>',views.disapproveaction,name='disapproveaction'),
+    path('trainer_view_project',views.trainer_view_project,name='trainer_view_project'),
+    path('trainer_viewaction_project/<int:pk>',views.trainer_viewaction_project,name='trainer_viewaction_project'),
+    path('trainer_inbox',views.trainer_inbox,name='trainer_inbox'),
+    # path('trainer_readmessage/<int:pk>',views.trainer_readmessage,name='trainer_readmessage'),
+    path('admin_review_attendence',views.admin_review_attendence,name='admin_review_attendence'),
+    path('admin_approve_leave/<int:pk>',views.admin_approve_leave,name='admin_approve_leave'),
+    path('admin_reject_leave/<int:pk>',views.admin_reject_leave,name='admin_reject_leave'),
+    path('admin_approve_leave_trainee/<int:pk>',views.admin_approve_leave_trainee,name='admin_approve_leave_trainee'),
+    path('admin_reject_leave_trainee/<int:pk>',views.admin_reject_leave_trainee,name='admin_reject_leave_trainee'),
     # path('qw',views.qw,name='qw'),
+    
     
     
     

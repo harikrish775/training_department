@@ -1,0 +1,35 @@
+{% extends 'navbar4.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container-fluid col-10">
+<div class="container-fluid table-responsive">
+    <form action="" method="post">{% csrf_token %}
+        <h3>Submitted Projects</h3>
+        <div class="row">
+
+            <table class="table table-dark">
+                
+                  <tr>
+                    <th>Trainee</th>
+                    
+                  </tr>
+
+                {% for i in p %}
+                  <tr>
+                    <td><img src="{{i.image.url}}" width="150" height="200" alt=""></td>
+                    <td><label for="" style="font-size: 50px;">{{i.customuser.first_name}} {{i.customuser.last_name}}  </label><p style="font-size: larger;">Joined on : {{i.joindate}}</p></td>
+                    <td><a  href="{% url 'trainer_viewaction_project' i.id %}" style="font-size: 35px;text-decoration: none;">  View submitted projects </a></td>
+                  </tr>
+                {% endfor %}
+                </select>
+            </div>
+            
+        </div>
+        
+        
+    </form>
+</div>
+</div>
+
+{% endblock %}

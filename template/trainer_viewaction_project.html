@@ -1,0 +1,34 @@
+{% extends 'navbar4.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container-fluid col-10">
+    <div class="container-fluid">
+        <table class="table">
+            <tr>
+                <th>project name</th>
+                <th>start date</th>
+                <th>end date</th>
+                <th>status</th>
+                <th>Remark</th>
+                <th>File</th>
+            </tr>
+            {% for v in d %}
+            <tr>
+                <td>{{v.projectname}}</td>
+                <td>{{v.startdate}}</td>
+                <td>{{v.enddate}}</td>
+                {% if v.status == False %}
+                <td><button href="" class="btn btn-outline-warning" disabled>Pending</button></td>
+                {% else %}
+                <td><button href="" class="btn btn-outline-success" disabled>Completed</button></td>
+                {% endif %}
+                <td>{% if v.is_delay == False %}<button href="" class="btn btn-outline-success" disabled>On time</button>{% else %}<button href="" class="btn btn-outline-danger" disabled>Late</button>{% endif %}</td>
+                <td><a href="{{v.file.url}}" class="btn btn-outline-secondary" target="_blank">show</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

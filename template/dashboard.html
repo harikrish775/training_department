@@ -15,7 +15,7 @@
 
 <div class="container col-10">
 <div class="row" style="margin: 10px;">
-    <div class="col ml-2 mt-2 " style="background-color: rgba(223, 37, 37, 0.5);padding: 15px;">
+    <div class="col ml-2 mt-2 " style="background-color: rgba(255, 0, 0, 0.6);padding: 15px;">
         <a href="{% url 'traineerecord' %}"><p style="font-size: larger;">Total Trainees </p> <center><span class="badge badge-dark" style="font-size: 45px;">{{ecount}}</span></center></a>
 
     </div>
@@ -35,7 +35,7 @@
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Send Notification</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -43,7 +43,14 @@
                       <form action="{% url 'admin_sendmail' %}" method="post">
                         {% csrf_token %}
                         <div class="modal-body">
-                            <p style="font-size: smaller;float: left;">Send notification,</p>
+                            <p style="font-size: smaller;float: left;">Send to,</p><br>
+                            
+                            <select name="todeptrainers" id="" class="form-control">
+                              <option value="all">All trainers</option>
+                              {% for i in dep %}
+                              <option value="{{i.id}}">{{i.departmentname}}</option>
+                              {% endfor %}
+                            </select><br><br><p style="font-size: smaller;float: left;">Message,</p>
                             <textarea class="form-control" name="message" id="" cols="30" rows="10"></textarea>
                           </div>
                           <div class="modal-footer">
@@ -59,11 +66,15 @@
 </div>
 <div class="row" style="margin: 10px;">
     
-    <div class="col ">
-        <a href="" style="font-size: 50px;"></a>
+    <div class="col ml-2 form-group" style="background-color:lightseagreen ; padding: 15px;">
+        
+        <a href="{% url 'admin_review_attendence' %}" style="font-size: larger ;" >Leave Requests <br><center><i style="font-size: 50px;" class="fa-solid fa-circle-exclamation"></i>{% if b or c > 0 %}<span class="badge badge-danger" style="font-size: 15px;"> pending </span>{% endif %}</center></a>
+          
+        
     </div>
-    <div class="col ">
-        <a href="" style="font-size: 50px;"></a>
+
+    <div class="col ml-2 form-group " style="background-color: lightsalmon;padding: 15px;">
+        <a href="" ></a>
     </div>
 </div>
 </div>

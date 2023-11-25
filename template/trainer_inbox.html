@@ -1,0 +1,47 @@
+{% extends 'navbar4.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container col-10">
+    
+    <div class="container table-responsive">
+        <h3>Inbox <i class="fa-solid fa-inbox"></i></h3>
+
+        <table class="table">
+            Unread messages
+            <tr>
+                <th>Message</th>
+                <th>Mark as read</th>
+                
+            </tr>
+            {% for i in d %}
+            <tr>
+                <td>{{i.message}}</td>
+                <td><a href="">Read <i class="fa-solid fa-envelope-open"></i></a></td>
+            </tr>
+            {% endfor %}
+
+
+            {% for i in d2 %}
+            <tr>
+                <td>{{i.message}}</td>
+                
+            </tr>
+            {% endfor %}
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+{% endblock %}

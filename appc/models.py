@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from datetime import date
 
 # Create your models here.
 
@@ -82,13 +82,27 @@ class TraineeNotification(models.Model):
     message = models.CharField(max_length=255)
     person = models.CharField(max_length=255)
     is_read = models.BooleanField(default=False)
-    
 
-class TrainerNotification(models.Model):
+class TraineeNotificationStatus(models.Model):
     sender = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
     message = models.CharField(max_length=255)
     person = models.CharField(max_length=255)
     is_read = models.BooleanField(default=False)
+
+class TrainerNotification(models.Model):
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    message = models.CharField(max_length=255)
+    person = models.CharField(max_length=255)
+    department = models.ForeignKey(Department,on_delete=models.CASCADE,null=True)
+    is_read = models.BooleanField(default=False)
+
+class TrainerNotificationStatus(models.Model):
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    message = models.CharField(max_length=255)
+    person = models.CharField(max_length=255)
+    department = models.ForeignKey(Department,on_delete=models.CASCADE,null=True)
+    is_read = models.BooleanField(default=False)
+
 
 class Project(models.Model):
     projectname = models.CharField(max_length=255)
@@ -98,18 +112,43 @@ class Project(models.Model):
     status = models.BooleanField(default=False)
     file = models.FileField(upload_to='file/',null=True)
     is_delay = models.BooleanField(default=False)
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    dateassigned = models.DateField()
+
+class SubmitedProject(models.Model):
+    projectcopy = models.ForeignKey(Project,on_delete=models.CASCADE,null=True)
+    projectname = models.CharField(max_length=255)
+    description = models.TextField()
+    startdate = models.DateField()
+    enddate = models.DateField()
+    status = models.BooleanField(default=False)
+    file = models.FileField(upload_to='file/',null=True)
+    is_delay = models.BooleanField(default=False)
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    trainee = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
+    
 
 class TrainerLeave(models.Model):
     trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
     from_date = models.DateField()
     to_date = models.DateField()
     reason = models.TextField()
-    is_approved = models.BooleanField(default=False)
+    is_approved = models.BooleanField(null=True)
+    is_read = models.BooleanField(default=False)
+
+class TraineeLeave(models.Model):
+    trainee = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
+    from_date = models.DateField()
+    to_date = models.DateField()
+    reason = models.TextField()
+    is_approved = models.BooleanField(null=True)
+    is_read = models.BooleanField(default=False)
 
 class Class_schedule(models.Model):
     topic = models.CharField(max_length=255)
     date = models.DateField()
     link = models.CharField(max_length=255)
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
 
 
 
