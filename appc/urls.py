@@ -73,7 +73,17 @@ urlpatterns = [
     path('admin_reject_leave/<int:pk>',views.admin_reject_leave,name='admin_reject_leave'),
     path('admin_approve_leave_trainee/<int:pk>',views.admin_approve_leave_trainee,name='admin_approve_leave_trainee'),
     path('admin_reject_leave_trainee/<int:pk>',views.admin_reject_leave_trainee,name='admin_reject_leave_trainee'),
+    path('trainer_view_self_attendence',views.trainer_view_self_attendence,name='trainer_view_self_attendence'),
+    path('trainer_view_self_attendence_action',views.trainer_view_self_attendence_action,name='trainer_view_self_attendence_action'),
+    path('admin_remove_trainee/<int:pk>',views.admin_remove_trainee,name='admin_remove_trainee'),
+    path('admin_remove_trainer/<int:pk>',views.admin_remove_trainer,name='admin_remove_trainer'),
+    path('assign_department',views.assign_department,name='assign_department'),
+    path('admin_assign_department',views.admin_assign_department,name='admin_assign_department'),
+    path('admin_assign_department_action/<int:pk>',views.admin_assign_department_action,name='admin_assign_department_action'),
+    path('admin_assign_dep_trainee',views.admin_assign_dep_trainee,name='admin_assign_dep_trainee'),
+    path('admin_assign_dep_trainee_action/<int:pk>',views.admin_assign_dep_trainee_action,name='admin_assign_dep_trainee_action'),
     # path('qw',views.qw,name='qw'),
+    
     
     
     

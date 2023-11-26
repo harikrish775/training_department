@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from datetime import date
+
 
 # Create your models here.
 
@@ -29,8 +29,8 @@ class Trainer(models.Model):
 class Trainee(models.Model):
     customuser = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
     course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
-    department = models.ForeignKey(Department,on_delete=models.CASCADE,null=True)
-    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    department = models.ForeignKey(Department,on_delete=models.SET_NULL,null=True)
+    trainer = models.ForeignKey(Trainer,on_delete=models.SET_NULL,null=True)
     contact = models.CharField(max_length=255)
     gender = models.CharField(max_length=255)
     age = models.IntegerField()
@@ -55,8 +55,7 @@ class TempSignup(models.Model):
     email = models.EmailField()
     username = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
-    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
-    department = models.ForeignKey(Department,on_delete=models.CASCADE,null=True)
+    course = models.ForeignKey(Course,on_delete=models.SET_NULL,null=True)
     contact = models.CharField(max_length=255)
     gender = models.CharField(max_length=255)
     age = models.IntegerField()
@@ -112,11 +111,11 @@ class Project(models.Model):
     status = models.BooleanField(default=False)
     file = models.FileField(upload_to='file/',null=True)
     is_delay = models.BooleanField(default=False)
-    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    trainer = models.ForeignKey(Trainer,on_delete=models.SET_NULL,null=True)
     dateassigned = models.DateField()
 
 class SubmitedProject(models.Model):
-    projectcopy = models.ForeignKey(Project,on_delete=models.CASCADE,null=True)
+    projectcopy = models.ForeignKey(Project,on_delete=models.SET_NULL,null=True)
     projectname = models.CharField(max_length=255)
     description = models.TextField()
     startdate = models.DateField()

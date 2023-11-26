@@ -77,23 +77,21 @@ def signupaction(request):
         age = request.POST['age']
         gender = request.POST['gender']
         joindate = request.POST['joindate']
-        course = request.POST['course']
         image = request.FILES['image']
         rr = request.POST['rrr']
-        department = request.POST['department'] 
         degree = request.FILES['degree']
         # propass = generate_password()
         propass = '123'
 
         if rr == 'trainee':
-                te = TempSignup(first_name=firstname,last_name=lastname,username=username,email=email,password=propass,contact=contact,joindate=joindate,age=age,gender=gender,course_id=course,image=image,department_id=department,degree=degree)
+                te = TempSignup(first_name=firstname,last_name=lastname,username=username,email=email,password=propass,contact=contact,joindate=joindate,age=age,gender=gender,image=image,degree=degree)
                 te.save()
                 no = Notification(message=f' A new {rr} registered as {firstname} {lastname} is waiting for your approval.',tempsignup_id=te.id )
                 no.save()
                 return redirect('loginpage')
             
         elif rr == 'trainer':
-                te = TempSignup(first_name=firstname,last_name=lastname,username=username,email=email,password=propass,contact=contact,joindate=joindate,age=age,gender=gender,course_id=course,image=image,department_id=department,degree=degree,is_special=True)
+                te = TempSignup(first_name=firstname,last_name=lastname,username=username,email=email,password=propass,contact=contact,joindate=joindate,age=age,gender=gender,image=image,degree=degree,is_special=True)
                 te.save()
                 no = Notification.objects.create(message=f'A new {rr} has registered as {firstname} {lastname}.',tempsignup_id=te.id )
                 no.save()
@@ -275,6 +273,7 @@ def assign(request):
 def assignaction(request,pk):
     teach = Trainer.objects.all()
     asign = Trainee.objects.all()
+    
     if request.method == 'POST':
         co = Notification.objects.filter(is_read=False).count()
         no = Notification.objects.filter(is_read=False)
@@ -314,13 +313,15 @@ def trainercard(request,pk):
     return render(request,'trainer_card.html',{'i':card,'ncount':co,'noti':no})
 
 def approve(request):
-    global co,no
+    
     co = Notification.objects.filter(is_read=False).count()
     no = Notification.objects.filter(is_read=False)
     te = Notification.objects.all()
     return render(request,'aprove.html',{'te':te,'ncount':co,'noti':no})
 
 def newreg(request,pk):
+    co = Notification.objects.filter(is_read=False).count()
+    no = Notification.objects.filter(is_read=False)
     b = Notification.objects.get(id=pk)
     return render(request,'new_reg.html',{'i':b,'ncount':co,'noti':no})
 
@@ -328,44 +329,53 @@ def approveaction(request,pk):
     co = Notification.objects.filter(is_read=False).count()
     no = Notification.objects.filter(is_read=False)
     n = Notification.objects.get(id=pk)
-    n.is_read = True
-    n.is_approved = True
-    n.save()
     
     if n.tempsignup.is_special :
         trainer = TempSignup.objects.get(id=n.tempsignup_id)
-        userr = CustomUser.objects.create_user(first_name=trainer.first_name,last_name=trainer.last_name,email=trainer.email,username=trainer.username,password=trainer.password,is_special=trainer.is_special,date_joined=trainer.joindate)
-        userr.save()
-        approved_trainer = Trainer(contact=trainer.contact,age=trainer.age,gender=trainer.gender,joindate=trainer.joindate,course_id=trainer.course_id,image=trainer.image,customuser=userr,department_id=trainer.department_id,degree=trainer.degree)
-        approved_trainer.save()
-        n.trainer_id = approved_trainer
-        n.sender = userr
-        n.save()
+        if CustomUser.objects.filter(email=trainer.email).exists():
+            error = 'yes'
+        else:
+            userr = CustomUser.objects.create_user(first_name=trainer.first_name,last_name=trainer.last_name,email=trainer.email,username=trainer.username,password=trainer.password,is_special=trainer.is_special,date_joined=trainer.joindate)
+            userr.save()
+            approved_trainer = Trainer(contact=trainer.contact,age=trainer.age,gender=trainer.gender,joindate=trainer.joindate,image=trainer.image,customuser=userr,degree=trainer.degree)
+            approved_trainer.save()
+            
+            n.is_read = True
+            n.is_approved = True
+            n.save()
+            n.trainer_id = approved_trainer
+            n.sender = userr
+            n.save()
 
-        subject = 'Your approval has been successful'
-        message = f'Hy {n.sender.first_name} {n.sender.last_name}, \n Congratulations on being a part of ALTOS family. \n Your Login Credentials : \n Username: {n.sender.email} \n Password: {trainer.password} '
-        recipient = n.sender.email
-        send_mail(subject,message,settings.EMAIL_HOST_USER,[recipient])
-        messages.info(request,f'{n.sender.first_name}{n.sender.last_name} has been approved')
-        return redirect('approve')
+            subject = 'Your approval has been successful'
+            message = f'Hy {n.sender.first_name} {n.sender.last_name}, \n Congratulations on being a part of ALTOS family. \n Your Login Credentials : \n Username: {n.sender.email} \n Password: {trainer.password} '
+            recipient = n.sender.email
+            send_mail(subject,message,settings.EMAIL_HOST_USER,[recipient])
+            messages.info(request,f'{n.sender.first_name}{n.sender.last_name} has been approved')
+            return redirect('approve')
         
     
     else:
         trainee = TempSignup.objects.get(id=n.tempsignup_id)
-        userr = CustomUser.objects.create_user(first_name=trainee.first_name,last_name=trainee.last_name,email=trainee.email,username=trainee.username,password=trainee.password,is_special=trainee.is_special,date_joined=trainee.joindate)
-        userr.save()
-        approved_trainee = Trainee(contact=trainee.contact,age=trainee.age,gender=trainee.gender,joindate=trainee.joindate,course_id=trainee.course_id,image=trainee.image,customuser=userr,department_id=trainee.department_id,degree=trainee.degree)
-        approved_trainee.save()
-        n.trainee_id = approved_trainee
-        n.sender = userr
-        n.save()
+        if CustomUser.objects.filter(email=trainee.email).exists():
+            error = 'yes'
+        else:
+            userr = CustomUser.objects.create_user(first_name=trainee.first_name,last_name=trainee.last_name,email=trainee.email,username=trainee.username,password=trainee.password,is_special=trainee.is_special,date_joined=trainee.joindate)
+            userr.save()
+            approved_trainee = Trainee(contact=trainee.contact,age=trainee.age,gender=trainee.gender,joindate=trainee.joindate,image=trainee.image,customuser=userr,degree=trainee.degree)
+            approved_trainee.save()
+            n.trainee_id = approved_trainee
+            n.sender = userr
+            n.is_read = True
+            n.is_approved = True
+            n.save()
 
-        subject = 'Your approval has been successful'
-        message = f'Hy {n.sender.first_name} {n.sender.last_name}, \n Congratulations on being a part of ALTOS family. \n Your Login Credentials : \n Username: {n.sender.email} \n Password: {trainee.password} '
-        recipient = n.sender.email
-        send_mail(subject,message,settings.EMAIL_HOST_USER,[recipient])
-        messages.info(request,f'{n.sender.first_name}{n.sender.last_name} has been approved')
-        return redirect('approve')
+            subject = 'Your approval has been successful'
+            message = f'Hy {n.sender.first_name} {n.sender.last_name}, \n Congratulations on being a part of ALTOS family. \n Your Login Credentials : \n Username: {n.sender.email} \n Password: {trainee.password} '
+            recipient = n.sender.email
+            send_mail(subject,message,settings.EMAIL_HOST_USER,[recipient])
+            messages.info(request,f'{n.sender.first_name}{n.sender.last_name} has been approved')
+            return redirect('approve')
     
 def disapproveaction(request,pk):
     co = Notification.objects.filter(is_read=False).count()
@@ -463,6 +473,8 @@ def admin_view_trainee_attendence(request):
     return render(request,'admin_view_trainee_attendence.html',{'s':s,'ncount':co,'noti':no})
 
 def admin_view_trainee_attendence_action(request):
+    co = Notification.objects.filter(is_read=False).count()
+    no = Notification.objects.filter(is_read=False)
     if request.method == 'POST':
         l = request.POST['trrid']
         c = Trainee.objects.get(id=l)
@@ -505,6 +517,51 @@ def admin_reject_leave_trainee(request,pk):
     a.save()
     return redirect('admin_review_attendence')
     
+def admin_remove_trainee(request,pk):
+    g = Trainee.objects.get(id=pk)
+    f = CustomUser.objects.get(id=g.customuser_id)
+    f.delete()
+    g.delete()
+    
+    return redirect('traineerecord')
+
+def admin_remove_trainer(request,pk):
+    g = Trainer.objects.get(id=pk)
+    f = CustomUser.objects.get(id=g.customuser_id)
+    f.delete()
+    g.delete()
+    
+    return redirect('trainerrecord')
+
+def assign_department(request):
+    return render(request,'assign_department.html')
+
+def admin_assign_department(request):
+    d = Department.objects.all()
+    train = Trainer.objects.all()
+    return render(request,'admin_assign_department.html',{'train':train,'dep':d})
+
+def admin_assign_department_action(request,pk):
+    if request.method == 'POST':
+        ff = request.POST['depart']
+        trainer = Trainer.objects.get(id=pk)
+        trainer.department_id=ff
+        trainer.save()
+        return redirect('admin_assign_department')
+
+def admin_assign_dep_trainee(request):
+    d = Department.objects.all()
+    train = Trainee.objects.all()
+    return render(request,'admin_assign_dep_trainee.html',{'train':train,'dep':d})
+
+def admin_assign_dep_trainee_action(request,pk):
+    if request.method == 'POST':
+        ff = request.POST['depart']
+        trainee = Trainee.objects.get(id=pk)
+        trainee.department_id=ff
+        trainee.save()
+        return redirect('admin_assign_dep_trainee')
+
 
 # --------------------------------------admin end------------
 # -----------------------------teacher-------------------------------------
@@ -632,4 +689,17 @@ def trainer_viewaction_project(request,pk):
     d = SubmitedProject.objects.filter(trainee_id=pk)
     return render(request,'trainer_viewaction_project.html',{'d':d})
 
+def trainer_view_self_attendence(request):
+    return render(request,'trainer_view_self_attendence.html')
+
+def trainer_view_self_attendence_action(request):
+    
+    if request.method == 'POST':
+        user = request.user.id
+        c = Trainee.objects.get(customuser_id=user)
+        a = request.POST['start']
+        b = request.POST['end']
+        sort_param = request.GET.get('sort', 'date')
+        s = Trainer_attendence.objects.filter(trainee_id=c.id,date__range=(a,b)).order_by(sort_param)
+        return render(request,'trainee_viewattendence.html',{'s':s})
 # -----------------------------------teacher end------------------------------

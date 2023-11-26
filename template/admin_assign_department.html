@@ -4,7 +4,8 @@
 
 
 <div class="container col-10 table-responsive" >
-  <a href="{% url 'traineerecord' %}" class="btn btn-success"><span style="float: right;">Trainee Record</span></a><center><h2>Trainer Record</h2></center> 
+  <center><h2>Available Trainers</h2></center>
+  
     <table class="table"  >
         <thead>
           <tr>
@@ -12,24 +13,37 @@
             <th scope="col">email</th>
             <th>contact</th>
             <th>profile picture</th>
-            <th>status</th>            
+            <th>Department</th>   
+            <th>Views</th>
+            <th colspan="2">Assign</th>         
           </tr>
         </thead>
         <tbody>
-            {% for i in rece %}
+            {% for i in train %}
+            <form action="{% url 'admin_assign_department_action' i.id %}" method="post">
+                {% csrf_token %}
+
           <tr>
             
             <td>{{i.customuser.first_name}} {{i.customuser.last_name}}</td>
             <td>{{i.customuser.email}}</td>
             <td>{{i.contact}}</td>
             <td><img src="{{i.image.url}}" alt="" width="60"></td>
-            <td>appr/disaprv/pending</td>
+            <td>{{i.department.departmentname}}</td>
             <td><a href="{% url 'trainercard' i.id %}" class="btn btn-outline-info">view</a></td>
-            <td><a href="{% url 'admin_remove_trainer' i.id %}" class="btn btn-danger">Remove</a></td>
-          </tr>
+            <td>
+                <select name="depart" id="" class="form-control">
+                    {% for q in dep %}
+                    <option value="{{q.id}}">{{q.departmentname}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td><button class="btn btn-info" type="submit">Assign</button></td>
+          </tr></form>
           {% endfor %}
         </tbody>
       </table>
+    
 </div>
 
 

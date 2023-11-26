@@ -12,7 +12,7 @@
           <tr>
             <th>profile picture</th>
             <th scope="col">Full name</th>
-            <th scope="col">course</th>
+            
             <th>Department</th>
             <th>Current trainer</th>
             <th>Assign Trainer</th>
@@ -27,12 +27,14 @@
             
               <td><img src="{{i.image.url}}" alt="" width="60"></td>
               <td>{{i.customuser.first_name}} {{i.customuser.last_name}}</td>
-              <td>{{i.course.coursename}}</td>
+              
               <td>{{i.department.departmentname}}</td>
               <td>{{i.trainer.customuser.first_name}} {{i.trainer.customuser.last_name}}</td>
               <td><select name="trainr" id="" class="form-control">
                   {% for t in teach %}
+                  {% if i.department_id == t.department_id %}
                   <option value="{{t.id}}">{{t.customuser.first_name}} {{t.customuser.last_name}}</option>
+                  {% endif %}
                   {% endfor %}
               </select></td>
               <td><button type="submit" class="btn btn-primary">Assign</button></td>
