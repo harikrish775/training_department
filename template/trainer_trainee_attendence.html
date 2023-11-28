@@ -1,0 +1,35 @@
+{% extends 'navbar4.html' %}
+{% block content %}
+{% load static %}
+<style>
+    #mar a{
+        color: white;
+        background-color: black;
+        padding: 80px 10px;
+        
+        /* background-image: url('{% static "image/bskt.webp" %}');
+        background-size: 120%; */
+        border-radius: 200px;
+        text-decoration: none;
+        box-shadow: 3px 2px 2px 1px white;
+        font-weight: 500;
+    }
+    #mar a:hover{
+        background-color: black;
+        
+        border: 20px solid gray;
+    }
+    
+</style>
+<div class="container col-10">
+<div class="container table-responsive "><br><br>
+        <div class="row" style="font-size: x-large;" id="mar">
+            <div class="col" style="margin-top: 200px;"><center><a href="{% url 'trainer_markattendence' %}" s>Mark Attendence</a></center></div>
+            <div class="col" style="margin-top: 200px;"><center><a href="{% url 'trainer_view_trainee_attendence' %}" > View Attendence</a></center></div>
+        </div><br><br><br><br><br><br><br><br><br><br>
+</div>
+</div>
+
+
+
+{% endblock %}

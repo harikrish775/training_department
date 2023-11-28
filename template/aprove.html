@@ -16,11 +16,13 @@
   }
 </style>
 
-<div class="container col-10">
-  <h2>Approve/Disapprove</h2>
-    <table class="table">
+<div class="container col-10 table-responsive">
+  <br>
+  <div class="container table-responsive"  >
+  <h1>Approve/Disapprove</h1><br>
+    <table class="table" style="overflow-y: scroll;">
         <thead >
-          <tr style="background-color: orange;" >
+          <tr style="background-color: orange;font-size: larger;" >
             <th scope="col">Name</th>
             <th scope="col">Message</th>
             <th scope="col">Email</th>
@@ -32,7 +34,7 @@
         <tbody>
             {% for i in te %}
             
-          <tr>
+          <tr style="background-color: black;font-size: large;color: white;">
             
             <td>{{i.tempsignup.first_name}} {{i.tempsignup.last_name}}</td>
             <td>{{i.message}}</td>
@@ -54,7 +56,7 @@
           </tr>
           {% endfor %}
         </tbody>
-      </table>
+      </table></div>
 </div>
 
 

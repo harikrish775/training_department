@@ -2,15 +2,32 @@
 {% block content %}
 {% load static %}
 
+<style>
+#kun a{
+    padding: 50px;
+    font-size: 30px;
+    margin-top: 200px ;
+    background-color: darkcyan;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 2px 3px 7px black;
+}
+#kun a:hover{
+    box-shadow: 2px 3px 7px cyan;
+    color: cyan;
+}
+</style>
+
 <div class="container col-10">
     <div class="row" style="min-height: 30vh;"></div>
 <center>
-    <div class="row" style="margin: 10px;">
+    <div class="row" style="margin: 10px;" id="kun">
         <div class="col">
-            <a href="{% url 'admin_assign_dep_trainee' %}" style="font-size: 50px;" >Assign Department For Trainee's</a>
+            <a href="{% url 'admin_assign_dep_trainee' %}" >Assign Department For Trainee's</a>
         </div>
         <div class="col">
-            <a href="{% url 'admin_assign_department' %}" style="font-size: 50px;">Assign Department For Trainer's</a>
+            <a href="{% url 'admin_assign_department' %}" >Assign Department For Trainer's</a>
         </div>
     </div>
 </center>

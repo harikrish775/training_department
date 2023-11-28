@@ -151,3 +151,73 @@
       {% block content %}
       {% endblock %}
     </div>
+
+    <-------------------trainer navbar (4)---------------------------->
+    <nav class="col-md-2 d-none d-md-block bg-dark sidebar" id="vbar" style="min-height: 90vh; display: flex;" >
+            <div class="sidebar-sticky">
+              <br><br><br>
+                <ul class="nav flex-column" id="un" >
+                    
+                    <li class="nav-item">
+                      
+                           
+                    </li>
+                  
+
+                  <li class="nav-item">
+                    <a class="nav-link active"  href="{% url 'trainerdash' %}" style="color: green;">
+                        DASHBOARD
+                    </a>
+                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"  href="{% url 'trainer_inbox' %}">
+                            INBOX
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'trainer_class_schedule' %}" style="color: green;">
+                          CLASS SCHEDULE
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'managetrainee' %}" style="color: green;">
+                        MANAGE TRAINEE'S
+                    </a>
+                </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'trainer_assignproject' %}" style="color: green;">
+                            ASSIGN PROJECTS
+                        </a>    
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'trainer_view_project' %}">
+                          VIEW SUBMITTED PROJECTS 
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'trainer_view_self_attendence' %}">
+                        MY ATTENDENCE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'trainer_markattendence' %}" style="color: green;">
+                        TRAINEE ATTENDENCE
+                    </a>
+                </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'trainerleave' %}" style="color: green;">
+                        REQUEST LEAVE
+                    </a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="">
+                      ASSIGN TRAINEE
+                  </a>
+              </li> -->
+                
+                </ul>
+            </div>
+        </nav>
+
+        <---------------trainer navbar end---------------------------------->

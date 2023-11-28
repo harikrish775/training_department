@@ -3,10 +3,10 @@
 {% load static %}
 
 <div class="container-fluid col-10"><br><br><br><br><br>
-    <div class="container-fluid col-10" style="border-radius: 10px;box-shadow: 2px 4px 8px black;">
+    <div class="container-fluid col-10" style="border-radius: 10px;box-shadow: 2px 4px 8px black;background-color: white;">
         <form action="{% url 'admin_view_trainerattendence_action' %}" method="post" style="padding: 20px;">
             {% csrf_token %}
-            <center><h3>View Trainer Attendence</h3></center><br><br>
+            <center><h2>View Trainer Attendence</h2></center><br><br>
             <center class="form-group">
                 <select name="trid" id="" class="form-control">
                     {% for i in tr %}
@@ -24,7 +24,7 @@
                     <input type="date" class="form-control" name="end">
                 </div>
             </div><br>
-            <center><button type="submit" class="btn btn-info" style="width: 50%;">View</button></center>
+            <center><button type="submit" class="btn btn-warning" style="width: 50%;border-radius: 50px;">View</button></center>
         </form>
     </div>
 </div>

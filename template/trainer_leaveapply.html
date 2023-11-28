@@ -1,28 +1,40 @@
 {% extends 'navbar4.html' %}
 {% block content %}
 {% load static %}
-
-<div class="container col-10">
-    <form action="{% url 'applyleaveaction' %}" method="post">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col form-group">
-                <label for="">Reason</label>
-                <input type="text" name="reason" class="form-control">
+<style>
+    label{
+        font-weight: 500;
+        font-size: larger;
+    }
+</style>
+<div class="container col-10"><br><br><br>
+    <div class="container">
+        <form action="{% url 'applyleaveaction' %}" method="post" style="background-color: rgba(0, 0, 0, 0.808);padding: 20px;border-radius: 10px;color: white;">
+            <center><h1>Request Leave</h1></center>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col form-group">
+                    <label for="">From</label>
+                    <input type="date" name="from" class="form-control">
+                </div>
+                
             </div>
-        </div>
-        <div class="row">
-            <div class="col form-group">
-                <label for="">from</label>
-                <input type="date" name="from" class="form-control">
+            <div class="row">
+                <div class="col form-group">
+                    <label for="">To</label>
+                    <input type="date" name="to" class="form-control">
+                </div>
             </div>
-            <div class="col form-group">
-                <label for="">To</label>
-                <input type="date" name="to" class="form-control">
+            <div class="row">
+                <div class="col form-group">
+                    <label for="">Reason</label>
+                    <textarea style="font-size: larger;" name="reason" class="form-control" cols="10" rows="5" ></textarea>
+                </div>
             </div>
-        </div>
-        <button type="submit" class="btn btn-info">Apply Leave</button>
-    </form>
+            
+            <center><button type="submit" class="btn btn-warning" style="width: 50%;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-weight: 500;">Apply Leave</button></center>
+        </form><br><br><br>
+    </div>
 
 </div>
 

@@ -3,16 +3,18 @@
 {% load static %}
 
 <div class="container col-10">
-    <table class="table">
-        <tr>
-            <th>Trainee Name</th>
+    <div class="container table-responsive"><br>
+        <h1>Mark Attendence</h1><br>
+    <table class="table"> 
+        <tr style="background-color: burlywood;font-size: larger;">
+            <th >Trainee Name</th>
             <th>Date</th>
             <th colspan="2">Attendence</th>
         </tr>
         {% for i in aten %}
         <form action="{% url 'trainer_markaction' i.id %}" method="POST">
             {% csrf_token %}
-        <tr>
+        <tr style="background-color: black;color: white;font-size: larger;">
             <td>{{i.customuser.first_name}} {{i.customuser.last_name}}</td>
             <td ><input type="date" value="{{t}}" name="tdate" class="form-control"></td>
             <!-- {% if d.attendence == '1' %}
@@ -28,10 +30,25 @@
             
         </tr>
         </form>
+
+        
+
+
         {% endfor %}
     </table>
 </div>
+</div>
 
+{% if error == "yes" %}
+        <script>
+	   alert('Already Marked');
+       window.location=("{% url 'trainer_markattendence' %}");
+        </script>
+        {% endif %}
 
-
+        {% if error == "no" %}
+            <script>
+                alert('Successfully Marked');
+            </script>
+        {% endif %}
 {% endblock %}

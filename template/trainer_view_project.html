@@ -2,34 +2,32 @@
 {% block content %}
 {% load static %}
 
-<div class="container-fluid col-10">
-<div class="container-fluid table-responsive">
-    <form action="" method="post">{% csrf_token %}
-        <h3>Submitted Projects</h3>
-        <div class="row">
+<div class="container col-10">
 
-            <table class="table table-dark">
-                
-                  <tr>
-                    <th>Trainee</th>
-                    
-                  </tr>
-
-                {% for i in p %}
-                  <tr>
-                    <td><img src="{{i.image.url}}" width="150" height="200" alt=""></td>
-                    <td><label for="" style="font-size: 50px;">{{i.customuser.first_name}} {{i.customuser.last_name}}  </label><p style="font-size: larger;">Joined on : {{i.joindate}}</p></td>
-                    <td><a  href="{% url 'trainer_viewaction_project' i.id %}" style="font-size: 35px;text-decoration: none;">  View submitted projects </a></td>
-                  </tr>
-                {% endfor %}
-                </select>
+      <form action="" method="post">{% csrf_token %}
+          <h1>Submitted Projects</h1>
+          <div class="row">
+            <div class="col table-responsive">
+              <table class="table table-dark">
+                  
+                    <tr>
+                      <th style="font-size: larger;">Trainees</th>
+                      
+                    </tr>
+  
+                  {% for i in p %}
+                    <tr>
+                      <td><img src="{{i.image.url}}" width="150" height="200" alt=""></td>
+                      <td><label for="" style="font-size: 50px;">{{i.customuser.first_name}} {{i.customuser.last_name}}  </label><p style="font-size: larger;">Joined on : {{i.joindate}}</p></td>
+                      <td><a class="btn btn-outline-primary p-3" href="{% url 'trainer_viewaction_project' i.id %}" style="font-size: 35px;text-decoration: none;border-radius: 50px;">  View projects </a></td>
+                    </tr>
+                  {% endfor %}
+                  </select>
+                </table>
+              </div>
             </div>
-            
-        </div>
-        
-        
-    </form>
-</div>
-</div>
+               </form>
+  </div>
+  
 
 {% endblock %}

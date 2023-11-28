@@ -82,11 +82,12 @@ urlpatterns = [
     path('admin_assign_department_action/<int:pk>',views.admin_assign_department_action,name='admin_assign_department_action'),
     path('admin_assign_dep_trainee',views.admin_assign_dep_trainee,name='admin_assign_dep_trainee'),
     path('admin_assign_dep_trainee_action/<int:pk>',views.admin_assign_dep_trainee_action,name='admin_assign_dep_trainee_action'),
+    path('trainer_view_trainee_card/<int:pk>',views.trainer_view_trainee_card,name='trainer_view_trainee_card'),
+    path('trainer_trainee_attendence',views.trainer_trainee_attendence,name='trainer_trainee_attendence'),
+    path('trainer_view_trainee_attendence',views.trainer_view_trainee_attendence,name='trainer_view_trainee_attendence'),
+    path('trainer_view_trainee_attendence_action',views.trainer_view_trainee_attendence_action,name='trainer_view_trainee_attendence_action'),
+    path('deletedepp/<int:pk>',views.deletedepp,name='deletedepp'),
     # path('qw',views.qw,name='qw'),
-    
-    
-    
-    
     
 
 

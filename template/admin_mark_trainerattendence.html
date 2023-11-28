@@ -2,10 +2,12 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10 table-responsive">
-    <h3>Mark Attendence</h3>
+<div class="container col-10 "><br>
+    <h1 style="margin-left: 60px;" >Mark Attendence</h1><br>
+    <div class="container table-responsive ">
+    
     <table class="table">
-        <tr class="table-dark" style="color: black;font-size: larger;">
+        <tr style="color: black;font-size: larger;background-color: burlywood;">
             <th>Trainer Name</th>
             <th>Date</th>
             <th colspan="2">Attendence</th>
@@ -13,7 +15,7 @@
         {% for i in ho %}
         <form action="{% url 'admin_mark_trainerattendence_action' i.id %}" method="POST">
             {% csrf_token %}
-        <tr>
+        <tr style="background-color: white;font-size: larger;" >
             <td>{{i.customuser.first_name}} {{i.customuser.last_name}}</td>
             <td ><input type="date" value="{{t}}" name="tdate" class="form-control"></td>
             <!-- {% if d.attendence == '1' %}
@@ -31,6 +33,7 @@
         </form>
         {% endfor %}
     </table>
+</div>
 </div>
 
 {% if error == "no" %}

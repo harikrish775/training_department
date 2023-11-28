@@ -2,19 +2,35 @@
 {% block content %}
 {% load static %}
 
-<div class="container row-5 " >
-    <center><h1>New department</h1></center>
-    <form action="{% url 'depadd' %}" method="post">
+<div class="container row-5 " ><br><br><br><br><br>
+    
+    <form action="{% url 'depadd' %}" method="post" style="box-shadow: 2px 4px 8px black; padding: 20px;background-color: white;border-radius: 10px;">
+        <center><h1>New department</h1></center>
+        
+        
+
         {% csrf_token %}
         <div class="form-group">
-            <label for="">department</label>
+            <label for="" style="font-size: larger;">Department</label>
             <input type="text" name="dept" class="form-control">
-        </div>
+        </div><br>
         
-        <center><button type="submit" class="btn btn-info" style="width: 50%;">add</button></center>
+        <center><button type="submit" class="btn btn-success" style="width: 50%;">add</button></center><br><br> 
+        <center><div class="dropdown show ">
+            <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              View Departments
+            </a>
+          
+            <div class="dropdown-menu bg-dark" style="color: white;padding: 5px 10px;" aria-labelledby="dropdownMenuLink">
+              {% for i in dep %}
+              <label >{{i.departmentname}}</label><a href="{% url 'deletedepp' i.id %}" style="float: right;color: red;"><i class="fa-solid fa-trash-can"></i></a><br>
+              {% endfor %}
+              
+            </div>
+          </div></center>
     </form>
 </div>
-
+<br><br><br><br>
     {% if error == "no" %}
         <script>
         alert('Added Successfully');
@@ -24,7 +40,15 @@
 
     {% if error == "yes" %}
         <script>
-            alert('Something went wrong, Try Again');
+            alert('Please enter a department');
         </script>
     {% endif %}
+
+    {% if error == "del" %}
+    <script>
+        alert('Successfully Deleted');
+    </script>
+    {% endif %} 
+
+
     {% endblock %}

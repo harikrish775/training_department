@@ -11,7 +11,11 @@
             <th>status</th>
             <th>action</th>
         </tr>
+        
         {% for v in v %}
+        {% for sp in sp %}
+        {% if v.id   %}
+        
         <tr>
             <td>{{v.projectname}}</td>
             <td>{{v.startdate}}</td>
@@ -22,7 +26,7 @@
             <td>completed {{v.status}}</td>a
             {% endif %}
             <td><a href="{% url 'submittask' v.id %}" class="btn btn-outline-success">Submit</a></td>
-        </tr>
+        {% endfor %}
         {% endfor %}
     </table>
 </div>

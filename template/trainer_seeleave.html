@@ -3,28 +3,33 @@
 {% load static %}
 
 <div class="container col-10">
+<div class="container"><br><br>
+    <center><h1>Applied Leaves</h1></center><br>
     <table class="table">
-        <tr class="">
-        <th>from</th>
-        <th>to</th>
-        <th>reason</th>
+        <tr style="font-size: larger;background-color: burlywood;">
+        <th>From</th>
+        <th>To</th>
+        <th>Reason</th>
         <th>Action</th>
         </tr>
 
         {% for i in leave %}
-        <tr>
+        <tr style="font-size: larger;background-color: black;color: white;">
         <td>{{i.from_date}}</td>
         <td>{{i.to_date}}</td>
         <td>{{i.reason}}</td>
-        {% if i.is_approved %}
-        <td>approved</td>
+        {% if i.is_approved == True %}
+        <td><button class="btn btn-outline-success" disabled >Approved</button></td>
+        {% elif i.is_approved == False %}
+        <td><button class="btn btn-outline-danger" disabled >Rejected</button></td>
         {% else %}
-        <td><a href="" class="btn btn-outline-danger" style="pointer-events: none;">pending</a></td>
+        <td><button class="btn btn-outline-warning" disabled >Pending</button></td>
         {% endif %}
         </tr>
         {% endfor %}
 
     </table>
+</div>
 </div>
 
 {% endblock %}

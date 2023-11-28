@@ -2,8 +2,17 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10">
-    <form action="{% url 'trainer_assignproject_action' %}" method="post">
+<style>
+    body{
+        background-image: linear-gradient(rgba(0, 0, 0, 0.75),rgba(0, 0, 0, 0.75)),url('{% static "image/ani2.jpg" %}');
+        
+    }
+</style>
+
+<div class="container col-10"><br><br><br><br>
+    
+    <form action="{% url 'trainer_assignproject_action' %}" method="post" class="container col-8" style="box-shadow:2px 4px 7px black;padding: 20px;border-radius: 10px;background-color: rgba(255, 255, 255, 0.75);font-weight: 500;">
+        <center><h2>Assign Projects</h2></center>
         {% csrf_token %}
         <div class="form-group">
             <label for="">Project name</label>
@@ -18,8 +27,8 @@
                 <label for="">End date</label>
                 <input type="date" name="edate" class="form-control">
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary">assign</button>
+        </div><br>
+        <center><button type="submit" class="btn btn-primary" style="width: 50%;">Assign</button></center>
     </form>
 </div>
 

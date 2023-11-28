@@ -1,0 +1,31 @@
+{% extends 'navbar4.html' %}
+{% block content %}
+{% load static %}
+<style>
+    th{
+        font-size: x-large;
+    }
+    td{
+        font-size: larger;
+    }
+</style>
+<div class="container-fluid col-10"><br><br><br><br>
+    <div class="container-fluid col-6" style="box-shadow: 2px 4px 8px green; border-radius: 10px;"><br>
+        <center><h2>Your attendence</h2></center><br><br>
+        <table class="table ">
+            <tr>
+                <th>Date</th>
+                <th>status</th>
+                
+            </tr>
+            {% for i in s %}
+            <tr>
+                <td class="col">{{i.date}}</td>
+                <td class="col-2">{% if i.attendence == True %}<button class="btn btn-outline-success" disabled >Present</button>{% elif i.attendence == False %}<button class="btn btn-outline-danger" disabled >Absent</button>{% else %}<button class="btn btn-outline-secondary" disabled >Not Marked</button>{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>  
+</div>
+
+{% endblock %}

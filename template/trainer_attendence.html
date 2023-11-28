@@ -2,14 +2,29 @@
 {% block content %}
 {% load static %}
 <style>
-    #lo a{
-        font-size: 45px;
+   
+    #kun a{
+        margin-top: 200px;
+        padding: 50px;
+        background-color: aliceblue;
+        font-size: x-large;
+        border-radius: 10px;
+        text-decoration: none;
+        color: black;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        text-shadow: 2px 1px black;
+        box-shadow: 2px 3px 6px black;
+
+    }
+    #kun a:hover{
+        text-shadow: 0px 0px black;
+        font-weight: 500;
     }
 </style>
 <div class="container col-10">
     <div class="row" style="min-height: 30vh;"></div>
     <center>
-        <div id="lo" class="container row">
+        <div  class="container row" id="kun">
             <div class="col form-group">
                 <a href="{% url 'admin_mark_trainerattendence' %}">Mark attendence</a>
             </div>

@@ -5,10 +5,10 @@
 <div class="container col-10">
     <div class="container">
 
-        <div class="row ">
-            <h3>Trainer Leave Request</h3>
+        <div class="row table-responsive "><br>
+            <h3>Trainer Leave Request</h3><br>
             <table class="table">
-                <tr>
+                <tr style="background-color: burlywood;font-size: larger;">
                     <th>Name</th>
                     <th>Reason</th>
                     <th>From</th>
@@ -17,19 +17,19 @@
                     <th colspan="2">Action</th>
                 </tr>
                 {% for i in leave %}
-                <tr>
+                <tr style="background-color: white;font-size: larger;">
                     <td>{{i.trainer.customuser.first_name}}{{i.trainer.customuser.last_name}}</td>
                     <td>{{i.reason}}</td>
                     <td>{{i.from_date}}</td>
                     <td>{{i.to_date}}</td>
-                    <td></td>
+                    <td>{{i.datedifference}}</td>
 
                     {% if i.is_approved == True %}
                     <td ><button href="" class="btn btn-outline-success" disabled>Approved</button></td>
-                    
+                    <td></td>
                     {% elif i.is_approved == False %}
                     <td><button href="" class="btn btn-outline-danger" disabled>Rejected</button></td>
-                    
+                    <td></td>
                     {% else %}
                     <td ><a href="{% url 'admin_approve_leave' i.id %}" class="btn btn-outline-success">Approve</a></td>
                     <td><a href="{% url 'admin_reject_leave' i.id %}" class="btn btn-outline-danger">Reject</a></td>
@@ -39,12 +39,12 @@
             </table>
 
             
-        </div>
-        <div class="row ">
-            <h3>Trainee Leave Request</h3>
+        </div><br><br>
+        <div class="row table-responsive ">
+            <h2>Trainee Leave Request</h2><br>
 
             <table class="table">
-                <tr>
+                <tr style="background-color: brown;font-size: larger;color: white;">
                     <th>Name</th>
                     <th>Reason</th>
                     <th>From</th>
@@ -53,18 +53,18 @@
                     <th>Action</th>
                 </tr>
                 {% for i in bleave %}
-                <tr>
+                <tr style="background-color: white;font-size: larger;">
                     <td>{{i.trainee.customuser.first_name}}{{i.trainee.customuser.last_name}}</td>
                     <td>{{i.reason}}</td>
                     <td>{{i.from_date}}</td>
                     <td>{{i.to_date}}</td>
-                    <td></td>
+                    <td>{{i.datedifference}}</td>
                     {% if i.is_approved == True %}
                     <td ><button href="" class="btn btn-outline-success" disabled>Approved</button></td>
-                    
+                    <td></td>
                     {% elif i.is_approved == False %}
                     <td><button href="" class="btn btn-outline-danger" disabled>Rejected</button></td>
-                    
+                    <td></td>
                     {% else %}
                     <td ><a href="{% url 'admin_approve_leave_trainee' i.id %}" class="btn btn-outline-success">Approve</a></td>
                     <td><a href="{% url 'admin_reject_leave_trainee' i.id %}" class="btn btn-outline-danger">Reject</a></td>

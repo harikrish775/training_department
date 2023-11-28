@@ -2,9 +2,145 @@
 {% block content %}
 {% load static %}
 
+<style>
+  
+  img {
+  width: 100%;
+  height: 434px;
+}
+
+.bg-black {
+  background: #000;
+}
+
+.skill-block {
+  width: 30%;
+}
+
+@media (min-width: 991px) and (max-width:1200px) {
+  .skill-block {
+    padding: 32px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .skill-block {
+    padding: 56px !important;
+  }
+}
+</style>
+
+
+<div class="container col-10">
+<div class="container "  >
+  <!-- <a href="{% url 'approve' %}" class="btn btn-warning" style="float: right;">back</a> -->
+    <br><br><br><br>
 
 
 
+    <div class="container mt-5 mb-5" >
+      <div class="row no-gutters" >
+          <div class="col-md-4 col-lg-4" ><img src="{{i.tempsignup.image.url}}"></div>
+          <div class="col-md-8 col-lg-8">
+              <div class="d-flex flex-column">
+                  <div class="d-flex flex-row justify-content-between align-items-center p-5 bg-dark text-white">
+                    
+                      <h3 class="display-5">{{i.sender.first_name}} {{i.sender.last_name}} <button href="" class="btn btn-success" disabled>Approved</button></h3>
+                    
+                    
+                    
+                    </div>
+
+                  <div class="p-3 pl-4 mb-2 bg-black text-white ">
+                      <h6>User Details</h6><br>
+                      <div class="row" >
+                        <h3 style="text-align: center;"></h3>
+                      
+                        <!-- <div class="col"><label scope="col">ID:  </label></div><div class="col" >{{i.tempsignup.id}}</div> -->
+                        
+                        
+                      
+                    </div>
+
+                    <div class="row" >
+                    
+                    <div class="col" style="border-left: 3px solid rgb(222, 216, 216) ;">Age: </div>
+                                              <div class="col" scope="col">{{i.tempsignup.age}}</div>
+                    </div>
+
+                    
+                      
+                      <!-- <div class="row mt-2">
+                        <div class="col" scope="row" colspan="1">Department: </div>
+                        <div class="col" colspan="">{{i.department.departmentname}}</div>
+                        
+                        
+                      </div> -->
+                      <div class="row mt-2">
+                        <div class="col" scope="row" colspan="1">Gender: </div>
+                        <div class="col" colspan="3">{{i.tempsignup.gender}}</div>
+                        
+                      </div>
+                      <div class="row mt-2">
+                        <div class="col" scope="row" colspan="1">Email: </div>
+                        <div class="col" colspan="3">{{i.sender.email}}</div>
+                        
+                      </div>
+                      <div class="row mt-2">
+                        <div class="col" scope="row" colspan="1">Mobile No: </div>
+                        <div class="col" colspan="3">{{i.tempsignup.contact}}</div>
+                        
+                      </div>
+                      
+                      <div class="row mt-2">
+                        
+                        <div class="col" scope="row" colspan="1">Date Appplied: </div>
+                        <div class="col" colspan="3">{{i.tempsignup.joindate}}</div>
+                        
+                      </div><br><br>
+                  </div>
+                  <!-- <div class="d-flex flex-row text-white">
+                      <div class="p-4 bg-primary text-center skill-block">
+                          <h4>90%</h4>
+                          <h6>Bootstrap</h6>
+                      </div>
+                      <div class="p-3 bg-success text-center skill-block">
+                          <h4>70%</h4>
+                          <h6>Jquery</h6>
+                      </div>
+                      <div class="p-3 bg-warning text-center skill-block">
+                          <h4>80%</h4>
+                          <h6>HTML</h6>
+                      </div>
+                      <div class="p-3 bg-danger text-center skill-block">
+                          <h4>75%</h4>
+                          <h6>PHP</h6>
+                      </div>
+                  </div>
+              </div> -->
+          </div>
+      </div>
+  </div>
+</div><br><br><br><br><br>
+</div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <div class="container col-5" id="b">
     <br><br><br><br>
     <center><h3>{{i.sender.first_name}} {{i.sender.last_name}} </h3></center>
@@ -21,7 +157,7 @@
                         
         </div>
         
-        <div class="col-6" >
+        <div class="col-6" > 
             <table class="table">
                 <thead>
                     <h3 style="text-align: center;"></h3>
@@ -39,8 +175,7 @@
                   <tr>
                     <th scope="row" colspan="1">Department: </th>
                     <td colspan="">{{i.tempsignup.department.departmentname}}</td>
-                    <!-- <th scope="row" colspan="1" style="border-left: 3px solid rgb(222, 216, 216) ;">Gender: </th>
-                    <td colspan="3">{{i.tempsignup.gender}}</td> -->
+                    
                     
                   </tr>
                   <tr>
@@ -70,7 +205,8 @@
               <br><br>
         </div>
     </div>
-</div>
+</div> -->
 
 
-{% endblock %}
+
+

@@ -132,6 +132,7 @@ class TrainerLeave(models.Model):
     from_date = models.DateField()
     to_date = models.DateField()
     reason = models.TextField()
+    datedifference = models.IntegerField(null=True)
     is_approved = models.BooleanField(null=True)
     is_read = models.BooleanField(default=False)
 
@@ -140,6 +141,7 @@ class TraineeLeave(models.Model):
     from_date = models.DateField()
     to_date = models.DateField()
     reason = models.TextField()
+    datedifference = models.IntegerField(null=True)
     is_approved = models.BooleanField(null=True)
     is_read = models.BooleanField(default=False)
 
@@ -149,6 +151,11 @@ class Class_schedule(models.Model):
     link = models.CharField(max_length=255)
     trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
 
+class Class_schedule(models.Model):
+    topic = models.CharField(max_length=255)
+    date = models.DateField()
+    link = models.CharField(max_length=255)
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
 
 
 

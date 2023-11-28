@@ -1,16 +1,52 @@
 {% extends 'navbar4.html' %}
 {% block content %}
 {% load static %}
+<style>
+#kun a{
+    padding: 50px;
+    
+    border-radius: 10px;
+    font-size: x-large;
+    color: black;
+    
+    box-shadow: 0px 4px 6px black;
+    
+}
+#kun a:hover{
+    border: 2px solid gray;
+    text-decoration: none;
+    box-shadow: 5px 5px 10px white;
+    color: white;
+    font-weight: 500;
+    
+}
+
+#a1{
+    background-color: rgb(220, 5, 5,0.8);
+    margin-top: 200px;
+    
+}
+#a2{
+    background-color: rgba(255, 255, 1, 0.8);
+    margin-top: 200px;
+}
+
+#kun div{
+    margin-top: 200px;
+}
+</style>
 
 <div class="container col-10">
-    <div class="row">
+<div class="container">
+    <div class="row" id="kun">
         <div class="col">
-            <a href="{% url 'trainerleaveapply' %}">Apply leave</a>
+            <center><a id="a1" href="{% url 'trainerleaveapply' %}">Apply Leave</a></center>
         </div>
         <div class="col">
-            <a href="{% url 'trainer_seeleave' %}">see</a>
+            <center><a id="a2" href="{% url 'trainer_seeleave' %}">Applied Leaves</a></center>
         </div>
-    </div>
+    </div><br><br><br><br><br><br><br>
+</div>
 </div>
 
 {% endblock %}

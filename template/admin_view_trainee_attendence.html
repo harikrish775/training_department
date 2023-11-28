@@ -2,13 +2,24 @@
 {% block content %}
 {% load static %}
 
+<style>
+    body{
+        color: white;
+    }
+    form{
+        font-size: larger;
+    }
+</style>
 <div class="container-fluid col-10">
-    <div class="container-fluid">
-        <form action="{% url 'admin_view_trainee_attendence_action' %}" method="post" style="padding: 20px;">
+    <div class="container-fluid"><br><br><br><br>
+        <form action="{% url 'admin_view_trainee_attendence_action' %}" method="post" style="padding: 20px;background-color: black;border-radius: 10px;box-shadow: 2px 3px 6px white;">
             {% csrf_token %}
-            <center><h3>View Trainee Attendence</h3></center><br><br>
+            
+            <center><h2 >View Trainee Attendence</h2></center><br>
+            <label for="">Select Trainee</label>
             <center class="form-group">
-                <select name="trrid" id="" class="form-control">
+                
+                <select name="trrid" id="" class="form-control"> 
                     {% for i in s %}
                     <option value="{{i.id}}">{{i.customuser.first_name}} {{i.customuser.last_name}}</option>
                     {% endfor %}
@@ -23,8 +34,8 @@
                     <label for="">To</label>
                     <input type="date" class="form-control" name="end">
                 </div>
-            </div>
-            <center><button type="submit" class="btn btn-info" style="width: 50%;">View</button></center>
+            </div><br>
+            <center><button type="submit" class="btn " style="width: 50%;background-color: brown;border-radius: 20px;color: burlywood;font-weight: 500;">View</button></center><br>
         </form>
     </div>
 </div>

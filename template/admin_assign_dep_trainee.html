@@ -3,16 +3,18 @@
 {% load static %}
 
 
-<div class="container col-10 table-responsive" >
-  <center><h2>Available Trainers</h2></center>
+<div class="container col-10 " ><br>
+  <center><h1>Available Trainers</h1></center><br>  
+  <div class="container table-responsive">
+  
   
     <table class="table"  >
         <thead>
-          <tr>
+          <tr style="background-color: burlywood;font-size: larger;">
             <th scope="col">Full name</th>
-            <th scope="col">email</th>
-            <th>contact</th>
-            <th>profile picture</th>
+            <th scope="col">Email</th>
+            <th>Contact</th>
+            <th>Profile picture</th>
             <th>Department</th>   
             <th>Views</th>
             <th colspan="2">Assign</th>         
@@ -23,7 +25,7 @@
             <form action="{% url 'admin_assign_dep_trainee_action' i.id %}" method="post">
                 {% csrf_token %}
 
-          <tr>
+          <tr style="background-color: white;font-size:larger ;">
             
             <td>{{i.customuser.first_name}} {{i.customuser.last_name}}</td>
             <td>{{i.customuser.email}}</td>
@@ -43,7 +45,7 @@
           {% endfor %}
         </tbody>
       </table>
-    
+  </div>
 </div>
 
 

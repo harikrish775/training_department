@@ -2,19 +2,40 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10">
-    <div class="row" style="min-height: 30vh;"></div>
-<center>
-    <div class="row" style="margin: 10px;">
-        <div class="col">
-            <a href="{% url 'traineerecord' %}" style="font-size: 50px;" >Trainees</a>
-        </div>
-        <div class="col">
-            <a href="{% url 'trainerrecord' %}" style="font-size: 50px;">Trainers</a>
-        </div>
-    </div>
-</center>
-</div>
+<style>
+#kun a{
+    padding: 50px;
+    background-color: darkolivegreen;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    box-shadow: 3px 3px 8px darkkhaki;
+    border-radius: 10px;
+}
+#kun a:hover{
+    background-color: darkkhaki;
+    color: darkolivegreen;
+    box-shadow: 3px 3px 8px black;
+    
+}
+#kun div{
+    margin-top: 250px;
+}
+</style>
 
+<div class="container col-10">
+<div class="container" >
+
+    <div class="row" id="kun">
+        <div class="col">
+           <center> <a href="{% url 'traineerecord' %}" style="font-size: 50px;" >Trainees</a></center>
+        </div>
+        <div class="col">
+            <center><a href="{% url 'trainerrecord' %}" style="font-size: 50px;">Trainers</a></center>
+        </div>
+    </div><br><br>
+
+</div>
+</div>
 
 {% endblock %}
