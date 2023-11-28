@@ -428,11 +428,12 @@ def approveaction(request,pk):
     n = Notification.objects.get(id=pk)
     
     if n.tempsignup.is_special :
+        passwordd = generate_password()
         trainer = TempSignup.objects.get(id=n.tempsignup_id)
         if CustomUser.objects.filter(email=trainer.email).exists():
             error = 'yes'
         else:
-            userr = CustomUser.objects.create_user(first_name=trainer.first_name,last_name=trainer.last_name,email=trainer.email,username=trainer.username,password=trainer.password,is_special=trainer.is_special,date_joined=trainer.joindate)
+            userr = CustomUser.objects.create_user(first_name=trainer.first_name,last_name=trainer.last_name,email=trainer.email,username=trainer.username,password=passwordd,is_special=trainer.is_special,date_joined=trainer.joindate)
             userr.save()
             approved_trainer = Trainer(contact=trainer.contact,age=trainer.age,gender=trainer.gender,joindate=trainer.joindate,image=trainer.image,customuser=userr,degree=trainer.degree)
             approved_trainer.save()
@@ -445,7 +446,7 @@ def approveaction(request,pk):
             n.save()
 
             subject = 'Your approval has been successful'
-            message = f'Hy {n.sender.first_name} {n.sender.last_name}, \n Congratulations on being a part of ALTOS family. \n Your Login Credentials : \n Username: {n.sender.email} \n Password: {trainer.password} '
+            message = f'Hy {n.sender.first_name} {n.sender.last_name}, \n Congratulations on being a part of ALTOS family. \n Your Login Credentials : \n Username: {n.sender.email} \n Password: {passwordd} '
             recipient = n.sender.email
             send_mail(subject,message,settings.EMAIL_HOST_USER,[recipient])
             messages.info(request,f'{n.sender.first_name}{n.sender.last_name} has been approved')
@@ -453,11 +454,12 @@ def approveaction(request,pk):
         
     
     else:
+        passwords = generate_password()
         trainee = TempSignup.objects.get(id=n.tempsignup_id)
         if CustomUser.objects.filter(email=trainee.email).exists():
             error = 'yes'
         else:
-            userr = CustomUser.objects.create_user(first_name=trainee.first_name,last_name=trainee.last_name,email=trainee.email,username=trainee.username,password=trainee.password,is_special=trainee.is_special,date_joined=trainee.joindate)
+            userr = CustomUser.objects.create_user(first_name=trainee.first_name,last_name=trainee.last_name,email=trainee.email,username=trainee.username,password=passwordd,is_special=trainee.is_special,date_joined=trainee.joindate)
             userr.save()
             approved_trainee = Trainee(contact=trainee.contact,age=trainee.age,gender=trainee.gender,joindate=trainee.joindate,image=trainee.image,customuser=userr,degree=trainee.degree)
             approved_trainee.save()
@@ -468,7 +470,7 @@ def approveaction(request,pk):
             n.save()
 
             subject = 'Your approval has been successful'
-            message = f'Hy {n.sender.first_name} {n.sender.last_name}, \n Congratulations on being a part of ALTOS family. \n Your Login Credentials : \n Username: {n.sender.email} \n Password: {trainee.password} '
+            message = f'Hy {n.sender.first_name} {n.sender.last_name}, \n Congratulations on being a part of ALTOS family. \n Your Login Credentials : \n Username: {n.sender.email} \n Password: {passwords} '
             recipient = n.sender.email
             send_mail(subject,message,settings.EMAIL_HOST_USER,[recipient])
             messages.info(request,f'{n.sender.first_name}{n.sender.last_name} has been approved')

@@ -14,11 +14,24 @@
   th{
     font-size: larger;
   }
+
+  ::-webkit-scrollbar {
+  width: 5px; /* width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: white; /* color of the thumb */
+  border-radius: 10px; /* rounded corners of the thumb */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* color of the track */
+}
 </style>
 
 <div class="container col-10 table-responsive">
   <br>
-  <div class="container table-responsive"  >
+  <div class="container table-responsive" style="overflow-y: scroll; max-height: 90vh;" >
   <h1>Approve/Disapprove</h1><br>
     <table class="table" style="overflow-y: scroll;">
         <thead >

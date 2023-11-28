@@ -138,39 +138,39 @@
                         <br>
                         <ul class="nav flex-column" id="un" >
                           <li class="nav-item">
-                            <a class="nav-link active"  href="{% url 'trainee_dash' %}" style="color: green;">
-                                DASHBOARD
+                            <a class="nav-link active"  href="{% url 'trainee_dash' %}" >
+                              <i class="fa-solid fa-gauge-simple" style="font-size: larger;color: maroon;"></i> Dashboard
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a class="nav-link active"  href="{% url 'trainee_inbox' %}" style="color: green;">
-                                    INBOX{% if count > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{count}}</span>{% endif %}
+                                <a class="nav-link active"  href="{% url 'trainee_inbox' %}" >
+                                  <i class="fa-regular fa-bell" style="color: white;font-size: larger;"></i> Notification{% if count > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{count}}</span>{% endif %}
                                 </a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{% url 'trainee_project' %}" style="color: green;">
-                                  PROJECTS
+                              <a class="nav-link" href="{% url 'trainee_project' %}" >
+                                <i class="fa-solid fa-bars-progress" style="font-size: larger;color: orange;"></i> Projects
                               </a>
                           </li>
                            
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'trainee_class' %}" style="color: green;"> 
-                                    CLASS SCHEDULE{% if co > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{co}}</span>{% endif %}
+                                <a class="nav-link" href="{% url 'trainee_class' %}" >  
+                                  <i class="fa-solid fa-video" style="font-size: larger;color: lightskyblue;" ></i> Class Schedule{% if co > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{co}}</span>{% endif %}
                                 </a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{% url 'trainee_attendence' %}" style="color: green;">
-                                  ATTENDENCE
+                              <a class="nav-link" href="{% url 'trainee_attendence' %}" >
+                                <i class="fa-solid fa-chart-line" style="font-size: larger;color: coral;"></i> Attendence
                               </a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" href="{% url 'trainee_applyleave' %}">
-                                APPLY LEAVE
+                              <i class="fa-solid fa-mug-saucer" style="font-size: larger;color: greenyellow;"></i>  Apply Leave
                             </a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="{% url 'logoutt' %}">
-                              LOGOUT
+                            <i class="fa-solid fa-person-running" style="font-size: larger;color: red;"></i>  Logout
                           </a>
                       </li>
                         

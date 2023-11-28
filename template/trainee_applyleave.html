@@ -3,26 +3,29 @@
 {% load static %}
 
 <div class="container col-10">
-    <form action="{% url 'trainee_applyleaveaction' %}" method="post">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col form-group">
-                <label for="">Reason</label>
-                <input type="text" name="reason" class="form-control">
+    <div class="container"><br><br><br><br>
+        <form action="{% url 'trainee_applyleaveaction' %}" method="post" style="background-color: black;color: white;border-radius: 10px;padding: 25px;">
+            <center><h2>Apply For Leave</h2>    </center>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col form-group">
+                    <label for="">Reason</label>
+                    <input type="text" name="reason" class="form-control">
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col form-group">
-                <label for="">from</label>
-                <input type="date" name="from" class="form-control">
-            </div>
-            <div class="col form-group">
-                <label for="">To</label>
-                <input type="date" name="to" class="form-control">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-info">Apply Leave</button>
-    </form>
+            <div class="row">
+                <div class="col form-group">
+                    <label for="">from</label>
+                    <input type="date" name="from" class="form-control">
+                </div>
+                <div class="col form-group">
+                    <label for="">To</label>
+                    <input type="date" name="to" class="form-control">
+                </div>
+            </div><br>
+            <center><button type="submit" style="width: 50%;" class="btn btn-dark">Apply Leave</button> </center>
+        </form><br>
+    </div><br><br><br><br><br><br><br><br>
 
 </div>
 

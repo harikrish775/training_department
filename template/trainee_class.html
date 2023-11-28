@@ -3,40 +3,65 @@
 {% load static %}
 
 <div class="container col-10">
-    <table class="table">
-        <h4>Upcoming classes</h4>
-        {% for u in u %}
-        <tr class="row">
-            <td class="col-5">{{u.date}}</td>
-            <td class="col-5">{{u.topic}}</td>
-            <td class="col-2"><button href="{{u.link}}" class="btn btn-warning" disabled>Join</button></td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <table class="table" style="min-height: 25vh;">
-        <h4>Classes Today</h4>
-        {% for t in t %}
+    <div class="container table-responsive">
+        <table class="table" >
+            <h2>Upcoming classes</h2>
+            <thead>
+                <tr style="background-color: burlywood;font-size: larger;">
+                    <th>Date</th>
+                    <th>Topic</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            {% for u in u %}
+            <tr  style="font-size: larger;background-color: white;">
+                <td class="col-5">{{u.date}}</td>
+                <td class="col-5">{{u.topic}}</td>
+                <td class="col-2"><button href="{{u.link}}" class="btn btn-warning" disabled>Join</button></td>
+            </tr>
+            {% endfor %}
+        </table>
+    
         
-        <tr class="row">
-            <td class="col-5">{{t.date}}</td>
-            <td class="col-5">{{t.topic}}</td>
-            <td class="col-2"><a href="{{t.link}}" class="btn btn-warning" target="_blank">Join</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <table class="table" style="min-height: 25vh;">
-        <h4>Completed</h4>
-        {% for f in f %}
-        <tr class="row">
-            <td class="col-5">{{f.date}}</td>
-            <td class="col-5">{{f.topic}}</td>
-            <td class="col-2"><button href="{{f.link}}" class="btn btn-warning" disabled>Join</button></td>
-        </tr>
-        {% endfor %}
-
-    </table>
+    </div>
+    <div class="container table-responsive">
+        <table class="table" >
+            <h2 >Classes Today</h2>
+            <tr style="background-color: orange;font-size: larger;">
+                <th>Date</th>
+                <th>Topic</th>
+                <th>Link</th>
+            </tr>
+            {% for t in t %}
+            
+            <tr style="font-size: larger;background-color: white;">
+                <td class="col-5">{{t.date}}</td>
+                <td class="col-5">{{t.topic}}</td>
+                <td class="col-2"><a href="{{t.link}}" class="btn btn-warning" target="_blank">Join</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    
+        
+    </div>
+    <div class="container table-responsive">
+        <table class="table" >
+            <h2 style="padding: 5px;margin: 0;">Completed</h2>
+            <tr style="background-color: burlywood;font-size: larger;">
+                <th>Date</th>
+                <th>Topic</th>
+                <th>Link</th>
+            </tr>
+            {% for f in f %}
+            <tr style="font-size: larger;background-color: white;">
+                <td class="col-5">{{f.date}}</td>
+                <td class="col-5">{{f.topic}}</td>
+                <td class="col-2"><button href="{{f.link}}" class="btn btn-warning" disabled>Join</button></td>
+            </tr>
+            {% endfor %}
+    
+        </table>
+    </div>
 </div>
 
 {% endblock %}

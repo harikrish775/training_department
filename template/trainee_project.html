@@ -2,15 +2,46 @@
 {% block content %}
 {% load static %}
 
+<style>
+
+#kun a{
+    
+    padding: 50px;
+    /* background-color: rgb(81, 4, 81); */
+    background-image: linear-gradient(to right,lightpink,rgb(81, 4, 81));
+    display: flex;
+    margin-top: 150px;
+
+    color: rgb(81, 4, 81);
+    border-radius: 5px;
+    font-size: x-large;
+    text-decoration: none;
+    border-radius: 100px;
+
+    
+    
+}
+#kun a:hover{
+    box-shadow: 2px 3px 10px lightpink;
+    /* font-size: xx-large; */
+    color: lightpink;
+    background-image: linear-gradient(to right,rgb(81, 4, 81),lightpink);
+    
+}
+
+</style>
+
 <div class="container col-10">
-    <div class="row">
-        <div class="col">
-            <center><a href="{% url 'assignedtask' %}">assinged tasks</a></center>
+    <div class="container" id="kun">
+        <div class="row" >
+            <div class="col">
+                <center><a href="{% url 'assignedtask' %}">Assinged Tasks</a></center>
+            </div>
+            <div class="col">
+                <center><a href="{% url 'completedtask' %}">Completed Task</a></center>
+            </div>
         </div>
-        <div class="col">
-            <center><a href="{% url 'completedtask' %}">completed task</a></center>
-        </div>
-    </div>
+    </div><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 {% endblock %}
