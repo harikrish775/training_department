@@ -17,7 +17,7 @@
     }
 </style>
 <div class="container col-10"><br>
-    <h2 class="ml-4">My Profile <small style="font-size: 15px;"><a href="" id="edit">Edit Profile <i class="fa-regular fa-pen-to-square"></i></a></small></h2>
+    <h2 class="ml-4">My Profile <small style="font-size: 15px;"><a href="{% url 'trainer_editprofile' %}" id="edit">Edit Profile <i class="fa-regular fa-pen-to-square"></i></a></small></h2>
     <div class="row" style="margin: 10px;">
     
     <div class="col ml-3 mt-2 " style=" border-radius: 3px;background-color: rgb(31, 31, 31);">
@@ -25,7 +25,7 @@
         <center><h3>{{t.customuser.first_name}} {{t.customuser.last_name}}</h3></center>
         <center><img src="{{t.image.url}}" width="150" height="150" style="border-radius: 100px;" alt="" ></center><br>
         <center><span><b>Join Date : </b></span> {{t.joindate}}</center><br>
-        <center><span><b>Department : </b></span> {{t.department.departmentname}}</center><br>
+        <!-- <center><span><b>Department : </b></span> {{t.department.departmentname}}</center><br> -->
         
     </div>
 

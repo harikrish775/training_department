@@ -1,19 +1,36 @@
 {% extends 'navbar3.html' %}
 {% block content %}
 {% load static %}
-
+<style>
+    td a{
+        text-decoration: none;
+    }
+    td a:hover{
+        text-decoration: none;
+        color: orange;
+    }
+</style>
 <div class="container col-10">
-    <table class="table">
-        <tr>
-            <th>Notification</th>
+    <div class="container table-responsive">
+        <h1>Notifications</h1>
+        <table class="table">
+            <tr style="background-color: orange;font-size: larger;">
+                <th colspan="2">Messages</th>
+                
+            </tr>
             
-        </tr>
-        {% for i in no %}
-        <tr>
-            <td><a href="" style="color: black;">{{i.message}}</a></td>
-        </tr>
-        {% endfor %}
-    </table>
+            {% for i in dd %}
+            <tr style="background-color: white;font-size: larger;">
+                <td><a href="" style="color: black;">{{i.message}}</a></td>
+                {% if i.is_read == False %}
+                <td><a href="{% url 'trainee_markasread' i.id %}">Mark as Read <i class="fa-regular fa-envelope-open"></i></a></td>
+                {% else %}
+                <td></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 
 {% endblock %}

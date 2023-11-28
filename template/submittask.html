@@ -2,16 +2,16 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10">
-    <center><h3>Submit Project</h3></center><br><br>
-    <div class="container " style="padding: 20px;border-radius: 10px;font-size: larger;">
-        <div class="container">
+<div class="container col-10"><br><br><br><br>
+    
+    <div class="container col-10 " style="padding: 20px;border-radius: 10px;font-size: larger;background-image: linear-gradient(grey,rgba(173, 216, 230, 0.856));">
+        <div class="container"><center><h1>Submit Project</h1></center><br>
         <form action="{% url 'submittaskaction' m.id %}" method="post" enctype="multipart/form-data" >
             {% csrf_token %}
 
             <div class="form-group row">
                 <div class="col">
-                    <label for="">Project name :</label> 
+                    <label for="" style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: larger;font-weight: 800;">Project name :</label> 
                 </div>
                 <div class="col">
                     <label for="">{{m.projectname}}</label>
@@ -20,7 +20,7 @@
 
             <div class="form-group row">
                 <div class="col">
-                    <label for="">Description :</label>
+                    <label for="" style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: larger;font-weight: 800;">Description :</label>
                 </div >
                 <div class="col">
                     <input type="text" name="des" class="form-control">
@@ -29,16 +29,16 @@
 
             <div class="form-group row">
                 <div class="col">
-                    <label for="">start date :</label>
+                    <label for="" style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: larger;font-weight: 800;">start date :</label>
                 </div>
                  <div class="col">
-                    <label for="">{{m.startdate}}</label>
+                    <label for="" >{{m.startdate}}</label>
                  </div>
             </div>
 
             <div class="form-group row">
                 <div class="col">
-                    <label for="">end date :</label>
+                    <label for="" style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: larger;font-weight: 800;">end date :</label>
                 </div>
                 <div class="col">
                     <label for="">{{m.enddate}}</label>
@@ -47,27 +47,28 @@
 
             <div class="form-group row">
                 <div class="col">
-                    <label for="">status :</label>
+                    <label for="" style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: larger;font-weight: 800;">status :</label>
                 </div>
                 <div class="col">
-                    <label for="">Pending</label>
+                    <label for="">Pending <i class="fa-regular fa-clock"></i></label>
                 </div>
             </div>
 
             
             <div class="form-group row">
                 <div class="col">
-                    <label for="">File :</label>
+                    <label for="" style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: larger;font-weight: 800;">File :</label>
                 </div>
                 <div class="col ">
                     <input type="file" name="docc" class="form-control" required>
                 </div>
             </div>
+            <br>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+            <center><button type="submit" style="width: 50%;" class="btn btn-primary">Submit</button></center>
+        </form><br>
     </div>
-    </div>
+    </div><br><br><br><br><br><br><br>
 </div>
 
 {% endblock %}

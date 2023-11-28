@@ -1,0 +1,118 @@
+{% extends 'navbar3.html' %}
+{% block content %}
+{% load static %}
+ <br><br>
+<div class="container col-7">
+    
+    <form action="{% url 'trainee_update' t.id %}" method="post" enctype="multipart/form-data" style="font-size: larger;font-weight: 500;"><br>
+        {% csrf_token %}
+
+        <center> <h1>Edit Profile</h1> </center><br>
+        <div class="row">
+            <div class="col form-group">
+                
+            </div>
+            <div class="col form-group">
+                <center><img src="{{t.image.url}}" width="150" height="150" style="border-radius: 100px;" alt=""></center>
+             </div>
+            <div class="col form-group">
+            
+               
+            </div>
+        </div>
+    <div class="row">
+        <div class="col form-group">
+            <label for="">First name</label>
+            <input type="text" value="{{t.customuser.first_name}}" class="form-control" name="fname" id="">
+        </div>
+        <div class="col form-group">
+            <label for="">Last name</label>
+            <input type="text" value="{{t.customuser.last_name}}" class="form-control" name="lname" id="">
+         </div>
+        <!-- <div class="col form-group">
+        
+            <label for="">Department</label>
+            <select name="department" class="form-control" id="">
+                {% for i in dep %}
+                <option value="{{i.id}}">{{i.departmentname}}</option>
+                {% endfor %}
+
+            </select>
+        </div> -->
+    </div>
+    <div class="row">
+        <div class="col form-group">
+            <label for="">Email</label>
+            <input type="text" value="{{t.customuser.email}}" class="form-control" name="email" id="">
+        </div>
+        <div class="col form-group">
+            <label for="">Contact</label>
+            <input type="text" value="{{t.contact}}" class="form-control" name="contact" id="">
+         </div>
+        <div class="col form-group">
+            <label for="">Age</label>
+            <input type="text" value="{{t.age}}" class="form-control" name="age" id="">
+        </div>
+    </div>
+    <!-- <div class="row">
+        
+        <div class="col form-group">
+            <label for="">joindate</label>
+            <input type="date" class="form-control" name="joindate" id="">
+         </div>
+         <div class="col form-group">
+            <label for="">gender:</label> <br>
+            <input type="radio" class="ml-5" style="font-size: 3px;" name="gender" value="Male"> Male
+            <input type="radio" class="ml-4" style="font-size: 3px;" name="gender" value="Female"> Female    
+         </div>
+    </div> -->
+    <div class="row">
+        <div class="col form-group">
+            <label for="">Image</label>
+            <input type="file" class="form-control" name="image" id="" accept="image/*">
+        </div>
+        <!-- <div class="col form-group">
+            <label for="">Degree Certificate</label>
+            <input type="file" class="form-control" name="degree" id="">
+         </div> -->
+        <div class="col form-group">
+            <!-- <label for="">Department</label>
+            <select name="department" class="form-control" id="">
+                {% for i in dep %}
+                <option value="{{i.id}}">{{i.department}}</option>
+                {% endfor %}
+
+            </select> -->
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col form-group">
+            
+        </div>
+        <div class="col form-group">
+            
+        </div>
+        <div class="col form-group">
+            
+         </div>
+    </div>
+    <button class="btn btn-warning " style="width: 100%;">Update</button><br><br><br><br><br>
+</form>
+</div>
+{% if error == "no" %}
+     <script>
+	   alert('Updated Successfully');
+       window.location=("{% url 'trainerdash' %}");
+     </script>
+{% endif %}
+
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
+
+
+
+{% endblock %}

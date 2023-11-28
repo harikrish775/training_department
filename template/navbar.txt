@@ -221,3 +221,42 @@
         </nav>
 
         <---------------trainer navbar end---------------------------------->
+
+
+        <-----------------------------------trainee navbar---------------------------------------------------->
+
+      <ul class="nav flex-column" id="un" >
+                  <li class="nav-item">
+                    <a class="nav-link active"  href="{% url 'trainee_dash' %}" style="color: green;">
+                        DASHBOARD
+                    </a>
+                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"  href="{% url 'trainee_inbox' %}" style="color: green;">
+                            INBOX{% if count > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{count}}</span>{% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'trainee_project' %}" style="color: green;">
+                          PROJECTS
+                      </a>
+                  </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'trainee_class' %}" style="color: green;"> 
+                            CLASS SCHEDULE{% if co > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{co}}</span>{% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'trainee_attendence' %}" style="color: green;">
+                          ATTENDENCE
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'trainee_applyleave' %}">
+                        APPLY LEAVE
+                    </a>
+                </li>
+                
+                </ul>
+                <---------------------------------------------------------------------------->

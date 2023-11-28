@@ -25,17 +25,20 @@
             <thead>
             <tr style="background-color: orange;color: black;font-size: x-large;border-radius: 10px;">
                 <!-- <th>#</th> -->
-                <th>Message</th>
+                <th colspan="2">Message</th>
                 <!-- <th>Mark as read</th> -->
                 
             </tr>
         </thead>
             <tbody>
-            {% for i in d %}
+            
+            {% for i in dd %}
             <tr style="font-size: larger;">
                 <!-- <td></td> -->
                 <td>{{i.message}}</td>
-                <!-- <td><a href="">Read <i class="fa-solid fa-envelope-open"></i></a></td> -->
+                {% if i.is_read == False %}
+                <td><a href="{% url 'trainer_markasread' i.id %}">Read <i class="fa-solid fa-envelope-open"></i></a></td>
+                {% endif %}
             </tr>
             {% endfor %}
             </tbody>

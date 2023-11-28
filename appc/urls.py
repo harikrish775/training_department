@@ -87,6 +87,16 @@ urlpatterns = [
     path('trainer_view_trainee_attendence',views.trainer_view_trainee_attendence,name='trainer_view_trainee_attendence'),
     path('trainer_view_trainee_attendence_action',views.trainer_view_trainee_attendence_action,name='trainer_view_trainee_attendence_action'),
     path('deletedepp/<int:pk>',views.deletedepp,name='deletedepp'),
+    path('trainer_editprofile',views.trainer_editprofile,name='trainer_editprofile'),
+    path('trainer_update/<int:pk>',views.trainer_update,name='trainer_update'),
+    path('approvechange/<int:pk>',views.approvechange,name='approvechange'),
+    path('rejectchange/<int:pk>',views.rejectchange,name='rejectchange'),
+    path('admin_see_changes/<int:pk>',views.admin_see_changes,name='admin_see_changes'),
+    path('trainee_editprofile',views.trainee_editprofile,name='trainee_editprofile'),
+    path('trainee_update/<int:pk>',views.trainee_update,name='trainee_update'),
+    path('trainer_markasread/<int:pk>',views.trainer_markasread,name='trainer_markasread'),
+    path('trainee_markasread/<int:pk>',views.trainee_markasread,name='trainee_markasread'),
+    path('trainer_sendmail',views.trainer_sendmail,name='trainer_sendmail'),
     # path('qw',views.qw,name='qw'),
     
 

@@ -32,4 +32,17 @@
     </form>
 </div>
 
+{% if error == "no" %}
+     <script>
+	   alert('Assigned Successfully');
+       window.location=("{% url 'trainer_assignproject' %}");
+     </script>
+{% endif %}
+
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
+
 {% endblock %}

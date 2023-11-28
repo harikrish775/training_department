@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import auth
-from .models import Trainee,Trainer,Course,Notification,CustomUser,Department,TrainerNotification,TraineeNotification,Project,TrainerLeave,Trainee_attendence,Class_schedule,Trainer_attendence,TempSignup,SubmitedProject,TraineeNotificationStatus,TrainerNotificationStatus,TraineeLeave
+from .models import Trainee,Trainer,Course,Notification,CustomUser,Department,TrainerNotification,TraineeNotification,Project,TrainerLeave,Trainee_attendence,Class_schedule,Trainer_attendence,TempSignup,SubmitedProject,TraineeNotificationStatus,TrainerNotificationStatus,TraineeLeave,ProfileEdit
 from django.contrib import messages
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
@@ -8,6 +8,8 @@ import random,string
 from django.conf import settings
 from django.core.mail import send_mail
 from datetime import datetime,date,timedelta
+import os
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -97,21 +99,52 @@ def signupaction(request):
                 no.save()
                 return redirect('loginpage')
         
+
+
+
+
+
+
+
+
+
+
 # -------------------------------------student----------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 def trainee_dash(request):
-    n = TraineeNotification.objects.filter(is_read=False).count()
+    
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
+    n = TraineeNotification.objects.filter(is_read=False).count()
     co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
-    return render(request,'trainee_dash.html',{'count':n,'co':co})
+    return render(request,'trainee_dash.html',{'count':n,'co':co,'t':fg})
 
 def trainee_inbox(request):
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
     co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
-    j = TraineeNotification.objects.all()
-    n = TraineeNotification.objects.filter(is_read=False).count()
-    return render(request,'trainee_inbox.html',{'no':j,'count':n,'co':co})
+    n = TraineeNotification.objects.filter(is_read=False,forr_id = fg.id).count()
+    dd = TraineeNotification.objects.filter(forr_id = fg.id)
+    return render(request,'trainee_inbox.html',{'count':n,'co':co,'dd':dd})
+
+def trainee_markasread(request,pk):
+    m = TraineeNotification.objects.get(id=pk)
+    m.is_read = True
+    m.save()
+    return redirect('trainee_inbox')
+
 
 def trainee_project(request):
     today = date.today()
@@ -128,9 +161,8 @@ def assignedtask(request):
     co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
 
     
-    p = Project.objects.filter(trainer_id=fg.trainer)
+    p = Project.objects.filter(trainer_id=fg.trainer,forr_id=fg)
     sp = SubmitedProject.objects.filter(trainer_id=fg.trainer)
-    
                 
     return render(request,'assignedtask.html',{'v':p,'sp':sp,'co':co,'count':n,'fg':fg})
 
@@ -151,15 +183,17 @@ def submittaskaction(request,pk):
         file = request.FILES['docc']
         status = True
         today = date.today()
+        g.status = True
+        g.save()
        
         if today > g.enddate:
             h = SubmitedProject(projectcopy_id=pk,projectname=g.projectname,startdate=g.startdate,enddate=g.enddate,description=description,status=status,file=file,trainee_id=trainee.id,trainer_id=g.trainer_id,is_delay=True)
             h.save()
-            return redirect('trainee_dash')
+            return redirect('trainee_project')
         else:
             h = SubmitedProject(projectcopy_id=pk,projectname=g.projectname,startdate=g.startdate,enddate=g.enddate,description=description,status=status,file=file,trainer_id=g.trainer_id,trainee_id=trainee.id)
             h.save()
-            return redirect('trainee_dash')
+            return redirect('trainee_project')
         
     
 def completedtask(request):
@@ -167,7 +201,7 @@ def completedtask(request):
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
     co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
-    h = Project.objects.filter(status=True)
+    h = SubmitedProject.objects.filter(status=True,trainee_id=fg.id)
     return render(request,'completedtask.html',{'h':h,'co':co,'count':n})
 
 
@@ -225,10 +259,61 @@ def trainee_applyleaveaction(request):
         return redirect('trainee_applyleave')
 
 
+def trainee_editprofile(request):
+    t = Trainee.objects.get(customuser_id=request.user.id)
+    return render(request,'trainee_editprofile.html',{'t':t})
+
+def trainee_update(request,pk):
+    t = Trainee.objects.get(id=pk)
+    if request.method == 'POST':
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        contact = request.POST['contact']
+        age = request.POST['age']
+        if len(request.FILES) != 0:
+            image = request.FILES['image']
+        else:
+            image = t.image
+        p = ProfileEdit(sender=t.customuser,message=f'{t.customuser.first_name} {t.customuser.last_name} with email "{t.customuser.email}" has made some changes to their profile',is_read=False,is_approved=None,is_edited=True,firstname=fname,lastname=lname,email=email,contact=contact,age=age,image=image,trainee_id=t.id)
+        p.save()
+        error = 'no'
+        return render(request,'trainee_dash.html',{'p':p,'error':error,'t':t})
+
+
+
 # --------------------------------------student end-------------------------
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # -------------------------------admin---------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def notification(request):
     co = Notification.objects.filter(is_read=False).count()
@@ -241,14 +326,19 @@ def admin_sendmail(request):
         todeptrainers = request.POST['todeptrainers']
         if todeptrainers == 'all':
             mess = request.POST['message']
-            h = TrainerNotification(message=mess)
-            h.save()
-            return redirect('dashboard')
+            tt = Trainer.objects.all()
+            for i in tt:
+                h = TrainerNotification(message=mess,forr_id=i.id)
+                h.save()
+        
         else:
             mess = request.POST['message']
-            h = TrainerNotification(message=mess,department_id=todeptrainers)
-            h.save()
-            return redirect('dashboard')
+            tt = Trainer.objects.filter(department_id=todeptrainers)
+            for i in tt:
+                h = TrainerNotification(message=mess,department_id=todeptrainers)
+                h.save()
+
+        return redirect('dashboard')
     
 
 def records(request):
@@ -276,15 +366,18 @@ def assign(request):
 def assignaction(request,pk):
     teach = Trainer.objects.all()
     asign = Trainee.objects.all()
-    
+    co = Notification.objects.filter(is_read=False).count()
+    no = Notification.objects.filter(is_read=False)
     if request.method == 'POST':
-        co = Notification.objects.filter(is_read=False).count()
-        no = Notification.objects.filter(is_read=False)
-        t = request.POST['trainr']
-        c = Trainee.objects.get(id=pk)
-        c.trainer_id = t
-        c.save()
-        return render(request,'assign.html',{'asign':asign,'teach':teach,'ncount':co,'noti':no})
+        if 'trainr' in request.POST :
+            t = request.POST['trainr']
+        else:
+            t = ''
+
+    c = Trainee.objects.get(id=pk)
+    c.trainer_id = t
+    c.save()
+    return render(request,'assign.html',{'asign':asign,'teach':teach,'ncount':co,'noti':no})
     
 def course(request):
     co = Notification.objects.filter(is_read=False).count()
@@ -320,7 +413,8 @@ def approve(request):
     co = Notification.objects.filter(is_read=False).count()
     no = Notification.objects.filter(is_read=False)
     te = Notification.objects.all()
-    return render(request,'aprove.html',{'te':te,'ncount':co,'noti':no})
+    edit = ProfileEdit.objects.all()
+    return render(request,'aprove.html',{'te':te,'ncount':co,'noti':no,'edit':edit})
 
 def newreg(request,pk):
     co = Notification.objects.filter(is_read=False).count()
@@ -584,8 +678,80 @@ def admin_assign_dep_trainee_action(request,pk):
         trainee.save()
         return redirect('admin_assign_dep_trainee')
 
+def approvechange(request,pk):
+    pp = ProfileEdit.objects.get(id=pk)
+    pp.is_approved = True
+    pp.save()
+    g = pp.sender
+    if pp.trainee_id is None and pp.trainer_id is not None:
+        tt = Trainer.objects.get(customuser_id=g)
+        nn = TrainerNotification(forr_id=tt.id,is_read=False,message=f'Your changes has been APPROVED')
+        nn.save()
+    elif pp.trainer_id is None and pp.trainee_id is not None:
+        tt = Trainee.objects.get(customuser_id=g)
+        nn = TraineeNotification(forr_id=tt.id,is_read=False,message=f'Your changes has been APPROVED')
+        nn.save()
+    
+    tt.customuser.first_name = pp.firstname
+    tt.customuser.last_name = pp.lastname
+    tt.customuser.email = pp.email
+    tt.contact = pp.contact
+    tt.age = pp.age
+    tt.image = pp.image
+    tt.save()
+    
+    return redirect('approve')
+
+def rejectchange(request,pk):
+    pp = ProfileEdit.objects.get(id=pk)
+    pp.is_approved = False
+    pp.save()
+    g = pp.sender
+    if pp.trainee_id is None and pp.trainer_id is not None :
+        tt = Trainer.objects.get(customuser_id=g)
+        nn = TrainerNotification(forr_id=tt.id,is_read=False,message=f'Your changes has been REJECTED')
+        nn.save()
+        return redirect('approve')
+    elif pp.trainee_id is not None and pp.trainer_id is None :
+        tt = Trainee.objects.get(customuser_id=g)
+        nn = TraineeNotification(forr_id=tt.id,is_read=False,message=f'Your changes has been REJECTED')
+        nn.save()
+        return redirect('approve')
+    
+    
+
+
+
+def admin_see_changes(request,pk):
+    ppp = ProfileEdit.objects.get(id=pk)
+    return render(request,'admin_see_changes.html',{'i':ppp})
+
+
+
 
 # --------------------------------------admin end------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # -----------------------------teacher-------------------------------------
 
 def trainerhome(request):
@@ -608,7 +774,8 @@ def traineenoti(request,pk):
 def trainerdash(request):
     user = request.user.id
     t = Trainer.objects.get(customuser_id=user)
-    return render(request,'trainerdash.html',{'t':t})
+    count = TrainerNotification.objects.filter(forr_id = t.id,is_read=False).count()
+    return render(request,'trainerdash.html',{'t':t,'count':count})
 
 def trainerleave(request):
     return render(request,'trainer_leaveportal.html')
@@ -634,6 +801,7 @@ def trainer_seeleave(request):
     return render(request,'trainer_seeleave.html',{'leave':tr})
 
 def trainer_assignproject(request):
+    
     return render(request,'trainer_assignproject.html')
 
 def trainer_assignproject_action(request):
@@ -644,9 +812,12 @@ def trainer_assignproject_action(request):
         today = date.today()
         
         trainr = Trainer.objects.get(customuser_id=request.user.id)
-        f = Project(projectname=name,startdate=startdate,enddate=enddate,dateassigned=today,trainer_id=trainr.id)
-        f.save()
-        return render(request,'trainer_assignproject.html')
+        trainee = Trainee.objects.filter(trainer_id=trainr.id)
+        for i in trainee:
+            f = Project(projectname=name,startdate=startdate,enddate=enddate,dateassigned=today,trainer_id=trainr.id,forr_id=i.id)
+            f.save()
+            error = 'no'
+        return render(request,'trainer_assignproject.html',{'error':error})
 
 def trainer_markattendence(request):
     us = Trainer.objects.get(customuser_id=request.user.id)
@@ -704,14 +875,11 @@ def trainer_class_action(request):
 def trainer_inbox(request):
     u = Trainer.objects.get(customuser_id=request.user.id)
     d = TrainerNotification.objects.filter(department_id=u.department_id)
-    
-    return render(request,'trainer_inbox.html',{'d':d})
+    dd = TrainerNotification.objects.filter(forr_id = u.id)
+    count = TrainerNotification.objects.filter(forr_id = u.id,is_read=False).count()
+    return render(request,'trainer_inbox.html',{'d':d,'dd':dd,'count':count})
 
-# def trainer_readmessage(request,pk):
-#     user = request.user.id
-#     o = Trainer.objects.get(customuser_id=user)
-#     a = TrainerNotification.objects.get(id=pk)
-#     return render(request,'trainer_inbox.html')
+
 
 def trainer_view_project(request):
     t = Trainer.objects.get(customuser_id=request.user.id)
@@ -758,4 +926,44 @@ def trainer_view_trainee_attendence_action(request):
 def trainer_view_trainee_card(request,pk):
     card = Trainee.objects.get(id=pk)
     return render(request,'trainer_view_trainee_card.html',{'i':card})
+
+def trainer_editprofile(request):
+    t = Trainer.objects.get(customuser_id=request.user.id)
+    return render(request,'trainer_editprofile.html',{'t':t})
+
+def trainer_update(request,pk):
+    t = Trainer.objects.get(id=pk)
+    if request.method == 'POST':
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        contact = request.POST['contact']
+        age = request.POST['age']
+        if len(request.FILES) != 0:
+            image = request.FILES['image']
+        else:
+            image = t.image
+        p = ProfileEdit(sender=t.customuser,message=f'{t.customuser.first_name} {t.customuser.last_name} with email "{t.customuser.email}" has made some changes to their profile',is_read=False,is_approved=None,is_edited=True,firstname=fname,lastname=lname,email=email,contact=contact,age=age,image=image,trainer_id=t.id)
+        p.save()
+        error = 'no'
+        return render(request,'trainerdash.html',{'p':p,'error':error,'t':t})
+
+def trainer_markasread(request,pk):
+    m = TrainerNotification.objects.get(id=pk)
+    m.is_read = True
+    m.save()
+    return redirect('trainer_inbox')
+
+def trainer_sendmail(request):
+    bb = Trainer.objects.get(customuser_id=request.user.id)
+    st = Trainee.objects.filter(trainer_id=bb.id)
+    if request.method == 'POST':
+        msg = request.POST['message']
+        for i in st:
+            dd = TraineeNotification(message=msg,forr_id=i.id,is_read=False,sender_id=bb.id)
+            dd.save()
+        error = 'no'
+        return  HttpResponse(str({'error':error}))
+
+    
 # -----------------------------------teacher end------------------------------

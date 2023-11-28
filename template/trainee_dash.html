@@ -1,31 +1,70 @@
 {% extends 'navbar3.html' %}
 {% block content %}
 {% load static %}
-
-<div class="container col-10">
-    <h2>My Profile</h2>
+<style>
+    body{
+        background-color: rgba(0, 0, 0, 0.6);
+        /* background-image: linear-gradient(rgba(0, 0, 0, 0.609),rgba(0, 0, 0, 0.53)),url('{% static "image/dotted2.avif" %}'); */
+        background-size: cover;
+        color: white;
+    }
+    #edit{
+        text-decoration: none;
+        color: orange;
+    }
+    #edit:hover{
+        color: yellow;
+    }
+</style>
+<div class="container col-10"><br>
+    <h2 class="ml-4">My Profile <small style="font-size: 15px;"><a href="{% url 'trainee_editprofile' %}" id="edit">Edit Profile <i class="fa-regular fa-pen-to-square"></i></a></small></h2>
     <div class="row" style="margin: 10px;">
-        <div class="col-4" style="border: 2px solid blue; border-radius: 10px;">
-            <img src="{{t.image.url}}" width="200" alt="">
-            
+    
+    <div class="col ml-3 mt-2 " style=" border-radius: 3px;background-color: rgb(31, 31, 31);">
+        <br>
+        <center><h3>{{t.customuser.first_name}} {{t.customuser.last_name}}</h3></center>
+        <center><img src="{{t.image.url}}" width="150" height="150" style="border-radius: 100px;" alt="" ></center><br>
+        <center><span><b>Join Date : </b></span> {{t.joindate}}</center><br>
+        <!-- <center><span><b>Department : </b></span> {{t.department.departmentname}}</center><br> -->
+        
+    </div>
+
+    <div class="col ml-3 mt-2 " style="border-radius: 3px;background-color: rgb(31, 31, 31);"><br>
+        <small class=" ml-2" style="color: gray;">Your data status</small><br><br>
+        <div class="row mt-2 ml-2">
+            <div class="col"><label for="">DEPARTMENT</label></div>
+            <div class="col"><label for="">{{t.department.departmentname}}</label></div>
         </div>
-        <div class="col-7 ml-4" style=" border: 2px solid blue; border-radius: 10px;">
-            <p>{{t.customuser.first_name}}</p>            
+        <div class="row mt-2 ml-2">
+            <div class="col"><label for="">EMAIL</label></div>
+            <div class="col">{{t.customuser.email}}</div>
         </div>
+        <div class="row mt-2 ml-2">
+            <div class="col"><label for="">CONTACT</label></div>
+            <div class="col">{{t.contact}}</div>
+        </div>
+        <div class="row mt-2 ml-2">
+            <div class="col"><label for="">GENDER</label></div>
+            <div class="col">{{t.gender}}</div>
+        </div><br><br>
+        
         
     </div>
     
-    <div class="row">
+</div>
+
+<div class="row">
+
+    <!-- <div class="col-5" style="border: 2px solid blue; border-radius: 10px;">
+        <img src="{{t.image.url}}" width="200" alt="">
+    </div>
     
-        <div class="col-5" style="border: 2px solid blue; border-radius: 10px;">
-            <img src="{{t.image.url}}" width="200" alt="">
-        </div>
-        
-        <div class="col-6 ml-5 " style=" border: 2px solid blue; border-radius: 10px;">
-            <p>{{t.customuser.first_name}}</p>
-        </div>
-        
-    </div>
-    </div>
+    <div class="col-6 ml-5 " style=" border: 2px solid blue; border-radius: 10px;">
+        <p>{{t.customuser.first_name}}</p>
+    </div> -->
+    
+</div><br><br><br><br><br><br>
+</div>
+
 
 {% endblock %}

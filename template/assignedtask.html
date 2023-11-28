@@ -2,33 +2,37 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10">
-    <table class="table">
-        <tr>
-            <th>project name</th>
-            <th>start date</th>
-            <th>end date</th>
-            <th>status</th>
-            <th>action</th>
-        </tr>
-        
-        {% for v in v %}
-        {% for sp in sp %}
-        {% if v.id   %}
-        
-        <tr>
-            <td>{{v.projectname}}</td>
-            <td>{{v.startdate}}</td>
-            <td>{{v.enddate}}</td>
-            {% if v.status == False %}
-            <td><button href="" class="btn btn-outline-warning" disabled>Pending</button></td>
-            {% else %}
-            <td>completed {{v.status}}</td>a
-            {% endif %}
-            <td><a href="{% url 'submittask' v.id %}" class="btn btn-outline-success">Submit</a></td>
-        {% endfor %}
-        {% endfor %}
-    </table>
+<div class="container col-10"><br>
+    <center><h2> Tasks To Be Submitted</h2></center><br>
+    <div class="container table-responsive">
+        <table class="table">
+            <tr style="background-color:burlywood;font-size: larger;">
+                <th>project name</th>
+                <th>start date</th>
+                <th>end date</th>
+                <th>status</th>
+                <th>action</th>
+            </tr>
+            
+            {% for v in v %}
+            
+            
+            <tr style="background-color: black;font-size: larger;color: white;">
+                <td>{{v.projectname}}</td>
+                <td>{{v.startdate}}</td>
+                <td>{{v.enddate}}</td>
+                {% if v.status == False %}
+                <td><button href="" class="btn btn-outline-warning" disabled>Pending</button></td>
+                <td><a href="{% url 'submittask' v.id %}" class="btn btn-outline-success">Submit</a></td>
+                {% elif v.status == True %}
+                <td><button href="" class="btn btn-outline-success" disabled>Submitted</button></td>
+                <td></td>
+                {% endif %}
+                
+            
+            {% endfor %}
+        </table>
+    </div>
 </div>
 
 {% endblock %}

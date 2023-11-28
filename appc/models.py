@@ -81,6 +81,8 @@ class TraineeNotification(models.Model):
     message = models.CharField(max_length=255)
     person = models.CharField(max_length=255)
     is_read = models.BooleanField(default=False)
+    forr = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
+    
 
 class TraineeNotificationStatus(models.Model):
     sender = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
@@ -89,11 +91,12 @@ class TraineeNotificationStatus(models.Model):
     is_read = models.BooleanField(default=False)
 
 class TrainerNotification(models.Model):
-    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    
     message = models.CharField(max_length=255)
     person = models.CharField(max_length=255)
     department = models.ForeignKey(Department,on_delete=models.CASCADE,null=True)
     is_read = models.BooleanField(default=False)
+    forr = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
 
 class TrainerNotificationStatus(models.Model):
     trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
@@ -113,6 +116,7 @@ class Project(models.Model):
     is_delay = models.BooleanField(default=False)
     trainer = models.ForeignKey(Trainer,on_delete=models.SET_NULL,null=True)
     dateassigned = models.DateField()
+    forr = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
 
 class SubmitedProject(models.Model):
     projectcopy = models.ForeignKey(Project,on_delete=models.SET_NULL,null=True)
@@ -120,11 +124,12 @@ class SubmitedProject(models.Model):
     description = models.TextField()
     startdate = models.DateField()
     enddate = models.DateField()
-    status = models.BooleanField(default=False)
+    status = models.BooleanField(default=True)
     file = models.FileField(upload_to='file/',null=True)
     is_delay = models.BooleanField(default=False)
     trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
     trainee = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
+    
     
 
 class TrainerLeave(models.Model):
@@ -157,6 +162,20 @@ class Class_schedule(models.Model):
     link = models.CharField(max_length=255)
     trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
 
+class ProfileEdit(models.Model):
+    is_edited = models.BooleanField(default=True)
+    sender = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
+    message = models.CharField(max_length=255)
+    is_read = models.BooleanField(default=False)
+    is_approved = models.BooleanField(null=True)
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    trainee = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
+    firstname = models.CharField(max_length=255)
+    lastname = models.CharField(max_length=255)
+    email = models.EmailField()
+    contact = models.CharField(max_length=255)
+    age = models.IntegerField()
+    image = models.ImageField(upload_to='image/',null=True)
 
 
     

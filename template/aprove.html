@@ -45,9 +45,11 @@
             {% if i.is_approved == True %}
             <td ><button href="" class="btn btn-outline-success" disabled>Approved</button></td>
             <td><a href="{% url 'newreg' i.id %}" class="btn btn-outline-primary">View</a></td>
+            <td></td>
             {% elif i.is_approved == False %}
             <td><button href="" class="btn btn-outline-danger" disabled>Disapproved</button></td>
             <td><a href="{% url 'newreg' i.id %}" class="btn btn-outline-primary">View</a></td>
+            <td></td>
             {% else %}
             <td ><a href="{% url 'approveaction' i.id %}" class="btn btn-outline-success">approve</a></td>
             <td><a href="{% url 'disapproveaction' i.id %}" class="btn btn-outline-danger">disapprove</a></td>
@@ -55,8 +57,37 @@
             {% endif %}
           </tr>
           {% endfor %}
+          <!-- ------------------update trainer--------------------------------- -->
+          {% for i in edit %}
+            
+          <tr style="background-color: black;font-size: large;color: white;">
+            
+            <td>{{i.firstname}} {{i.lastname}}</td>
+            <td>{{i.message}}</td>
+            <td>{{i.email}}</td>
+            <td><img src="{{i.image.url}}" width="70" alt=""></td>
+            <td></td>
+            
+            {% if i.is_approved == True %}
+            <td ><button href="" class="btn btn-outline-warning" disabled>Changes Approved</button></td>
+            <td><a href="{% url 'admin_see_changes' i.id %}" class="btn btn-outline-primary">View</a></td>
+            <td></td>
+            {% elif i.is_approved == False %}
+            <td><button href="" class="btn btn-outline-danger" disabled>Changes Rejected</button></td>
+            <!-- <td><a href="{% url 'admin_see_changes' i.id %}" class="btn btn-outline-primary">View</a></td> -->
+            <td></td>
+            <td></td>
+            {% else %}
+            <td ><a href="{% url 'approvechange' i.id %}" class="btn btn-outline-success">Approve Change</a></td>
+            <td><a href="{% url 'rejectchange' i.id %}" class="btn btn-outline-danger">Reject change</a></td>
+            <td><a href="{% url 'admin_see_changes' i.id %}" class="btn btn-outline-primary">See Changes</a></td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+
+          
         </tbody>
-      </table></div>
+      </table></div><br><br>
 </div>
 
 
