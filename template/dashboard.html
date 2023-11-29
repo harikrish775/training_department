@@ -23,8 +23,8 @@
         <a href="{% url 'trainerrecord' %}"><p style="font-size: larger;">Total Trainers </p><center><span class="badge badge-dark" style="font-size: 45px;">{{rcount}}</span></center></a>
     </div>
     <div class="col  ml-2 mt-2" style="background-color: palegoldenrod;padding: 15px;">
-        <a href="{% url 'approve' %}"><p style="font-size: larger;">Approve</p>
-            <center><i class="fa-solid fa-bell" style="font-size: 50px;">{% if ncount > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{ncount}}</span>{% endif %}</i></center></a>
+        <a href="{% url 'approve' %}"><p style="font-size: larger;">Approve </p>
+            <center><i class="fa-solid fa-bell" style="font-size: 50px;">{% if ncount > 0 or po > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{ko}} </span>{% endif %}</i></center></a>
     </div>
     <div id="kj" class="col ml-2 mt-2" style="background-color: paleturquoise;padding: 15px;">
          <a type="button" data-toggle="modal" data-target="#exampleModal"><p style="font-size: larger;">Send Mail</p><center><i class="fa-solid fa-envelope ml-5"  style="font-size: 50px;"></i></center></a>

@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar 2</a>
+        <!-- <a class="navbar-brand" href="#">Navbar 2</a> -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -47,7 +47,7 @@
                         <a class="nav-link " href="#"><i class="fa-solid fa-bell"></i><span class="badge badge-danger">{{noticount}}</span></a>
                       </li> -->
 
-                      <li class="nav-item dropdown" >
+                      <!-- <li class="nav-item dropdown" >
                         <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa-solid fa-bell" style="font-size: larger;">{% if noticount > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{noticount}}</span>{% endif %}</i>
                         </a>
@@ -58,11 +58,12 @@
                             {% endfor %}
                           
                         </div>
-                      </li>
-
+                      </li> -->
+                      {% if user.is_authenticated %}
                       <li class="nav-item">
-                        <a class="nav-link " href="#">Logout</a>
+                        <a class="nav-link " href="{% url 'logoutt' %}" >Logout</a>
                       </li>
+                      {% endif %}
                 </ul>
             </div>
           

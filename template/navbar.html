@@ -50,8 +50,28 @@
 
     
   <nav class="navbar navbar-dark " style="background-color: black;">
-    <span class="navbar-brand mb-0 h1">Altos<img src="{% static 'image/altoslogo.png' %}" width="100" height="70" alt="logo"></span>
+    <span class="navbar-brand mb-0 h1">Altos<img src="{% static 'image/altoslogo.png' %}" style="width: 150px;height: 60px;" alt="logo"></span>
     
+    <ul >
+      <li class="nav-item dropdown" style="padding: 2px 0px;margin: 6px 0px;border-radius: 50px 10px ;font-weight: 600;margin-left: 10px;" >
+        <a class="nav-link dropdown-toggle " style="color: grey;" href="#" id="sidebarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa-solid fa-bell" style="font-size: larger;color: white;">{% if ncount > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{ncount}}</span>{% endif %}</i> Notification 
+        </a>
+        <div class="dropdown-menu ml-2 " aria-labelledby="navbarDropdown" style="overflow-y: scroll;height: 20vh;position: absolute;width: 300px;left: -150px;" >
+            
+            {% for i in noti %}
+            
+            <a href="{% url 'notification' %}" style="padding: 3px 50px;" >{{i.message}}</a><a href="{% url 'approve' %}" class="btn btn-outline-info">
+               Approve</a>
+            <hr class="my-4">
+            {% if not noti %}
+            <p>no new notification</p>
+            {% endif %}
+            {% endfor %}
+          
+        </div>
+      </li>
+    </ul>
   </nav>
 <!-- ---------------------------verticle-------------------------- -->
 <div class="container-fluid">
@@ -148,24 +168,7 @@
                               <i class="fa-solid fa-chart-pie" style="color: saddlebrown;font-size: larger;"></i>  Dashboard
                             </a>
                         </li>
-                        <!-- <li class="nav-item dropdown"  >
-                          <a class="nav-link " href="#" id="sidebarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-bell" style="font-size: larger;color: white;">{% if ncount > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{ncount}}</span>{% endif %}</i> Notification 
-                          </a>
-                          <div class="dropdown-menu ml-2 " aria-labelledby="navbarDropdown" style="overflow-y: scroll;height: 20vh;" >
-                              
-                              {% for i in noti %}
-                              
-                              <a href="{% url 'notification' %}" style="padding: 3px 50px;" >{{i.message}}</a><a href="{% url 'approve' %}" class="btn btn-outline-info">
-                                 Approve</a>
-                              <hr class="my-4">
-                              {% if not noti %}
-                              <p>no new notification</p>
-                              {% endif %}
-                              {% endfor %}
-                            
-                          </div>
-                        </li> -->
+                        
                             <li class="nav-item">
                                 <a class="nav-link active"  href="{% url 'approve' %}">
                                   <i class="fa-solid fa-thumbs-up" style="color: cyan;font-size: larger;"></i> Approve & Dissaprove

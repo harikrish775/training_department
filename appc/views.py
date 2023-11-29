@@ -428,10 +428,12 @@ def dashboard(request):
     c = TraineeLeave.objects.filter(is_read=False).count()
     co = Notification.objects.filter(is_read=False).count()
     no = Notification.objects.filter(is_read=False)
+    po = ProfileEdit.objects.filter(is_approved='').count()
     e = Trainee.objects.all().count()
     r = Trainer.objects.all().count()
     dep = Department.objects.all()
-    return render(request,'dashboard.html',{'dep':dep,'ecount':e,'rcount':r,'ncount':co,'noti':no,'b':b,'c':c})
+    ko = co + po
+    return render(request,'dashboard.html',{'dep':dep,'ecount':e,'rcount':r,'ncount':co,'noti':no,'b':b,'c':c,'po':po,'ko':ko})
 
 @login_required(login_url='loginpage')
 def assign(request):
@@ -519,10 +521,11 @@ def approveaction(request,pk):
         if CustomUser.objects.filter(email=trainer.email).exists():
             error = 'yes'
         else:
-            passs = generate_password()
+            # passs = generate_password()
+            passs = '123'
             userr = CustomUser.objects.create_user(first_name=trainer.first_name,last_name=trainer.last_name,email=trainer.email,username=trainer.username,password=passs,is_special=trainer.is_special,date_joined=trainer.joindate)
             userr.save()
-            approved_trainer = Trainer(contact=trainer.contact,age=trainer.age,gender=trainer.gender,joindate=trainer.joindate,image=trainer.image,customuser=userr,degree=trainer.degree,department_id=trainer.department)
+            approved_trainer = Trainer(contact=trainer.contact,age=trainer.age,gender=trainer.gender,joindate=trainer.joindate,image=trainer.image,customuser=userr,degree=trainer.degree,department_id=trainer.department.id)
             approved_trainer.save()
             
             n.is_read = True
@@ -546,10 +549,11 @@ def approveaction(request,pk):
             error = 'yes'
         else:
             # passs = str(random.randint(123421,897654))
-            passs = generate_password()
+            # passs = generate_password()
+            passs = '123'
             userr = CustomUser.objects.create_user(first_name=trainee.first_name,last_name=trainee.last_name,email=trainee.email,username=trainee.username,password=passs,is_special=trainee.is_special,date_joined=trainee.joindate)
             userr.save()
-            approved_trainee = Trainee(contact=trainee.contact,age=trainee.age,gender=trainee.gender,joindate=trainee.joindate,image=trainee.image,customuser=userr,degree=trainee.degree,department_id=trainee.department)
+            approved_trainee = Trainee(contact=trainee.contact,age=trainee.age,gender=trainee.gender,joindate=trainee.joindate,image=trainee.image,customuser=userr,degree=trainee.degree,department_id=trainee.department.id)
             approved_trainee.save()
             n.trainee_id = approved_trainee
             n.sender = userr

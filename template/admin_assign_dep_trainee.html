@@ -32,7 +32,7 @@
             <td>{{i.contact}}</td>
             <td><img src="{{i.image.url}}" alt="" width="60"></td>
             <td>{{i.department.departmentname}}</td>
-            <td><a href="{% url 'trainercard' i.id %}" class="btn btn-outline-info">view</a></td>
+            <td><a href="{% url 'traineecard' i.id %}" class="btn btn-outline-info">view</a></td>
             <td>
                 <select name="depart" id="" class="form-control">
                     {% for q in dep %}
