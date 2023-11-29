@@ -4,9 +4,11 @@
 
 
 <div class="container col-10">
+  <div class="container table-responsive">
+    <h2>Notification Center</h2>
     <table class="table">
         <thead>
-          <tr>
+          <tr style="background-color: burlywood;font-size: larger;">
             <th scope="col">Sender</th>
             <th scope="col">Message</th>
             
@@ -14,14 +16,27 @@
         </thead>
         <tbody>
             {% for i in no %}
-          <tr>
+          <tr style="background-color: white;font-size: larger;">
             
-            <td>{{i.tempsignup.first_name}}{{i.tempsignup.last_name}}</td>
-            <td>{{i.message}}</td>
+            <td>{{i.tempsignup.first_name}} {{i.tempsignup.last_name}}</td>
+            <td>{{i.message}}</td> 
+          </tr>
+          {% endfor %}
+          {% for i in pp %}
+          <tr style="background-color: white;font-size: larger;">
+            
+            {% if i.trainer_id  %}
+            <td>{{i.trainer.customuser.first_name}} {{i.trainer.customuser.last_name}}</td>
+            {% else %}
+            <td>{{i.trainee.customuser.first_name}} {{i.trainee.customuser.last_name}}</td>
+            {% endif %}
+            <td>{{i.message}}</td> 
+
           </tr>
           {% endfor %}
         </tbody>
       </table>
+  </div>
 </div>
 
 

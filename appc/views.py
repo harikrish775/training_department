@@ -91,13 +91,12 @@ def trainee_update_password(request):
 
 
 
-
 #----------------------------------------------------------------------------------
 
 def loginpage(request):
     return render(request,'loginpage.html')
 
-@login_required(login_url='loginpage')
+
 def logoutt(request):
     logout(request)
     return redirect('loginpage')
@@ -132,7 +131,7 @@ def admin(request):
 def signup(request):
     co = Course.objects.all()
     dep = Department.objects.all()
-    return render(request,'signup.html',{'co':co,'dep':dep})
+    return render(request,'signup.html',{'dep':dep})
 
 def signupaction(request):
     
@@ -193,18 +192,17 @@ def trainee_dash(request):
     
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    n = TraineeNotification.objects.filter(is_read=False).count()
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
-    return render(request,'trainee_dash.html',{'count':n,'co':co,'t':fg})
+    
+    
+    return render(request,'trainee_dash.html',{'t':fg})
 
 @login_required(login_url='loginpage')
 def trainee_inbox(request):
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
     n = TraineeNotification.objects.filter(is_read=False,forr_id = fg.id).count()
     dd = TraineeNotification.objects.filter(forr_id = fg.id)
-    return render(request,'trainee_inbox.html',{'count':n,'co':co,'dd':dd})
+    return render(request,'trainee_inbox.html',{'dd':dd})
 
 @login_required(login_url='loginpage')
 def trainee_markasread(request,pk):
@@ -217,33 +215,31 @@ def trainee_markasread(request,pk):
 def trainee_project(request):
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
-    n = TraineeNotification.objects.filter(is_read=False).count()
     
-    return render(request,'trainee_project.html',{'count':n,'co':co})
+    return render(request,'trainee_project.html')
 
 @login_required(login_url='loginpage')
 def assignedtask(request):
-    n = TraineeNotification.objects.filter(is_read=False).count()
+    
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
+    
 
     
     p = Project.objects.filter(trainer_id=fg.trainer,forr_id=fg)
     sp = SubmitedProject.objects.filter(trainer_id=fg.trainer)
                 
-    return render(request,'assignedtask.html',{'v':p,'sp':sp,'co':co,'count':n,'fg':fg})
+    return render(request,'assignedtask.html',{'v':p,'sp':sp,'fg':fg})
 
 @login_required(login_url='loginpage')
 def submittask(request,pk):
-    n = TraineeNotification.objects.filter(is_read=False).count()
+    
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
+    
 
     m = Project.objects.get(id=pk)
-    return render(request,'submittask.html',{'m':m,'co':co,'count':n})
+    return render(request,'submittask.html',{'m':m})
 
 @login_required(login_url='loginpage')
 def submittaskaction(request,pk):
@@ -268,40 +264,40 @@ def submittaskaction(request,pk):
         
 @login_required(login_url='loginpage')
 def completedtask(request):
-    n = TraineeNotification.objects.filter(is_read=False).count()
+    
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
+    
     h = SubmitedProject.objects.filter(status=True,trainee_id=fg.id)
-    return render(request,'completedtask.html',{'h':h,'co':co,'count':n})
+    return render(request,'completedtask.html',{'h':h,})
 
 
 @login_required(login_url='loginpage')
 def trainee_class(request):
-    n = TraineeNotification.objects.filter(is_read=False).count()
+    
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
+    
     trainee = Trainee.objects.get(customuser_id=request.user.id)
     t = Class_schedule.objects.filter(date=today,trainer_id=trainee.trainer)
     u = Class_schedule.objects.filter(date__gt=today,trainer_id=trainee.trainer)
     f = Class_schedule.objects.filter(date__lt=today,trainer_id=trainee.trainer)
-    return render(request,'trainee_class.html',{'t':t,'u':u,'f':f,'co':co,'count':n})    
+    return render(request,'trainee_class.html',{'t':t,'u':u,'f':f,})    
 
 @login_required(login_url='loginpage')
 def trainee_attendence(request):
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
-    n = TraineeNotification.objects.filter(is_read=False).count()
-    return render(request,'trainee_attendence.html',{'count':n,'co':co})
+    
+    
+    return render(request,'trainee_attendence.html')
 
 @login_required(login_url='loginpage')
 def trainee_viewattendence(request):
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
-    n = TraineeNotification.objects.filter(is_read=False).count()
+    
+    
     if request.method == 'POST':
         user = request.user.id
         c = Trainee.objects.get(customuser_id=user)
@@ -309,16 +305,16 @@ def trainee_viewattendence(request):
         b = request.POST['end']
         sort_param = request.GET.get('sort', 'date')
         s = Trainee_attendence.objects.filter(trainee_id=c.id,date__range=(a,b)).order_by(sort_param)
-        return render(request,'trainee_viewattendence.html',{'s':s,'count':n,'co':co})
+        return render(request,'trainee_viewattendence.html',{'s':s,})
 
 
 @login_required(login_url='loginpage')
 def trainee_applyleave(request):
     today = date.today()
     fg =Trainee.objects.get(customuser_id=request.user.id)
-    co = Class_schedule.objects.filter(date=today,trainer_id=fg.trainer_id).count()
-    n = TraineeNotification.objects.filter(is_read=False).count()
-    return render(request,'trainee_applyleave.html',{'count':n,'co':co})
+    
+    
+    return render(request,'trainee_applyleave.html')
 
 @login_required(login_url='loginpage')
 def trainee_applyleaveaction(request):
@@ -394,7 +390,8 @@ def notification(request):
     co = Notification.objects.filter(is_read=False).count()
     no1 = Notification.objects.filter(is_read=False)
     no = Notification.objects.all()
-    return render(request,'notification.html',{'no':no,'ncount':co,'noti':no1})
+    pp = ProfileEdit.objects.all()
+    return render(request,'notification.html',{'no':no,'ncount':co,'noti':no1,'pp':pp})
 
 @login_required(login_url='loginpage')
 def admin_sendmail(request):
@@ -406,15 +403,16 @@ def admin_sendmail(request):
             for i in tt:
                 h = TrainerNotification(message=mess,forr_id=i.id)
                 h.save()
+            
         
         else:
             mess = request.POST['message']
             tt = Trainer.objects.filter(department_id=todeptrainers)
             for i in tt:
-                h = TrainerNotification(message=mess,department_id=todeptrainers)
+                h = TrainerNotification(message=mess,department_id=todeptrainers,forr_id=i.id)
                 h.save()
-
-        return redirect('dashboard')
+        error = 'no'
+        return render(request,'dashboard.html',{'error':error})
     
 @login_required(login_url='loginpage')
 def records(request):
@@ -1008,9 +1006,10 @@ def trainer_class_action(request):
 @login_required(login_url='loginpage')
 def trainer_inbox(request):
     u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id = u.id,is_read=False).count()
     d = TrainerNotification.objects.filter(department_id=u.department_id)
     dd = TrainerNotification.objects.filter(forr_id = u.id)
-    count = TrainerNotification.objects.filter(forr_id = u.id,is_read=False).count()
+    
     return render(request,'trainer_inbox.html',{'d':d,'dd':dd,'count':count})
 
 
@@ -1109,7 +1108,10 @@ def trainer_sendmail(request):
             dd = TraineeNotification(message=msg,forr_id=i.id,is_read=False,sender_id=bb.id)
             dd.save()
         error = 'no'
-        return  HttpResponse(str({'error':error}))
+        user = request.user.id
+        t = Trainer.objects.get(customuser_id=user)
+        count = TrainerNotification.objects.filter(forr_id = t.id,is_read=False).count()
+        return render(request,'trainerdash.html',{'t':t,'count':count,'error':error})
 
     
 # -----------------------------------teacher end------------------------------

@@ -52,22 +52,52 @@
   <nav class="navbar navbar-dark " style="background-color: black;">
     <span class="navbar-brand mb-0 h1">Altos<img src="{% static 'image/altoslogo.png' %}" style="width: 150px;height: 60px;" alt="logo"></span>
     
-    <ul >
+    <ul class="ml-auto" style="text-decoration: none;list-style: none;" >
       <li class="nav-item dropdown" style="padding: 2px 0px;margin: 6px 0px;border-radius: 50px 10px ;font-weight: 600;margin-left: 10px;" >
         <a class="nav-link dropdown-toggle " style="color: grey;" href="#" id="sidebarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa-solid fa-bell" style="font-size: larger;color: white;">{% if ncount > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{ncount}}</span>{% endif %}</i> Notification 
+          <i class="fa-solid fa-bell" style="font-size: larger;color: white;">{% if ko > 0 %}<span class="badge badge-danger" style="font-size: 15px;">{{ko}}</span>{% endif %}</i> Notification 
         </a>
-        <div class="dropdown-menu ml-2 " aria-labelledby="navbarDropdown" style="overflow-y: scroll;height: 20vh;position: absolute;width: 300px;left: -150px;" >
+        <div class="dropdown-menu ml-2 " aria-labelledby="navbarDropdown" style="overflow-y: scroll;height: 20vh;position: absolute;width: 400px;left: -250px;" >
             
-            {% for i in noti %}
             
-            <a href="{% url 'notification' %}" style="padding: 3px 50px;" >{{i.message}}</a><a href="{% url 'approve' %}" class="btn btn-outline-info">
-               Approve</a>
+            
+            <div>
+              <table class="table">
+                {% for i in noti %}
+                <tr>
+                  <td>
+                    <a href="{% url 'notification' %}" style="padding: 3px 50px;" >{{i.message}}</a>
+                  </td>
+                  <td>
+                    <a href="{% url 'approve' %}" class="btn btn-outline-info">
+                      Approve</a>
+                  </td>
+                </tr>
+                {% if noti == '' %}
+                <tr>
+                  <td> <p>no new notification</p></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                {% for i in pp %}
+                <tr>
+                  <td >
+                    <a href="{% url 'notification' %}" style="padding: 3px 50px;text-decoration: none;color: black;" >{{i.message}}</a>
+                  </td>
+                  <td>
+                    <a href="{% url 'approve' %}" class="btn btn-outline-info">
+                      Approve</a>
+                  </td>
+                </tr>
+                
+                {% endfor %}
+              </table>
+            </div>
             <hr class="my-4">
-            {% if not noti %}
-            <p>no new notification</p>
-            {% endif %}
-            {% endfor %}
+            
+           
+            
+            
           
         </div>
       </li>
@@ -145,7 +175,7 @@
   
   <!-- ------------------------------------------------------------ -->
   <nav class="navbar d-sm-block navbar-dark  col-md-2 pb-3 " style="background-color: black;"  >
-    <a class="navbar-brand mb-0 h1" href="#"><i class="fa-solid fa-user-secret"></i> <i> Admin</i></a>
+    <a class="navbar-brand mb-0 h1" href="{% url 'dashboard' %}"><i class="fa-solid fa-user-secret"></i> <i> Admin</i></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

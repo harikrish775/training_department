@@ -159,7 +159,7 @@
   
   <!-- ------------------------------------------------------------ -->
   <nav class="navbar d-sm-block navbar-dark  col-md-2 pb-3 " style="background-color: black;"  >
-    <a class="navbar-brand mb-0 h1" href="#"><i>Trainer</i></a>
+    <a class="navbar-brand mb-0 h1" href="{% url 'trainerdash' %}"><i>Trainer</i></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -337,7 +337,18 @@
 </footer>
 
   
+{% if error == "no" %}
+     <script>
+	   alert('Mail sent Successfully');
+       window.location=("{% url 'trainerdash' %}");
+     </script>
+{% endif %}
 
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
 
 </body>
 </html>
