@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
  <br><br>
-<div class="container col-7">
+<div class="container col-md-7">
     
     <form action="{% url 'trainee_update' t.id %}" method="post" enctype="multipart/form-data" style="font-size: larger;font-weight: 500;"><br>
         {% csrf_token %}
@@ -100,18 +100,14 @@
     <button class="btn btn-warning " style="width: 100%;">Update</button><br><br><br><br><br>
 </form>
 </div>
+
 {% if error == "no" %}
      <script>
-	   alert('Updated Successfully');
-       window.location=("{% url 'trainerdash' %}");
+	   alert('Update Request Success ! Please Wait For Approval. ');
+       
      </script>
 {% endif %}
 
-{% if error == "yes" %}
-     <script>
-	    alert('Something went wrong, Try Again');
-     </script>
-{% endif %}
 
 
 

@@ -4,7 +4,7 @@
 <style>
 #kun a{
     padding: 50px;
-    
+    display: flex;
     border-radius: 10px;
     font-size: x-large;
     color: black;
@@ -23,26 +23,26 @@
 
 #a1{
     background-color: rgb(220, 5, 5,0.8);
-    margin-top: 200px;
+    margin-top: 50px;
     
 }
 #a2{
     background-color: rgba(255, 255, 1, 0.8);
-    margin-top: 200px;
+    margin-top: 50px;
 }
 
 #kun div{
-    margin-top: 200px;
+    margin-top: 50px;
 }
 </style>
 
-<div class="container col-10">
+<div class="container col-md-10">
 <div class="container">
     <div class="row" id="kun">
-        <div class="col">
+        <div class="col mt-5">
             <center><a id="a1" href="{% url 'trainerleaveapply' %}">Apply Leave</a></center>
         </div>
-        <div class="col">
+        <div class="col mt-5">
             <center><a id="a2" href="{% url 'trainer_seeleave' %}">Applied Leaves</a></center>
         </div>
     </div><br><br><br><br><br><br><br>

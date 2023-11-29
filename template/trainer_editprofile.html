@@ -1,8 +1,12 @@
 {% extends 'navbar4.html' %}
 {% block content %}
 {% load static %}
+
+<style>
+    
+</style>
  <br><br>
-<div class="container col-7">
+<div class="container col-md-7">
     
     <form action="{% url 'trainer_update' t.id %}" method="post" enctype="multipart/form-data" style="font-size: larger;font-weight: 500;"><br>
         {% csrf_token %}
@@ -98,20 +102,15 @@
          </div>
     </div>
     <button class="btn btn-warning " style="width: 100%;">Update</button>
-</form>
+</form><br><br><br><br><br>
 </div>
 {% if error == "no" %}
      <script>
-	   alert('Updated Successfully');
+	   alert('Update Request Sent ! Please Wait For Approval.');
        window.location=("{% url 'trainerdash' %}");
      </script>
 {% endif %}
 
-{% if error == "yes" %}
-     <script>
-	    alert('Something went wrong, Try Again');
-     </script>
-{% endif %}
 
 
 

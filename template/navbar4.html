@@ -337,18 +337,14 @@
 </footer>
 
   
-{% if error == "no" %}
+{% if error == "noformail" %}
      <script>
 	   alert('Mail sent Successfully');
        window.location=("{% url 'trainerdash' %}");
      </script>
 {% endif %}
 
-{% if error == "yes" %}
-     <script>
-	    alert('Something went wrong, Try Again');
-     </script>
-{% endif %}
+
 
 </body>
 </html>

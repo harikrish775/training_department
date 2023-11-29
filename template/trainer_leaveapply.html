@@ -7,7 +7,7 @@
         font-size: larger;
     }
 </style>
-<div class="container col-10"><br><br><br>
+<div class="container col-md-10"><br><br><br>
     <div class="container">
         <form action="{% url 'applyleaveaction' %}" method="post" style="background-color: rgba(0, 0, 0, 0.808);padding: 20px;border-radius: 10px;color: white;">
             <center><h1>Request Leave</h1></center>
@@ -37,6 +37,11 @@
     </div>
 
 </div>
-
+{% if error == "no" %}
+     <script>
+	   alert('successfully Requested for leave');
+       
+     </script>
+{% endif %}
 
 {% endblock %}

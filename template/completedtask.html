@@ -1,10 +1,11 @@
 {% extends 'navbar3.html' %}
 {% block content %}
 {% load static %}
-
-<div class="container col-10">
+<div class="container col-md-10">
+<div class="container table-responsive "><br><br>
+    <center><h1>Completed Task</h1></center>
     <table class="table">
-        <tr>
+        <tr style="font-size: larger;background-color: black;color: white;">
             <th>project name</th>
             <th>start date</th>
             <th>end date</th>
@@ -13,7 +14,7 @@
             <th>File</th>
         </tr>
         {% for v in h %}
-        <tr>
+        <tr style="background-color: white;font-size: larger;color: black;">
             <td>{{v.projectname}}</td>
             <td>{{v.startdate}}</td>
             <td>{{v.enddate}}</td>
@@ -28,5 +29,5 @@
         {% endfor %}
     </table>
 </div>
-
+</div>
 {% endblock %}

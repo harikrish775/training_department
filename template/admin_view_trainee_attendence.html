@@ -10,7 +10,7 @@
         font-size: larger;
     }
 </style>
-<div class="container-fluid col-10">
+<div class="container-fluid col-md-10">
     <div class="container-fluid"><br><br><br><br>
         <form action="{% url 'admin_view_trainee_attendence_action' %}" method="post" style="padding: 20px;background-color: black;border-radius: 10px;box-shadow: 2px 3px 6px white;">
             {% csrf_token %}
@@ -37,7 +37,7 @@
             </div><br>
             <center><button type="submit" class="btn " style="width: 50%;background-color: brown;border-radius: 20px;color: burlywood;font-weight: 500;">View</button></center><br>
         </form>
-    </div>
+    </div><br><br><br>
 </div>
 
 {% endblock %}

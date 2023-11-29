@@ -96,6 +96,8 @@ def trainee_update_password(request):
 def loginpage(request):
     return render(request,'loginpage.html')
 
+def home(request):
+    return render(request,'home.html')
 
 def logoutt(request):
     logout(request)
@@ -262,11 +264,17 @@ def submittaskaction(request,pk):
         if today > g.enddate:
             h = SubmitedProject(projectcopy_id=pk,projectname=g.projectname,startdate=g.startdate,enddate=g.enddate,description=description,status=status,file=file,trainee_id=trainee.id,trainer_id=g.trainer_id,is_delay=True)
             h.save()
-            return redirect('trainee_project')
+            error = 'no'
+            fg =Trainee.objects.get(customuser_id=request.user.id)
+            p = Project.objects.filter(trainer_id=fg.trainer,forr_id=fg)
+            return render(request,'assignedtask.html',{'error':error,'v':p})
         else:
             h = SubmitedProject(projectcopy_id=pk,projectname=g.projectname,startdate=g.startdate,enddate=g.enddate,description=description,status=status,file=file,trainer_id=g.trainer_id,trainee_id=trainee.id)
             h.save()
-            return redirect('trainee_project')
+            error = 'no'
+            fg =Trainee.objects.get(customuser_id=request.user.id)
+            p = Project.objects.filter(trainer_id=fg.trainer,forr_id=fg)
+            return render(request,'assignedtask.html',{'error':error,'v':p})
         
 @login_required(login_url='loginpage')
 def completedtask(request):
@@ -332,7 +340,8 @@ def trainee_applyleaveaction(request):
         to = request.POST['to']
         m = TraineeLeave(from_date=frm,to_date=to,reason=res,trainee=tr)
         m.save()
-        return redirect('trainee_applyleave')
+        error = 'no'
+        return render(request,'trainee_applyleave.html',{'error':error})
 
 @login_required(login_url='loginpage')
 def trainee_editprofile(request):
@@ -355,7 +364,7 @@ def trainee_update(request,pk):
         p = ProfileEdit(sender=t.customuser,message=f'{t.customuser.first_name} {t.customuser.last_name} with email "{t.customuser.email}" has made some changes to their profile',is_read=False,is_approved=None,is_edited=True,firstname=fname,lastname=lname,email=email,contact=contact,age=age,image=image,trainee_id=t.id)
         p.save()
         error = 'no'
-        return render(request,'trainee_dash.html',{'p':p,'error':error,'t':t})
+        return render(request,'trainee_editprofile.html',{'p':p,'error':error,'t':t})
 
 
 
@@ -417,7 +426,7 @@ def admin_sendmail(request):
             for i in tt:
                 h = TrainerNotification(message=mess,department_id=todeptrainers,forr_id=i.id)
                 h.save()
-        error = 'no'
+        error = 'noformail'
         return render(request,'dashboard.html',{'error':error})
     
 @login_required(login_url='loginpage')
@@ -451,18 +460,23 @@ def assign(request):
 def assignaction(request,pk):
     teach = Trainer.objects.all()
     asign = Trainee.objects.all()
-    co = Notification.objects.filter(is_read=False).count()
-    no = Notification.objects.filter(is_read=False)
+    c = Trainee.objects.get(id=pk)
     if request.method == 'POST':
         if 'trainr' in request.POST :
             t = request.POST['trainr']
+            trnr = Trainer.objects.get(id=t)
+            fr = trnr.customuser.first_name
+            lr = trnr.customuser.last_name
+            tt = TraineeNotification(sender_id=t,message=f'You have been assigned new trainer - {fr} {lr}',forr_id=c.id)
+            tt.save()
         else:
             t = ''
 
     c = Trainee.objects.get(id=pk)
     c.trainer_id = t
     c.save()
-    return render(request,'assign.html',{'asign':asign,'teach':teach,'ncount':co,'noti':no})
+    error = 'no'
+    return render(request,'assign.html',{'asign':asign,'teach':teach,'error':error})
 
 @login_required(login_url='loginpage')
 def course(request):
@@ -525,8 +539,8 @@ def approveaction(request,pk):
         if CustomUser.objects.filter(email=trainer.email).exists():
             error = 'yes'
         else:
-            # passs = generate_password()
-            passs = '123'
+            passs = generate_password()
+            # passs = '123'
             userr = CustomUser.objects.create_user(first_name=trainer.first_name,last_name=trainer.last_name,email=trainer.email,username=trainer.username,password=passs,is_special=trainer.is_special,date_joined=trainer.joindate)
             userr.save()
             approved_trainer = Trainer(contact=trainer.contact,age=trainer.age,gender=trainer.gender,joindate=trainer.joindate,image=trainer.image,customuser=userr,degree=trainer.degree,department_id=trainer.department.id)
@@ -552,9 +566,9 @@ def approveaction(request,pk):
         if CustomUser.objects.filter(email=trainee.email).exists():
             error = 'yes'
         else:
-            # passs = str(random.randint(123421,897654))
+            passs = str(random.randint(123421,897654))
             # passs = generate_password()
-            passs = '123'
+            # passs = '123'
             userr = CustomUser.objects.create_user(first_name=trainee.first_name,last_name=trainee.last_name,email=trainee.email,username=trainee.username,password=passs,is_special=trainee.is_special,date_joined=trainee.joindate)
             userr.save()
             approved_trainee = Trainee(contact=trainee.contact,age=trainee.age,gender=trainee.gender,joindate=trainee.joindate,image=trainee.image,customuser=userr,degree=trainee.degree,department_id=trainee.department.id)
@@ -784,7 +798,10 @@ def admin_assign_department_action(request,pk):
         trainer = Trainer.objects.get(id=pk)
         trainer.department_id=ff
         trainer.save()
-        return redirect('admin_assign_department')
+        d = Department.objects.all()
+        train = Trainer.objects.all()
+        error='no'
+        return render(request,'admin_assign_department.html',{'train':train,'dep':d,'error':error})
 
 @login_required(login_url='loginpage')
 def admin_assign_dep_trainee(request):
@@ -799,7 +816,10 @@ def admin_assign_dep_trainee_action(request,pk):
         trainee = Trainee.objects.get(id=pk)
         trainee.department_id=ff
         trainee.save()
-        return redirect('admin_assign_dep_trainee')
+        error = 'no'
+        d = Department.objects.all()
+        train = Trainee.objects.all()
+        return render(request,'admin_assign_dep_trainee.html',{'error':error,'train':train,'dep':d})
 
 @login_required(login_url='loginpage')
 def approvechange(request,pk):
@@ -923,7 +943,8 @@ def applyleaveaction(request):
         to = request.POST['to']
         m = TrainerLeave(from_date=frm,to_date=to,reason=res,trainer=tr)
         m.save()
-        return redirect('trainerleaveapply')
+        error = 'no'
+        return render(request,'trainer_leaveapply.html',{'error':error})
 
 @login_required(login_url='loginpage')
 def trainer_seeleave(request):
@@ -1007,7 +1028,8 @@ def trainer_class_action(request):
         trainer = Trainer.objects.get(customuser_id=request.user.id)
         c = Class_schedule(topic=topic,date=date,link=link,trainer_id=trainer.id)
         c.save()
-        return redirect('trainer_class_schedule')
+        error='no'
+        return render(request,'trainer_class_schedule.html',{'error':error})
 
 @login_required(login_url='loginpage')
 def trainer_inbox(request):
@@ -1113,7 +1135,7 @@ def trainer_sendmail(request):
         for i in st:
             dd = TraineeNotification(message=msg,forr_id=i.id,is_read=False,sender_id=bb.id)
             dd.save()
-        error = 'no'
+        error = 'noformail'
         user = request.user.id
         t = Trainer.objects.get(customuser_id=user)
         count = TrainerNotification.objects.filter(forr_id = t.id,is_read=False).count()

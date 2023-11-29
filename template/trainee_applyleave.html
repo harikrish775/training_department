@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10">
+<div class="container col-md-10">
     <div class="container"><br><br><br><br>
         <form action="{% url 'trainee_applyleaveaction' %}" method="post" style="background-color: black;color: white;border-radius: 10px;padding: 25px;">
             <center><h2>Apply For Leave</h2>    </center>
@@ -28,6 +28,17 @@
     </div><br><br><br><br><br><br><br><br>
 
 </div>
+{% if error == "no" %}
+     <script>
+	   alert('Leave Requested Successfully');
+       
+     </script>
+{% endif %}
 
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
 
 {% endblock %}

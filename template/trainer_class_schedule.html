@@ -8,8 +8,8 @@
         background-size: cover;
     }
 </style>
-<div class="container col-10"><br><br><br><br><br>
-    <div class="container col-8" style="box-shadow: 2px 2px 4px black;padding: 20px;border-radius: 9px;background-color: rgba(255, 255, 255, 0.788);">
+<div class="container col-md-10"><br><br><br><br><br>
+    <div class="container col-md-8" style="box-shadow: 2px 2px 4px black;padding: 20px;border-radius: 9px;background-color: rgba(255, 255, 255, 0.788);">
         <center><h2>Schedule a class</h2></center><br>
         <form action="{% url 'trainer_class_action' %}" method="post" style="font-weight: 500;font-size: larger;">
             {% csrf_token %}
@@ -33,7 +33,18 @@
             <center><button type="submit" class="btn btn-info" style="width: 150px;border-radius: 5px;">Schedule class</button></center>
     
         </form><br>
-    </div>
+    </div><br><br><br><br><br><br><br>
 </div>
+{% if error == "no" %}
+     <script>
+	   alert('Class Added Successfully');
+       
+     </script>
+{% endif %}
 
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
 {% endblock %}

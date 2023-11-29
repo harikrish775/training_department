@@ -9,9 +9,9 @@
     }
 </style>
 
-<div class="container col-10"><br><br><br><br>
+<div class="container col-md-10"><br><br><br><br>
     
-    <form action="{% url 'trainer_assignproject_action' %}" method="post" class="container col-8" style="box-shadow:2px 4px 7px black;padding: 20px;border-radius: 10px;background-color: rgba(255, 255, 255, 0.75);font-weight: 500;">
+    <form action="{% url 'trainer_assignproject_action' %}" method="post" class="container col-11" style="box-shadow:2px 4px 7px black;padding: 20px;border-radius: 10px;background-color: rgba(255, 255, 255, 0.75);font-weight: 500;">
         <center><h2>Assign Projects</h2></center>
         {% csrf_token %}
         <div class="form-group">
@@ -29,7 +29,7 @@
             </div>
         </div><br>
         <center><button type="submit" class="btn btn-primary" style="width: 50%;">Assign</button></center>
-    </form>
+    </form><br><br>
 </div>
 
 {% if error == "no" %}

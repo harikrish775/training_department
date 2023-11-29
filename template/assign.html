@@ -3,7 +3,7 @@
 {% load static %}
 
 
-<div class="container col-10"><br>
+<div class="container col-md-10"><br>
   <center><h1 style="color: white;text-shadow: 1px 2px black;">Assign trainers</h1></center><br>
   <div class="container table-responsive">
   
@@ -50,5 +50,17 @@
   </div>
 </div>
 
+{% if error == "no" %}
+     <script>
+	   alert('Assigned Successfully');
+      
+     </script>
+{% endif %}
+
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
 
 {% endblock %}

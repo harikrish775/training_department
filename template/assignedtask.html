@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10"><br>
+<div class="container col-md-10"><br>
     <center><h2> Tasks To Be Submitted</h2></center><br>
     <div class="container table-responsive">
         <table class="table">
@@ -17,13 +17,13 @@
             {% for v in v %}
             
             
-            <tr style="background-color: black;font-size: larger;color: white;">
+            <tr style="background-color: white;font-size: larger;color: black;">
                 <td>{{v.projectname}}</td>
                 <td>{{v.startdate}}</td>
                 <td>{{v.enddate}}</td>
                 {% if v.status == False %}
-                <td><button href="" class="btn btn-outline-warning" disabled>Pending</button></td>
-                <td><a href="{% url 'submittask' v.id %}" class="btn btn-outline-success">Submit</a></td>
+                <td><button href="" class="btn btn-warning" disabled>Pending</button></td>
+                <td><a href="{% url 'submittask' v.id %}" class="btn btn-success">Submit</a></td>
                 {% elif v.status == True %}
                 <td><button href="" class="btn btn-outline-success" disabled>Submitted</button></td>
                 <td></td>
@@ -34,7 +34,12 @@
         </table>
     </div>
 </div>
-
+{% if error == "no" %}
+     <script>
+	   alert('Task submitted !');
+       
+     </script>
+{% endif %}
 {% endblock %}
 
 

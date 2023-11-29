@@ -2,9 +2,9 @@
 {% block content %}
 {% load static %}
 
-<div class="container col-10"><br><br><br><br>
+<div class="container col-md-10"><br><br><br><br>
     
-    <div class="container col-10 " style="padding: 20px;border-radius: 10px;font-size: larger;background-image: linear-gradient(grey,rgba(173, 216, 230, 0.856));">
+    <div class="container col-md-7 " style="padding: 20px;border-radius: 10px;font-size: larger;background-color: rgba(255, 255, 255, 0.5);">
         <div class="container"><center><h1>Submit Project</h1></center><br>
         <form action="{% url 'submittaskaction' m.id %}" method="post" enctype="multipart/form-data" >
             {% csrf_token %}
@@ -70,5 +70,6 @@
     </div>
     </div><br><br><br><br><br><br><br>
 </div>
+
 
 {% endblock %}

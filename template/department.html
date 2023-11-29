@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 
-<div class="container row-5 " ><br><br><br><br><br>
+<div class="container row-5 " ><br><br><br>
     
     <form action="{% url 'depadd' %}" method="post" style="box-shadow: 2px 4px 8px black; padding: 20px;background-color: white;border-radius: 10px;">
         <center><h1>New department</h1></center>
@@ -28,7 +28,7 @@
               
             </div>
           </div></center>
-    </form>
+    </form><br><br><br>
 </div>
 <br><br><br><br>
     {% if error == "no" %}

@@ -1,0 +1,23 @@
+{% extends 'navbar2.html' %}
+{% block content %}
+{% load static %}
+<style>
+ body{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)),url('{% static "image/wall3.jpg" %}');
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+ }
+
+</style>
+<div class="jumbotron" style="background-color: transparent;"> 
+    <center><h1 class="display-3" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">ALTOS Technologies</h1></center>
+    <center><h4 >We Deal With The Aspects Of Professional IT Solutions</h4></center>
+    <hr class="my-4">
+    <p style="font-size: larger;">Elevate your business with Altos Technologies. As a software development company in India, we craft custom websites and software solutions to fit your unique business needs. Our team of experts delivers solutions that streamline operations, boost efficiency, and create a lasting impact. Partner with us to take your success to new heights with quality and excellence at the forefront.</p>
+    <p class="lead">
+      <a class="btn btn-lg" style="float: right;border-radius: 50px;background-color: black;color: white;font-weight: 500;box-shadow: 5px 5px 5px white;" href="#" role="button">Learn more</a>
+    </p>
+  </div>
+
+{% endblock %}

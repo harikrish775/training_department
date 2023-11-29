@@ -13,7 +13,7 @@
 
 </style>
 
-<div class="container col-10">
+<div class="container col-md-10">
 <div class="row" style="margin: 10px;">
     <div class="col ml-2 mt-2 " style="background-color: rgba(255, 0, 0, 0.6);padding: 15px;">
         <a href="{% url 'traineerecord' %}"><p style="font-size: larger;">Total Trainees </p> <center><span class="badge badge-dark" style="font-size: 45px;">{{ecount}}</span></center></a>
@@ -82,14 +82,10 @@
 {% if error == "no" %}
      <script>
 	   alert('Mail Sent Successfully');
-       window.location=("{% url 'dashboard' %}");
+       
      </script>
 {% endif %}
 
-{% if error == "yes" %}
-     <script>
-	    alert('Something went wrong, Try Again');
-     </script>
-{% endif %}
+
 
 {% endblock %}

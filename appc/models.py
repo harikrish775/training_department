@@ -84,7 +84,7 @@ class TraineeNotification(models.Model):
     message = models.CharField(max_length=255)
     person = models.CharField(max_length=255)
     is_read = models.BooleanField(default=False)
-    forr = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
+    forr = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True) 
     
 
 class TraineeNotificationStatus(models.Model):
