@@ -150,19 +150,25 @@ def signupaction(request):
         department = request.POST['department']
         propass = '123'
 
-        if rr == 'trainee':
-                te = TempSignup(first_name=firstname,last_name=lastname,username=username,email=email,password=propass,contact=contact,joindate=joindate,age=age,gender=gender,image=image,degree=degree,department_id=department)
-                te.save()
-                no = Notification(message=f' A new {rr} registered as {firstname} {lastname} is waiting for your approval.',tempsignup_id=te.id )
-                no.save()
-                return redirect('loginpage')
+        if TempSignup.objects.filter(email=email).exists():
+            error = 'yes'
+            dep = Department.objects.all()
+            return render(request,'signup.html',{'error':error,'dep':dep})
+        else:
             
-        elif rr == 'trainer':
-                te = TempSignup(first_name=firstname,last_name=lastname,username=username,email=email,password=propass,contact=contact,joindate=joindate,age=age,gender=gender,image=image,degree=degree,is_special=True,department_id=department)
-                te.save()
-                no = Notification.objects.create(message=f'A new {rr} has registered as {firstname} {lastname}.',tempsignup_id=te.id )
-                no.save()
-                return redirect('loginpage')
+            if rr == 'trainee':
+                    te = TempSignup(first_name=firstname,last_name=lastname,username=username,email=email,password=propass,contact=contact,joindate=joindate,age=age,gender=gender,image=image,degree=degree,department_id=department)
+                    te.save()
+                    no = Notification(message=f' A new {rr} registered as {firstname} {lastname} is waiting for your approval.',tempsignup_id=te.id )
+                    no.save()
+                    return redirect('loginpage')
+                
+            elif rr == 'trainer':
+                    te = TempSignup(first_name=firstname,last_name=lastname,username=username,email=email,password=propass,contact=contact,joindate=joindate,age=age,gender=gender,image=image,degree=degree,is_special=True,department_id=department)
+                    te.save()
+                    no = Notification.objects.create(message=f'A new {rr} has registered as {firstname} {lastname}.',tempsignup_id=te.id )
+                    no.save()
+                    return redirect('loginpage')
         
 
 

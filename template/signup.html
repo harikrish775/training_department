@@ -44,7 +44,7 @@ body{
     <div class="row">
         <div class="col form-group">
             <label for="">Email</label>
-            <input type="text" class="form-control" name="email" id="" required>
+            <input type="email" class="form-control" name="email" id="" required>
         </div>
         <div class="col form-group">
             <label for="">Contact</label>
@@ -102,4 +102,13 @@ body{
     <center><button class="btn btn-warning " style="width: 50%;">signup</button></center>
 </form><br><br>
     </div></div>
+
+
+   
+
+{% if error == "yes" %}
+     <script>
+	    alert('Email already exists');
+     </script>
+{% endif %}
 {% endblock %}
