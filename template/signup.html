@@ -1,15 +1,21 @@
 {% extends 'navbar2.html' %}
 {% block content %}
 {% load static %}
- <br><br>
-<div class="container col-7">
-    {% for i in messages %}
-    <h2>{{i}}</h2>
-    {% endfor %}
-    <form action="{% url 'signupaction' %}" method="post" enctype="multipart/form-data">
+
+<style>
+body{
+    background-image: url('{% static "image/anim3.png" %}');
+    background-size: cover;
+}
+</style>
+
+ <br><br><br><br>
+<div class="container ">
+    <div class="container col-md-8">
+    <form action="{% url 'signupaction' %}" method="post" enctype="multipart/form-data" style="background-color: rgba(255, 255, 255, 0.643);padding: 25px;border-radius: 10px;font-size: larger;font-weight: 500;">
         {% csrf_token %}
 
-        <center> <h1>Registration</h1> <select name="rrr" class="form-control col-3"> 
+        <center> <h1>Registration</h1> <select style="border: 4px solid royalblue;min-width: 100px;padding: 5px;box-shadow: 2px 3px 6px royalblue;font-size: large;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;background-color: lightskyblue;" name="rrr" class="form-control col-3" required> 
             <option value="trainee">Trainee</option>
             <option value="trainer">Trainer</option>
         </select >
@@ -17,14 +23,14 @@
 
     <div class="row">
         <div class="col form-group">
-            <label for="">first name</label>
-            <input type="text" class="form-control" name="fname" id="">
+            <label for="">First name</label>
+            <input type="text" class="form-control" name="fname" id="" required>
         </div>
         <div class="col form-group">
-            <label for="">last name</label>
-            <input type="text" class="form-control" name="lname" id="">
+            <label for="">Last name</label>
+            <input type="text" class="form-control" name="lname" id="" required>
          </div>
-        <!-- <div class="col form-group">
+        <div class="col form-group">
         
             <label for="">Department</label>
             <select name="department" class="form-control" id="">
@@ -33,20 +39,20 @@
                 {% endfor %}
 
             </select>
-        </div> -->
+        </div>
     </div>
     <div class="row">
         <div class="col form-group">
-            <label for="">email</label>
-            <input type="text" class="form-control" name="email" id="">
+            <label for="">Email</label>
+            <input type="text" class="form-control" name="email" id="" required>
         </div>
         <div class="col form-group">
-            <label for="">contact</label>
-            <input type="text" class="form-control" name="contact" id="">
+            <label for="">Contact</label>
+            <input type="text" class="form-control" pattern="\d{10}" maxlength="10" name="contact" id="" required>
          </div>
         <div class="col form-group">
-            <label for="">age</label>
-            <input type="text" class="form-control" name="age" id="">
+            <label for="">Age</label>
+            <input type="text" class="form-control" name="age" id="" required>
         </div>
     </div>
     <div class="row">
@@ -61,33 +67,25 @@
             </select>
         </div> -->
         <div class="col form-group">
-            <label for="">joindate</label>
-            <input type="date" class="form-control" name="joindate" id="">
+            <label for="">Joindate</label>
+            <input type="date" class="form-control" name="joindate" id="" required>
          </div>
          <div class="col form-group">
-            <label for="">gender:</label> <br>
+            <label for="">Gender:</label> <br>
             <input type="radio" class="ml-5" style="font-size: 3px;" name="gender" value="Male"> Male
-            <input type="radio" class="ml-4" style="font-size: 3px;" name="gender" value="Female"> Female    
+            <input type="radio" class="ml-4" style="font-size: 3px;" name="gender" value="Female" required> Female    
          </div>
     </div>
     <div class="row">
         <div class="col form-group">
-            <label for="">image</label>
-            <input type="file" class="form-control" name="image" id="" accept="image/*">
+            <label for="">Image</label>
+            <input type="file" class="form-control" name="image" id="" accept="image/*" required>
         </div>
         <div class="col form-group">
             <label for="">Degree Certificate</label>
-            <input type="file" class="form-control" name="degree" id="">
+            <input type="file" class="form-control" name="degree" id="" required>
          </div>
-        <div class="col form-group">
-            <!-- <label for="">Department</label>
-            <select name="department" class="form-control" id="">
-                {% for i in dep %}
-                <option value="{{i.id}}">{{i.department}}</option>
-                {% endfor %}
-
-            </select> -->
-        </div>
+        
     </div>
     <div class="row">
         
@@ -101,8 +99,7 @@
             
          </div>
     </div>
-    <button class="btn btn-warning " style="width: 100%;">signup</button>
-</form>
-</div>
-
+    <center><button class="btn btn-warning " style="width: 50%;">signup</button></center>
+</form><br><br>
+    </div></div>
 {% endblock %}

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -43,39 +44,47 @@
 <body>
     
   <nav class="navbar navbar-dark " style="background-color: black;">
-    <span class="navbar-brand mb-0 h1">Altos<img src="" alt="logo"></span>
+    <span class="navbar-brand mb-0 h1">Altos<img src="{% static 'image/altoslogo.png' %}" width="100" height="70" alt="logo"></span>
     <ul class="ml-auto m-0 p-0" style="color: black;">
-      <p ><!-- Button trigger modal -->
-        <button type="button" class="btn btn-warning mt-3" data-toggle="modal" data-target="#exampleModal">
-          Send Mail <i class="fa-solid fa-envelope"></i>
-        </button>
+    
+        <li>
+          <a class="" style="text-decoration: none;color: red;font-weight: 500;" href="{% url 'trainer_update_password' %}">Reset Password</a>
+        </li>
         
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Notify Trainees</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+      
+      <li>
+        <!-- Button trigger modal -->
+          <button type="button" class="btn btn-warning mt-3" data-toggle="modal" data-target="#exampleModal">
+            Send Mail <i class="fa-solid fa-envelope"></i>
+          </button>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Notify Trainees</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="{% url 'trainer_sendmail' %}" method="post">
+                  {% csrf_token %}
+                  <div class="modal-body">
+                      <p style="font-size: smaller;float: left;">Send notification,</p>
+                      <textarea class="form-control" name="message" id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">send</button>
+                    </div>
+                </form>
               </div>
-              <form action="{% url 'trainer_sendmail' %}" method="post">
-                {% csrf_token %}
-                <div class="modal-body">
-                    <p style="font-size: smaller;float: left;">Send notification,</p>
-                    <textarea class="form-control" name="message" id="" cols="30" rows="10"></textarea>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">send</button>
-                  </div>
-              </form>
             </div>
           </div>
-        </div>
-    
-    </p>
+      
+      
+      </li>
     </ul>
   </nav>
 <!-- ---------------------------verticle-------------------------- -->
@@ -254,75 +263,78 @@
 </div>
 
 
-  <footer class="container-fluid text-light" style="background-color: rgba(0, 0, 0, 0.95);">
-    <div class="container">
-      <div class="row pt-4">
+<footer class="container-fluid text-light" style="background-color: rgba(0, 0, 0, 0.95);">
+  <div class="container">
+    <div class="row pt-4">
+      
+      <!-- Column 1 -->
+      <div class="col-md-4">
         
-        <!-- Column 1 -->
-        <div class="col-md-4">
-          
-          <p>Content for column 1 goes here.</p>
-        </div>
-
-        <!-- Column 2 -->
-        <div class="col-md-4">
-          
-          <p>Content for column 2 goes here.</p>
-        </div>
-
-        <!-- Column 3 -->
-        <div class="col-md-4">
-          
-          <p>Content for column 3 goes here.</p>
-        </div>
-
+        <h5>Company</h5>
       </div>
 
-      <div class="row mt-3">
-
-        <!-- Column 4 -->
-        <div class="col-md-4">
-          
-          <p>Content for column 4 goes here.</p>
-        </div>
-
-        <!-- Column 5 -->
-        <div class="col-md-4">
-          
-          <p>Content for column 5 goes here.</p>
-        </div>
-
-        <!-- Column 6 -->
-        <div class="col-md-4">
-          
-          <p>Content for column 6 goes here.</p>
-        </div>
-
+      <!-- Column 2 -->
+      <div class="col-md-4">
+        
+        <h5>Support us!</h5>
       </div>
 
-      <div class="row mt-3">
-
-        <!-- Column 7 -->
-        <div class="col-md-4">
-          
-          <p>Content for column 7 goes here.</p>
-        </div>
-
-        <!-- Column 8 -->
-        <div class="col-md-4">
-          
-          <p>Content for column 8 goes here.</p>
-        </div>
-
-        <!-- Column 9 -->
-        <div class="col-md-4">
-          
-          <p>Content for column 9 goes here.</p>
-        </div>
-
+      <!-- Column 3 -->
+      <div class="col-md-4">
+        
+        <h5>Follow Us!</h5>
       </div>
+
     </div>
-  </footer>
+
+    <div class="row mt-3">
+
+      <!-- Column 4 -->
+      <div class="col-md-4">
+        
+        <p>Recent Updates.</p>
+      </div>
+
+      <!-- Column 5 -->
+      <div class="col-md-4">
+        
+        <p>Contribute</p>
+      </div>
+
+      <!-- Column 6 -->
+      <div class="col-md-4" id="foo">
+        
+        <span> <i class="fa-brands fa-instagram"></i> <i class="fa-brands fa-twitter"></i> <i class="fa-brands fa-linkedin"></i> <i class="fa-brands fa-facebook"></i> </span>
+      </div>
+
+    </div>
+
+    <div class="row mt-3">
+
+      <!-- Column 7 -->
+      <div class="col-md-4">
+        
+        <p>Help.</p>
+      </div>
+
+      <!-- Column 8 -->
+      <div class="col-md-4">
+        
+        <p>FAQ</p>
+      </div>
+
+      <!-- Column 9 -->
+      <div class="col-md-4">
+        
+        <p>Email us: Altostech@gmail.com</p>
+      </div>
+
+    </div>
+  </div><br>
+</footer>
+<footer class=" text-light text-center py-3" style="background-color: rgba(0, 0, 0, 0.95);">
+  <p>&copy;copyright 2023 Altostech@gmail.com</p>
+</footer>
 
   
 

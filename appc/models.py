@@ -25,6 +25,7 @@ class Trainer(models.Model):
     joindate = models.DateField()
     image = models.ImageField(upload_to='image/')
     degree = models.FileField(upload_to='file/')
+    
 
 class Trainee(models.Model):
     customuser = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
@@ -63,6 +64,7 @@ class TempSignup(models.Model):
     image = models.ImageField(upload_to='image/')
     degree = models.FileField(upload_to='file/')
     is_special = models.BooleanField(default=False)
+    department = models.ForeignKey(Department,on_delete=models.SET_NULL,null=True)
     
 
 class Notification(models.Model):
@@ -74,6 +76,7 @@ class Notification(models.Model):
     tempsignup = models.ForeignKey(TempSignup,on_delete=models.CASCADE,null=True)
     trainee =  models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True)
     trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
+    
     
 
 class TraineeNotification(models.Model):

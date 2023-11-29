@@ -1,9 +1,15 @@
 {% extends 'navbar2.html' %}
 {% block content %}
 {% load static %}
-
-<div class=" container col-5">
-    <h2>Login</h2>
+<style>
+    body{
+        background-image: url('{% static "image/anim5.jpg" %}');
+        background-size: cover;
+    }
+</style>
+<div class=" container "><br><br><br><br><br>
+    <div class="container col-md-5" style="background-color: rgba(0, 0, 0, 0.75);padding: 25px;border-radius: 10px;color: white;">
+        <h2>Login</h2>
     <form action="{% url 'loginaction' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -14,10 +20,12 @@
             <label for="">Password</label>
             <input type="password" name="password" class="form-control" >
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-warning">Login</button>
+        <!-- <a href="" style="color: white;">Forgot password</a> -->
+        <div class="form-group"><br>
+            <center><button type="submit" style="width: 50%;border-radius: 25px;" class="btn btn-warning">Login</button></center>
         </div>
     </form>
+    </div>
 </div>
 
 

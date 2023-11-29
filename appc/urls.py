@@ -67,7 +67,6 @@ urlpatterns = [
     path('trainer_view_project',views.trainer_view_project,name='trainer_view_project'),
     path('trainer_viewaction_project/<int:pk>',views.trainer_viewaction_project,name='trainer_viewaction_project'),
     path('trainer_inbox',views.trainer_inbox,name='trainer_inbox'),
-    # path('trainer_readmessage/<int:pk>',views.trainer_readmessage,name='trainer_readmessage'),
     path('admin_review_attendence',views.admin_review_attendence,name='admin_review_attendence'),
     path('admin_approve_leave/<int:pk>',views.admin_approve_leave,name='admin_approve_leave'),
     path('admin_reject_leave/<int:pk>',views.admin_reject_leave,name='admin_reject_leave'),
@@ -97,6 +96,8 @@ urlpatterns = [
     path('trainer_markasread/<int:pk>',views.trainer_markasread,name='trainer_markasread'),
     path('trainee_markasread/<int:pk>',views.trainee_markasread,name='trainee_markasread'),
     path('trainer_sendmail',views.trainer_sendmail,name='trainer_sendmail'),
+    path('trainer_update_password',views.trainer_update_password,name='trainer_update_password'),
+    path('trainee_update_password',views.trainee_update_password,name='trainee_update_password'),
     # path('qw',views.qw,name='qw'),
     
 
