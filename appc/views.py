@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import auth
-from .models import Trainee,Trainer,Course,Notification,CustomUser,Department,TrainerNotification,TraineeNotification,Project,TrainerLeave,Trainee_attendence,Class_schedule,Trainer_attendence,TempSignup,SubmitedProject,TraineeNotificationStatus,TrainerNotificationStatus,TraineeLeave,ProfileEdit
+from .models import Trainee,Trainer,Notification,CustomUser,Department,TrainerNotification,TraineeNotification,Project,TrainerLeave,Trainee_attendence,Class_schedule,Trainer_attendence,TempSignup,SubmitedProject,TraineeLeave,ProfileEdit
 from django.contrib import messages
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
@@ -131,7 +131,7 @@ def admin(request):
     return render(request,'dashboard.html',{'noticount':noticount,'noti':noti})
 
 def signup(request):
-    co = Course.objects.all()
+    
     dep = Department.objects.all()
     return render(request,'signup.html',{'dep':dep})
 
@@ -493,11 +493,6 @@ def assignaction(request,pk):
     
     
 
-@login_required(login_url='loginpage')
-def course(request):
-    co = Notification.objects.filter(is_read=False).count()
-    no = Notification.objects.filter(is_read=False)
-    return render(request,'course.html',{'ncount':co,'noti':no})
 
 @login_required(login_url='loginpage')
 def traineerecord(request):
@@ -638,15 +633,7 @@ def deletedepp(request,pk):
     dep = Department.objects.all()
     return render(request,'department.html',{'error':error,'dep':dep})
 
-@login_required(login_url='loginpage')
-def addcourse(request):
-    if request.method == 'POST':
-        name = request.POST['course']
-        fee = request.POST['fee']
-        syllabus = request.POST['syl']
-        co = Course(coursename=name,coursefee=fee,syllabus=syllabus)
-        co.save()
-        return redirect('course')
+
 
 @login_required(login_url='loginpage')
 def trainer_attendence(request):
@@ -924,7 +911,9 @@ def managetrainee(request):
     user = request.user.id
     t = Trainer.objects.get(customuser_id=user)
     rec = Trainee.objects.filter(trainer_id=t.id)
-    return render(request,'managetrainee.html',{'rec':rec,'t':t})
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'managetrainee.html',{'rec':rec,'t':t,'count':count})
 
 @login_required(login_url='loginpage')
 def traineenoti(request,pk):
@@ -944,11 +933,15 @@ def trainerdash(request):
 
 @login_required(login_url='loginpage')
 def trainerleave(request):
-    return render(request,'trainer_leaveportal.html')
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'trainer_leaveportal.html',{'count':count})
 
 @login_required(login_url='loginpage')
 def trainerleaveapply(request):
-    return render(request,'trainer_leaveapply.html')
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'trainer_leaveapply.html',{'count':count})
 
 @login_required(login_url='loginpage')
 def applyleaveaction(request):
@@ -968,12 +961,15 @@ def trainer_seeleave(request):
     user = request.user.id
     f = Trainer.objects.get(customuser_id=user)
     tr = TrainerLeave.objects.filter(trainer_id=f.id)
-    return render(request,'trainer_seeleave.html',{'leave':tr})
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'trainer_seeleave.html',{'leave':tr,'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_assignproject(request):
-    
-    return render(request,'trainer_assignproject.html')
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'trainer_assignproject.html',{'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_assignproject_action(request):
@@ -990,17 +986,23 @@ def trainer_assignproject_action(request):
             f.save()
             error = 'no'
         return render(request,'trainer_assignproject.html',{'error':error})
+    
+
 
 @login_required(login_url='loginpage')
 def trainer_markattendence(request):
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
     us = Trainer.objects.get(customuser_id=request.user.id)
     a = Trainee.objects.filter(trainer_id=us.id)
     t_date = datetime.today().strftime('%Y-%m-%d')
-    return render(request,'trainer_markattendence.html',{'aten':a,'t':t_date})
+    return render(request,'trainer_markattendence.html',{'aten':a,'t':t_date,'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_markaction(request,pk):
     if request.method == 'POST':
+        u = Trainer.objects.get(customuser_id=request.user.id)
+        count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
         g = request.POST['tdate']
         d = Trainee_attendence.objects.filter(date=g,trainee_id=pk)
         b = request.POST['attn']
@@ -1009,7 +1011,7 @@ def trainer_markaction(request,pk):
             us = Trainer.objects.get(customuser_id=request.user.id)
             a = Trainee.objects.filter(trainer_id=us.id)
             t_date = datetime.today().strftime('%Y-%m-%d')
-            return render(request,'trainer_markattendence.html',{'error':error,'aten':a,'t':t_date})
+            return render(request,'trainer_markattendence.html',{'error':error,'aten':a,'t':t_date,'count':count})
         else:
             if b == 'present':
                 c = Trainee_attendence(trainee_id=pk,attendence=True,date=g)
@@ -1018,7 +1020,7 @@ def trainer_markaction(request,pk):
                 us = Trainer.objects.get(customuser_id=request.user.id)
                 a = Trainee.objects.filter(trainer_id=us.id)
                 t_date = datetime.today().strftime('%Y-%m-%d')
-                return render(request,'trainer_markattendence.html',{'error':error,'aten':a,'t':t_date})
+                return render(request,'trainer_markattendence.html',{'error':error,'aten':a,'t':t_date,'count':count})
             
             elif b == 'absent':
                 c = Trainee_attendence(trainee_id=pk,attendence=False,date=g)
@@ -1027,14 +1029,16 @@ def trainer_markaction(request,pk):
                 us = Trainer.objects.get(customuser_id=request.user.id)
                 a = Trainee.objects.filter(trainer_id=us.id)
                 t_date = datetime.today().strftime('%Y-%m-%d')
-                return render(request,'trainer_markattendence.html',{'error':error,'aten':a,'t':t_date})
+                return render(request,'trainer_markattendence.html',{'error':error,'aten':a,'t':t_date,'count':count})
             
             else:
                 return redirect('trainer_markattendence')
 
 @login_required(login_url='loginpage')
 def trainer_class_schedule(request):
-    return render(request,'trainer_class_schedule.html')
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'trainer_class_schedule.html',{'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_class_action(request):
@@ -1062,20 +1066,28 @@ def trainer_inbox(request):
 def trainer_view_project(request):
     t = Trainer.objects.get(customuser_id=request.user.id)
     p = Trainee.objects.filter(trainer_id=t.id)
-    return render(request,'trainer_view_project.html',{'p':p})
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'trainer_view_project.html',{'p':p,'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_viewaction_project(request,pk):
     d = SubmitedProject.objects.filter(trainee_id=pk)
     p = Trainee.objects.get(id=pk)
-    return render(request,'trainer_viewaction_project.html',{'d':d,'p':p})
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'trainer_viewaction_project.html',{'d':d,'p':p,'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_view_self_attendence(request):
-    return render(request,'trainer_view_self_attendence.html')
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'trainer_view_self_attendence.html',{'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_view_self_attendence_action(request):
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
     
     if request.method == 'POST':
         user = request.user.id
@@ -1084,41 +1096,53 @@ def trainer_view_self_attendence_action(request):
         b = request.POST['end']
         sort_param = request.GET.get('sort', 'date')
         s = Trainer_attendence.objects.filter(trainer_id=c.id,date__range=(a,b)).order_by(sort_param)
-        return render(request,'trainer_see_self_attendence.html',{'s':s,'a':a,'b':b})
+        return render(request,'trainer_see_self_attendence.html',{'s':s,'a':a,'b':b,'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_trainee_attendence(request):
-    return render(request,'trainer_trainee_attendence.html')
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
+    return render(request,'trainer_trainee_attendence.html',{'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_view_trainee_attendence(request):
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
     user = Trainer.objects.get(customuser_id=request.user.id)
     tr = Trainee.objects.filter(trainer_id=user)
-    return render(request,'trainer_view_trainee_attendence.html',{'tr':tr})
+    return render(request,'trainer_view_trainee_attendence.html',{'tr':tr,'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_view_trainee_attendence_action(request):
     if request.method == 'POST':
+        u = Trainer.objects.get(customuser_id=request.user.id)
+        count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
         trai = request.POST['traine']
         gg = Trainee.objects.get(id=trai)
         a = request.POST['start']
         b = request.POST['end']
         sort_param = request.GET.get('sort', 'date')
         s = Trainee_attendence.objects.filter(trainee_id=trai,date__range=(a,b)).order_by(sort_param)
-        return render(request,'trainer_see_trainee_attendence.html',{'s':s,'gg':gg,'a':a,'b':b})
+        return render(request,'trainer_see_trainee_attendence.html',{'s':s,'gg':gg,'a':a,'b':b,'count':count})
     
 @login_required(login_url='loginpage')
 def trainer_view_trainee_card(request,pk):
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
     card = Trainee.objects.get(id=pk)
-    return render(request,'trainer_view_trainee_card.html',{'i':card})
+    return render(request,'trainer_view_trainee_card.html',{'i':card,'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_editprofile(request):
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
     t = Trainer.objects.get(customuser_id=request.user.id)
-    return render(request,'trainer_editprofile.html',{'t':t})
+    return render(request,'trainer_editprofile.html',{'t':t,'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_update(request,pk):
+    u = Trainer.objects.get(customuser_id=request.user.id)
+    count = TrainerNotification.objects.filter(forr_id=u.id, is_read=False).count()
     t = Trainer.objects.get(id=pk)
     if request.method == 'POST':
         fname = request.POST['fname']
@@ -1134,7 +1158,7 @@ def trainer_update(request,pk):
         p.save()
         
         error = 'no'
-        return render(request,'trainerdash.html',{'p':p,'error':error,'t':t})
+        return render(request,'trainerdash.html',{'p':p,'error':error,'t':t,'count':count})
 
 @login_required(login_url='loginpage')
 def trainer_markasread(request,pk):

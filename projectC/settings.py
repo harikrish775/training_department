@@ -67,7 +67,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'appc.context_processors.notifications',
-                'appc.context_processors.trainernoti',
+                'appc.context_processors.trainrnoti',
                 'appc.context_processors.traineenoti'
                 
 

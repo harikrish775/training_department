@@ -7,18 +7,13 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     is_special = models.BooleanField(default=False)
 
-class Course(models.Model):
-    coursename = models.CharField(max_length=255)
-    coursefee = models.IntegerField()
-    syllabus = models.FileField(upload_to='file/')
 
 class Department(models.Model):
     departmentname = models.CharField(max_length=255)
 
 class Trainer(models.Model):
     customuser = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
-    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
-    department = models.ForeignKey(Department,on_delete=models.CASCADE,null=True)
+    department = models.ForeignKey(Department,on_delete=models.SET_NULL,null=True)
     contact = models.CharField(max_length=255)
     gender = models.CharField(max_length=255)
     age = models.IntegerField()
@@ -29,7 +24,6 @@ class Trainer(models.Model):
 
 class Trainee(models.Model):
     customuser = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
-    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
     department = models.ForeignKey(Department,on_delete=models.SET_NULL,null=True)
     trainer = models.ForeignKey(Trainer,on_delete=models.SET_NULL,null=True)
     contact = models.CharField(max_length=255)
@@ -56,7 +50,6 @@ class TempSignup(models.Model):
     email = models.EmailField()
     username = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
-    course = models.ForeignKey(Course,on_delete=models.SET_NULL,null=True)
     contact = models.CharField(max_length=255)
     gender = models.CharField(max_length=255)
     age = models.IntegerField()
@@ -87,11 +80,7 @@ class TraineeNotification(models.Model):
     forr = models.ForeignKey(Trainee,on_delete=models.CASCADE,null=True) 
     
 
-class TraineeNotificationStatus(models.Model):
-    sender = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
-    message = models.CharField(max_length=255)
-    person = models.CharField(max_length=255)
-    is_read = models.BooleanField(default=False)
+
 
 class TrainerNotification(models.Model):
     
@@ -101,12 +90,6 @@ class TrainerNotification(models.Model):
     is_read = models.BooleanField(default=False)
     forr = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
 
-class TrainerNotificationStatus(models.Model):
-    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,null=True)
-    message = models.CharField(max_length=255)
-    person = models.CharField(max_length=255)
-    department = models.ForeignKey(Department,on_delete=models.CASCADE,null=True)
-    is_read = models.BooleanField(default=False)
 
 
 class Project(models.Model):
