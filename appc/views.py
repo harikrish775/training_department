@@ -120,8 +120,8 @@ def loginaction(request):
                 login(request,user)
                 return redirect('trainee_dash')
         else:
-            messages.info(request, 'Invalid username or password')
-            return redirect('loginpage')
+            error = 'yes'
+            return render(request,'loginpage.html',{'error':error})
     
 
 @login_required(login_url='loginpage')

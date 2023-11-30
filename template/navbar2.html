@@ -13,7 +13,7 @@
         
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: black;">
         <!-- <a class="navbar-brand" href="#">Navbar 2</a> -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -21,12 +21,16 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           
-          <ul class="navbar-nav mr-auto">
-             <img src="{% static 'image/logoaltos.png' %}" width="200" alt="logo">
+          <ul class="navbar-nav mr-auto" style="font-size: larger;">
+             <a href="{% url 'home' %}"><img src="{% static 'image/logoaltos.png' %}" width="200" alt="logo"></a>
+             <li class="nav-item" style="margin-top: 15px;">
+              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
           </ul>
 
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+          <ul class="navbar-nav ml-auto" style="font-size: larger;">
+            
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'loginpage' %}">Login <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -81,7 +85,7 @@
       {% block content %}
       {% endblock %}
       <br><br><br><br><br><br><br><br>
-      <footer class=" text-light text-center py-3" style="background-color: rgba(0, 0, 0, 0.95);">
+      <footer class=" text-light text-center py-3" style="background-color: rgba(0, 0, 0, 0.95);border-top: 1px solid gray;">
         <div class="container">
           <div class="row pt-4">
             
