@@ -33,11 +33,16 @@
               <td>{{i.department.departmentname}}</td>
               <td>{{i.trainer.customuser.first_name}} {{i.trainer.customuser.last_name}}</td>
               <td><select name="trainr" id="" class="form-control" style="background-color: black;color: white;">
+
                   {% for t in teach %}
                   {% if i.department_id == t.department_id %}
                   <option value="{{t.id}}">{{t.customuser.first_name}} {{t.customuser.last_name}}</option>
+                  {% else %}
                   {% endif %}
                   {% endfor %}
+                  {% if i.trainer_id is not None %}
+                  <option value="">Remove</option>
+                  {% endif %}
               </select></td>
               <td><button type="submit" class="btn btn-primary">Assign</button></td>
   
@@ -57,9 +62,9 @@
      </script>
 {% endif %}
 
-{% if error == "yes" %}
+{% if error == "remove" %}
      <script>
-	    alert('Something went wrong, Try Again');
+	    alert('Trainer Removed');
      </script>
 {% endif %}
 

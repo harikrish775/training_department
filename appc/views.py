@@ -163,14 +163,18 @@ def signupaction(request):
                     te.save()
                     no = Notification(message=f' A new {rr} registered as {firstname} {lastname} is waiting for your approval.',tempsignup_id=te.id )
                     no.save()
-                    return redirect('loginpage')
+                    error = 'no'
+                    dep = Department.objects.all()
+                    return render(request,'signup.html',{'error':error,'dep':dep})
                 
             elif rr == 'trainer':
                     te = TempSignup(first_name=firstname,last_name=lastname,username=username,email=email,password=propass,contact=contact,joindate=joindate,age=age,gender=gender,image=image,degree=degree,is_special=True,department_id=department)
                     te.save()
                     no = Notification.objects.create(message=f'A new {rr} has registered as {firstname} {lastname}.',tempsignup_id=te.id )
                     no.save()
-                    return redirect('loginpage')
+                    error = 'no'
+                    dep = Department.objects.all()
+                    return render(request,'signup.html',{'error':error,'dep':dep})
         
 
 
@@ -461,22 +465,33 @@ def assignaction(request,pk):
     teach = Trainer.objects.all()
     asign = Trainee.objects.all()
     c = Trainee.objects.get(id=pk)
+    t = request.POST['trainr']
     if request.method == 'POST':
-        if 'trainr' in request.POST :
+        if len(t) > 0 :
             t = request.POST['trainr']
             trnr = Trainer.objects.get(id=t)
             fr = trnr.customuser.first_name
             lr = trnr.customuser.last_name
-            tt = TraineeNotification(sender_id=t,message=f'You have been assigned new trainer - {fr} {lr}',forr_id=c.id)
+            tt = TraineeNotification(sender_id=t,message=f'You have been assigned a new trainer - {fr} {lr}',forr_id=c.id)
             tt.save()
+            rr = TrainerNotification(message=f'You have new trainee - {c.customuser.first_name} {c.customuser.last_name}',forr_id=t)
+            rr.save()
+            c = Trainee.objects.get(id=pk)
+            c.trainer_id = t
+            c.save()
+            error = 'no'
+            return render(request,'assign.html',{'asign':asign,'teach':teach,'error':error})
         else:
             t = ''
+            c = Trainee.objects.get(id=pk)
+            c.trainer_id = t
+            c.save()
+            error = 'remove'
+            return render(request,'assign.html',{'asign':asign,'teach':teach,'error':error})
 
-    c = Trainee.objects.get(id=pk)
-    c.trainer_id = t
-    c.save()
-    error = 'no'
-    return render(request,'assign.html',{'asign':asign,'teach':teach,'error':error})
+    
+    
+    
 
 @login_required(login_url='loginpage')
 def course(request):
@@ -566,8 +581,8 @@ def approveaction(request,pk):
         if CustomUser.objects.filter(email=trainee.email).exists():
             error = 'yes'
         else:
-            passs = str(random.randint(123421,897654))
-            # passs = generate_password()
+            # passs = str(random.randint(123421,897654))
+            passs = generate_password()
             # passs = '123'
             userr = CustomUser.objects.create_user(first_name=trainee.first_name,last_name=trainee.last_name,email=trainee.email,username=trainee.username,password=passs,is_special=trainee.is_special,date_joined=trainee.joindate)
             userr.save()
@@ -827,22 +842,24 @@ def approvechange(request,pk):
     pp.is_approved = True
     pp.save()
     g = pp.sender
-    if pp.trainee_id is None and pp.trainer_id is not None:
+    if  pp.trainer_id is not None:
         tt = Trainer.objects.get(customuser_id=g)
         nn = TrainerNotification(forr_id=tt.id,is_read=False,message=f'Your changes has been APPROVED')
         nn.save()
-    elif pp.trainer_id is None and pp.trainee_id is not None:
+    elif pp.trainee_id is not None:
         tt = Trainee.objects.get(customuser_id=g)
         nn = TraineeNotification(forr_id=tt.id,is_read=False,message=f'Your changes has been APPROVED')
         nn.save()
-    
-    tt.customuser.first_name = pp.firstname
-    tt.customuser.last_name = pp.lastname
-    tt.customuser.email = pp.email
+    cu = tt.customuser
+    cu.first_name = pp.firstname
+    cu.last_name = pp.lastname 
+    cu.email = pp.email
+    cu.username = pp.email
     tt.contact = pp.contact
     tt.age = pp.age
     tt.image = pp.image
     tt.save()
+    cu.save()
     
     return redirect('approve')
 

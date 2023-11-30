@@ -6,7 +6,7 @@
   
   img {
   width: 100%;
-  height: 444px;
+  height: 504px;
 }
 
 .bg-black {
@@ -31,92 +31,31 @@
 </style>
 
 
-<div class="container col-10">
+<div class="container col-md-10">
 <div class="container "  >
   <!-- <a href="{% url 'approve' %}" class="btn btn-warning" style="float: right;">back</a> -->
     <br><br><br><br>
 
-    
-    <!-- <div class="row " >
-      
 
-            <div class="col" style="border: 1px solid blue;" >
-                <img class="" src="{{i.image.url}}" height="400" width="300" alt="">
-            </div>
-            
-            <div class="col" style="background-color: rgba(255, 255, 255, 0.8);font-size: larger;"  >
-              <center><h3 style="margin-top: 10px;">{{i.customuser.first_name}} {{i.customuser.last_name}} <button href="" class="btn btn-success" disabled>Approved</button></h3></center>
-                
-                    <div class="row" >
-                        <h3 style="text-align: center;"></h3>
-                      
-                        <div class="col"><label scope="col">ID:  </label></div><div class="col" >{{i.id}}</div>
-                        
-                        
-                      
-                    </div>
-
-                    <div class="row" >
-                    
-                    <div class="col" style="border-left: 3px solid rgb(222, 216, 216) ;">Age: </div>
-                                              <div class="col" scope="col">{{i.age}}</div>
-                    </div>
-
-                    
-                      
-                      <div class="row mt-2">
-                        <div class="col" scope="row" colspan="1">Department: </div>
-                        <div class="col" colspan="">{{i.department.departmentname}}</div>
-                        
-                        
-                      </div>
-                      <div class="row mt-2">
-                        <div class="col" scope="row" colspan="1">Gender: </div>
-                        <div class="col" colspan="3">{{i.gender}}</div>
-                        
-                      </div>
-                      <div class="row mt-2">
-                        <div class="col" scope="row" colspan="1">Email: </div>
-                        <div class="col" colspan="3">{{i.customuser.email}}</div>
-                        
-                      </div>
-                      <div class="row mt-2">
-                        <div class="col" scope="row" colspan="1">Mobile No: </div>
-                        <div class="col" colspan="3">{{i.contact}}</div>
-                        
-                      </div>
-                      
-                      <div class="row mt-2">
-                        
-                        <div class="col" scope="row" colspan="1">Joined on: </div>
-                        <div class="col" colspan="3">{{i.joindate}}</div>
-                        
-                      </div>
-                    
-                  
-                  <br><br>
-            </div>
-    </div> -->
 
     <div class="container mt-5 mb-5" >
       <div class="row no-gutters" >
           <div class="col-md-4 col-lg-4" ><img src="{{i.image.url}}"></div>
           <div class="col-md-8 col-lg-8">
               <div class="d-flex flex-column">
-                  <div class="d-flex flex-row justify-content-between align-items-center p-5 bg-dark text-white">
+                  <div class="d-flex flex-row justify-content-between align-items-center p-5 bg-dark text-white" >
                     
-                      <h3 class="display-5">{{i.customuser.first_name}} {{i.customuser.last_name}} <button href="" class="btn btn-success" disabled>Approved</button></h3>
-                    
+                      <h3 class="display-5">{{i.customuser.first_name}} {{i.customuser.last_name}} <button href="" class="btn btn-success" disabled>Approved</button></h3>  
                     
                     
                     </div>
 
-                  <div class="p-3 pl-4 mb-2 bg-black text-white ">
-                      <h6>Trainee Details</h6><br>
+                  <div class="p-3 pl-4 mb-2 bg-black text-white " style="font-size: larger;">
+                      <h6>User Details</h6><br>
                       <div class="row" >
                         <h3 style="text-align: center;"></h3>
                       
-                        <div class="col"><label scope="col">ID:  </label></div><div class="col" >{{i.id}}</div>
+                        <!-- <div class="col"><label scope="col">ID:  </label></div><div class="col" >{{i.id}}</div> -->
                         
                         
                       
@@ -130,12 +69,12 @@
 
                     
                       
-                      <div class="row mt-2">
+                      <!-- <div class="row mt-2">
                         <div class="col" scope="row" colspan="1">Department: </div>
                         <div class="col" colspan="">{{i.department.departmentname}}</div>
                         
                         
-                      </div>
+                      </div> -->
                       <div class="row mt-2">
                         <div class="col" scope="row" colspan="1">Gender: </div>
                         <div class="col" colspan="3">{{i.gender}}</div>
@@ -154,10 +93,16 @@
                       
                       <div class="row mt-2">
                         
-                        <div class="col" scope="row" colspan="1">Joined on: </div>
+                        <div class="col" scope="row" colspan="1">Date Appplied: </div>
                         <div class="col" colspan="3">{{i.joindate}}</div>
                         
                       </div>
+                      <div class="row mt-2">
+                        
+                        <div class="col" scope="row" colspan="1">Degree: </div>
+                        <div class="col" colspan="3"><a href="{{i.degree.url}}" target="_blank" style="color: gray;">view certificate</a></div>
+                        
+                      </div><br><br>
                   </div>
                   <!-- <div class="d-flex flex-row text-white">
                       <div class="p-4 bg-primary text-center skill-block">
@@ -183,6 +128,90 @@
   </div>
 </div><br><br><br><br><br>
 </div>
-
+</div>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<div class="container col-5" id="b">
+    <br><br><br><br>
+    <center><h3>{{i.sender.first_name}} {{i.sender.last_name}} </h3></center>
+    <div class="row">
+        <div class="col-4" >
+            <img class="mt-2" src="{{i.image.url}}" height="300" width="200" alt=""> 
+
+                
+                
+                
+                
+                
+                
+                        
+        </div>
+        
+        <div class="col-6" > 
+            <table class="table">
+                <thead>
+                    <h3 style="text-align: center;"></h3>
+                  <tr>
+                    <th scope="col">ID:  </th>
+                    <td scope="col">{{i.id}}</td>
+                    <th scope="col" style="border-left: 3px solid rgb(222, 216, 216) ;">Age: </th>
+                    <td scope="col">{{i.age}}</td>
+        
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <tr>
+                    <th scope="row" colspan="1">Department: </th>
+                    <td colspan="">{{i.department.departmentname}}</td>
+                    
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row" colspan="1">Gender: </th>
+                    <td colspan="3">{{i.gender}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row" colspan="1">Email: </th>
+                    <td colspan="3">{{i.sender.email}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row" colspan="1">Mobile No: </th>
+                    <td colspan="3">{{i.contact}}</td>
+                    
+                  </tr>
+                  
+                  <tr>
+                    
+                    <th scope="row" colspan="1">Joined on: </th>
+                    <td colspan="3">{{i.joindate}}</td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+              <br><br>
+        </div>
+    </div>
+</div> -->
+
+
+
+
