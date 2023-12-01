@@ -769,6 +769,8 @@ def admin_reject_leave_trainee(request,pk):
 def admin_remove_trainee(request,pk):
     g = Trainee.objects.get(id=pk)
     f = CustomUser.objects.get(id=g.customuser_id)
+    j = TempSignup.objects.get(email=f.email)
+    j.delete()
     f.delete()
     g.delete()
     
@@ -778,6 +780,8 @@ def admin_remove_trainee(request,pk):
 def admin_remove_trainer(request,pk):
     g = Trainer.objects.get(id=pk)
     f = CustomUser.objects.get(id=g.customuser_id)
+    j = TempSignup.objects.get(email=f.email)
+    j.delete()
     f.delete()
     g.delete()
     
@@ -831,11 +835,17 @@ def approvechange(request,pk):
     g = pp.sender
     if  pp.trainer_id is not None:
         tt = Trainer.objects.get(customuser_id=g)
+        ee = TempSignup.objects.get(email = tt.customuser.email)
+        ee.email = pp.email
+        ee.save()
         nn = TrainerNotification(forr_id=tt.id,is_read=False,message=f'Your changes has been APPROVED')
         nn.save()
     elif pp.trainee_id is not None:
         tt = Trainee.objects.get(customuser_id=g)
-        nn = TraineeNotification(forr_id=tt.id,is_read=False,message=f'Your changes has been APPROVED')
+        ee = TempSignup.objects.get(email = tt.customuser.email)
+        ee.email = pp.email
+        ee.save()
+        Notification(forr_id=tt.id,is_read=False,message=f'Your changes has been APPROVED')
         nn.save()
     cu = tt.customuser
     cu.first_name = pp.firstname
